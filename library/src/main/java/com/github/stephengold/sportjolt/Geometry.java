@@ -30,7 +30,6 @@ package com.github.stephengold.sportjolt;
 
 import com.github.stephengold.joltjni.PhysicsSystem;
 import com.github.stephengold.joltjni.Quat;
-import com.github.stephengold.joltjni.RMat44;
 import com.github.stephengold.joltjni.RVec3;
 import com.github.stephengold.joltjni.Vec3;
 import com.github.stephengold.joltjni.operator.Op;
@@ -38,6 +37,8 @@ import com.github.stephengold.joltjni.readonly.QuatArg;
 import com.github.stephengold.joltjni.readonly.RVec3Arg;
 import com.github.stephengold.joltjni.readonly.Vec3Arg;
 import java.nio.FloatBuffer;
+import org.joml.Matrix3f;
+import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Quaternionfc;
 import org.joml.Vector3f;
@@ -83,9 +84,13 @@ public class Geometry {
      */
     private Mesh mesh;
     /**
+     * temporary storage for a rotation matrix
+     */
+    final private Matrix3f rm = new Matrix3f();
+    /**
      * temporary storage for a transform matrix
      */
-    final private RMat44 tm = new RMat44();
+    final private Matrix4f tm = new Matrix4f();
     /**
      * rendering program
      */
@@ -784,11 +789,10 @@ public class Geometry {
      * @param storeBuffer the buffer to modify (not null)
      */
     void writeRotationMatrix(FloatBuffer storeBuffer) {
-        QuatArg rotation = meshToWorld.getRotation(); // alias
-        tm.set(RMat44.sRotation(rotation));
+        meshToWorld.toRotationMatrix(rm);
 
         int startPosition = storeBuffer.position();
-        tm.put3x3ColumnMajor(storeBuffer);
+        rm.get(storeBuffer);
         storeBuffer.position(startPosition);
     }
 
@@ -803,7 +807,7 @@ public class Geometry {
         meshToWorld.toTransformMatrix(tm);
 
         int startPosition = storeBuffer.position();
-        tm.putColumnMajor(storeBuffer);
+        tm.get(storeBuffer);
         storeBuffer.position(startPosition);
     }
     // *************************************************************************

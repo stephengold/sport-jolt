@@ -29,12 +29,14 @@
 package com.github.stephengold.sportjolt;
 
 import com.github.stephengold.joltjni.Quat;
-import com.github.stephengold.joltjni.RMat44;
 import com.github.stephengold.joltjni.RVec3;
 import com.github.stephengold.joltjni.Vec3;
 import com.github.stephengold.joltjni.readonly.QuatArg;
 import com.github.stephengold.joltjni.readonly.RVec3Arg;
 import com.github.stephengold.joltjni.readonly.Vec3Arg;
+import org.joml.Matrix3f;
+import org.joml.Matrix4f;
+import org.joml.Quaternionf;
 
 /**
  * A 3-D coordinate transform composed of translation, rotation, and scaling.
@@ -161,9 +163,9 @@ final public class Transform {
      *
      * @param storeResult storage for the result (not null, modified)
      */
-    public void toRotationMatrix(RMat44 storeResult) {
-        RMat44 matrix = RMat44.sRotation(rotation);
-        storeResult.set(matrix);
+    public void toRotationMatrix(Matrix3f storeResult) {
+        Quaternionf r = Utils.toJomlQuaternion(rotation);
+        storeResult.rotation(r);
     }
 
     /**
@@ -171,12 +173,19 @@ final public class Transform {
      *
      * @param storeResult storage for the result (not null, modified)
      */
-    public void toTransformMatrix(RMat44 storeResult) {
-        RMat44 r = RMat44.sRotation(rotation);
-        RMat44 s = RMat44.sScale(scaling);
-        RMat44 t = RMat44.sTranslation(translation);
-        RMat44 result = RMat44.product(t, r, s);
-        storeResult.set(result);
+    public void toTransformMatrix(Matrix4f storeResult) {
+        float tx = translation.x();
+        float ty = translation.y();
+        float tz = translation.z();
+        storeResult.translation(tx, ty, tz);
+
+        Quaternionf r = Utils.toJomlQuaternion(rotation);
+        storeResult.rotate(r);
+
+        float sx = scaling.getX();
+        float sy = scaling.getY();
+        float sz = scaling.getZ();
+        storeResult.scale(sx, sy, sz);
     }
     // *************************************************************************
     // Object methods
