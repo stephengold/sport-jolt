@@ -29,6 +29,7 @@
 package com.github.stephengold.sportjolt;
 
 import com.github.stephengold.joltjni.Jolt;
+import com.github.stephengold.joltjni.Quat;
 import com.github.stephengold.joltjni.Vec3;
 import com.github.stephengold.joltjni.readonly.RVec3Arg;
 import com.github.stephengold.joltjni.readonly.Vec3Arg;
@@ -40,6 +41,7 @@ import java.nio.FloatBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 import javax.imageio.ImageIO;
+import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import org.joml.Vector3fc;
 import org.joml.Vector4f;
@@ -498,6 +500,18 @@ final public class Utils {
     public static Vec3 toJoltVector(Vector3fc joml, Vec3 storeResult) {
         Vec3 result = (storeResult == null) ? new Vec3() : storeResult;
         result.set(joml.x(), joml.y(), joml.z());
+        return result;
+    }
+
+    /**
+     * Copy the specified Jolt quaternion to a new JOML quaternion.
+     *
+     * @param jolt the Jolt quaternion to copy (not null, unaffected)
+     * @return a new JOML quaternion
+     */
+    public static Quaternionf toJomlQuaternion(Quat jolt) {
+        Quaternionf result = new Quaternionf(
+                jolt.getX(), jolt.getY(), jolt.getZ(), jolt.getW());
         return result;
     }
 
