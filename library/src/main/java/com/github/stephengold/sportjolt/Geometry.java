@@ -168,23 +168,6 @@ public class Geometry {
     }
 
     /**
-     * Return a copy of the mesh-to-world scale factors.
-     *
-     * @param storeResult storage for the result (modified if not null)
-     * @return a vector of scale factors (either {@code storeResult} or a new
-     * instance, not null)
-     */
-    public Vec3 copyScaleJme(Vec3 storeResult) {
-        Vec3 scale = meshToWorld.getScale(); // alias
-        if (storeResult == null) {
-            scale = new Vec3(scale);
-        } else {
-            storeResult.set(scale);
-        }
-        return scale;
-    }
-
-    /**
      * Return the base color in the Linear colorspace.
      *
      * @return the pre-existing object (not null)
@@ -263,36 +246,6 @@ public class Geometry {
     }
 
     /**
-     * Copy the location of the mesh origin.
-     *
-     * @param storeResult storage for the result (modified if not null)
-     * @return a location vector in worldspace (either {@code storeResult} or a
-     * new vector, not null)
-     */
-    public RVec3Arg locationJme(RVec3 storeResult) {
-        RVec3Arg location = meshToWorld.getTranslation(); // alias
-        if (storeResult == null) {
-            location = new RVec3(location);
-        } else {
-            storeResult.set(location);
-        }
-
-        return location;
-    }
-
-    /**
-     * Translate by the specified offset without changing the orientation.
-     *
-     * @param offset the offset (in worldspace, not null, finite, unaffected)
-     */
-    public void move(Vec3 offset) {
-        Validate.finite(offset, "offset");
-
-        RVec3 location = meshToWorld.getTranslation(); // alias
-        location.addInPlace(offset.getX(), offset.getY(), offset.getZ());
-    }
-
-    /**
      * Translate by the specified offset without changing the orientation.
      *
      * @param offset the offset (in worldspace, not null, finite, unaffected)
@@ -322,23 +275,6 @@ public class Geometry {
             return new Quaternionf(x, y, z, w);
         } else {
             return storeResult.set(x, y, z, w);
-        }
-    }
-
-    /**
-     * Return a copy of the mesh-to-world coordinate rotation.
-     *
-     * @param storeResult storage for the result (modified if not null)
-     * @return a unit quaternion (either {@code storeResult} or a new
-     * quaternion)
-     */
-    public Quat orientationJme(Quat storeResult) {
-        Quat orientation = meshToWorld.getRotation(); // alias
-        if (storeResult == null) {
-            return new Quat(orientation);
-        } else {
-            storeResult.set(orientation);
-            return storeResult;
         }
     }
 
