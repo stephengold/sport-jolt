@@ -73,7 +73,7 @@ final public class Transform {
     /**
      * Access the rotation component.
      *
-     * @return the pre-existing instance (not null)
+     * @return the pre-existing object (not null)
      */
     public Quaternionf getRotation() {
         return rotation;
@@ -82,7 +82,7 @@ final public class Transform {
     /**
      * Access the scaling component.
      *
-     * @return the pre-existing instance (not null)
+     * @return the pre-existing vector (not null)
      */
     public Vector3f getScale() {
         return scaling;
@@ -91,14 +91,14 @@ final public class Transform {
     /**
      * Access the translation component.
      *
-     * @return the pre-existing instance (not null)
+     * @return the pre-existing vector (not null)
      */
     public Vector3f getTranslation() {
         return translation;
     }
 
     /**
-     * Set the current instance to the identity transform: translation=(0,0,0)
+     * Set the current object to the identity transform: translation=(0,0,0)
      * scaling=(1,1,1) rotation=(0,0,0,1).
      */
     public void loadIdentity() {

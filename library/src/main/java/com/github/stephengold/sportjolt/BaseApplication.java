@@ -327,7 +327,7 @@ abstract public class BaseApplication {
      * Alter the "VSync" setting.
      *
      * @param newSetting true to await a monitor retrace before swapping
-     * buffers, false to swap buffers immediately (default=true)
+     * buffers, false to swap buffers immediately (default=platform-dependent)
      */
     public static void setVsync(boolean newSetting) {
         int swapInterval = newSetting ? 1 : 0;
