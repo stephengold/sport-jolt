@@ -29,10 +29,6 @@
 package com.github.stephengold.sportjolt;
 
 import com.github.stephengold.joltjni.PhysicsSystem;
-import com.github.stephengold.joltjni.Quat;
-import com.github.stephengold.joltjni.RVec3;
-import com.github.stephengold.joltjni.Vec3;
-import com.github.stephengold.joltjni.operator.Op;
 import com.github.stephengold.joltjni.readonly.QuatArg;
 import com.github.stephengold.joltjni.readonly.RVec3Arg;
 import com.github.stephengold.joltjni.readonly.Vec3Arg;
@@ -155,14 +151,9 @@ public class Geometry {
      * instance, not null)
      */
     public Vector3f copyScale(Vector3f storeResult) {
-        Vec3 scale = meshToWorld.getScale(); // alias
-        Vector3f result;
-        if (storeResult == null) {
-            result = new Vector3f(scale.getX(), scale.getY(), scale.getZ());
-        } else {
-            result = storeResult;
-            result.set(scale.getX(), scale.getY(), scale.getZ());
-        }
+        Vector3f result = (storeResult == null) ? new Vector3f() : storeResult;
+        Vector3fc scale = meshToWorld.getScale(); // alias
+        result.set(scale);
 
         return result;
     }
@@ -240,8 +231,10 @@ public class Geometry {
      * new vector, not null)
      */
     public Vector3f location(Vector3f storeResult) {
-        RVec3Arg location = meshToWorld.getTranslation(); // alias
-        Vector3f result = Utils.toJomlVector(location);
+        Vector3f result = (storeResult == null) ? new Vector3f() : storeResult;
+        Vector3fc translation = meshToWorld.getTranslation(); // alias
+        result.set(translation);
+
         return result;
     }
 
@@ -253,8 +246,8 @@ public class Geometry {
     public void move(Vector3fc offset) {
         Validate.finite(offset, "finite offset");
 
-        RVec3 location = meshToWorld.getTranslation(); // alias
-        location.addInPlace(offset.x(), offset.y(), offset.z());
+        Vector3f location = meshToWorld.getTranslation(); // alias
+        location.add(offset);
     }
 
     /**
@@ -265,17 +258,12 @@ public class Geometry {
      * quaternion)
      */
     public Quaternionf orientation(Quaternionf storeResult) {
-        Quat orientation = meshToWorld.getRotation(); // alias
-        float x = orientation.getX();
-        float y = orientation.getY();
-        float z = orientation.getZ();
-        float w = orientation.getW();
+        Quaternionf result
+                = (storeResult == null) ? new Quaternionf() : storeResult;
+        Quaternionfc rotation = meshToWorld.getRotation(); // alias
+        result.set(rotation);
 
-        if (storeResult == null) {
-            return new Quaternionf(x, y, z, w);
-        } else {
-            return storeResult.set(x, y, z, w);
-        }
+        return result;
     }
 
     /**
@@ -310,11 +298,8 @@ public class Geometry {
      * @return the (modified) current geometry (for chaining)
      */
     public Geometry rotate(float angle, float x, float y, float z) {
-        Vec3 axis = new Vec3(x, y, z); // TODO garbage
-        Quat q = Quat.sRotation(axis, angle);
-        QuatArg rotation = meshToWorld.getRotation(); // alias
-        QuatArg product = Op.star(q, rotation);
-        q.set(product);
+        Quaternionf rotation = meshToWorld.getRotation(); // alias
+        rotation.rotateAxis(angle, x, y, z, rotation);
 
         return this;
     }
@@ -326,7 +311,9 @@ public class Geometry {
      * @return the (modified) current geometry (for chaining)
      */
     public Geometry scale(float factor) {
-        meshToWorld.getScale().scaleInPlace(factor, factor, factor);
+        Vector3f scale = meshToWorld.getScale(); // alias
+        scale.mul(factor);
+
         return this;
     }
 
@@ -417,7 +404,12 @@ public class Geometry {
      */
     public Geometry setLocation(RVec3Arg location) {
         Validate.finite(location, "location");
-        meshToWorld.setTranslation(location);
+
+        float x = location.x();
+        float y = location.y();
+        float z = location.z();
+        meshToWorld.getTranslation().set(x, y, z);
+
         return this;
     }
 
@@ -430,7 +422,12 @@ public class Geometry {
      */
     public Geometry setLocation(Vec3Arg location) {
         Validate.finite(location, "location");
-        meshToWorld.setTranslation(location);
+
+        float x = location.getX();
+        float y = location.getY();
+        float z = location.getZ();
+        meshToWorld.getTranslation().set(x, y, z);
+
         return this;
     }
 
@@ -443,8 +440,7 @@ public class Geometry {
      */
     public Geometry setLocation(Vector3fc location) {
         Validate.finite(location, "location");
-        meshToWorld.getTranslation()
-                .set(location.x(), location.y(), location.z());
+        meshToWorld.setTranslation(location);
         return this;
     }
 
@@ -474,9 +470,8 @@ public class Geometry {
         Validate.finite(xAngle, "y angle");
         Validate.finite(xAngle, "z angle");
 
-        Quat orientation
-                = Quat.sEulerAngles(xAngle, yAngle, zAngle); // TODO garbage
-        meshToWorld.setRotation(orientation);
+        Quaternionf rotation = meshToWorld.getRotation(); // alias
+        rotation.rotationZYX(zAngle, yAngle, xAngle);
 
         return this;
     }
@@ -498,9 +493,8 @@ public class Geometry {
         Validate.inRange(y, "y", -1f, 1f);
         Validate.inRange(z, "z", -1f, 1f);
 
-        Vec3 axis = new Vec3(x, y, z);
-        Quat orientation = Quat.sRotation(axis, angle);
-        meshToWorld.getRotation().set(orientation);
+        Quaternionf rotation = meshToWorld.getRotation(); // alias
+        rotation.setAngleAxis(angle, x, y, z);
 
         return this;
     }
@@ -515,8 +509,12 @@ public class Geometry {
     public Geometry setOrientation(QuatArg orientation) {
         Validate.nonZero(orientation, "orientation");
 
-        QuatArg q = orientation.normalized();
-        meshToWorld.setRotation(q);
+        Quaternionf rotation = meshToWorld.getRotation(); // alias
+        float qx = orientation.getX();
+        float qy = orientation.getY();
+        float qz = orientation.getZ();
+        float qw = orientation.getW();
+        rotation.set(qx, qy, qz, qw);
 
         return this;
     }
@@ -530,8 +528,10 @@ public class Geometry {
      */
     public Geometry setOrientation(Quaternionfc orientation) {
         Validate.nonNull(orientation, "orientation");
-        meshToWorld.getRotation().set(orientation.x(), orientation.y(),
-                orientation.z(), orientation.w());
+
+        Quaternionf rotation = meshToWorld.getRotation(); // alias
+        rotation.set(orientation);
+
         return this;
     }
 
@@ -584,7 +584,13 @@ public class Geometry {
      */
     public Geometry setScale(Vec3Arg scaleFactors) {
         Validate.finite(scaleFactors, "scale factors");
-        meshToWorld.setScale(scaleFactors);
+
+        Vector3f scale = meshToWorld.getScale(); // alias
+        float sx = scaleFactors.getX();
+        float sy = scaleFactors.getY();
+        float sz = scaleFactors.getZ();
+        scale.set(sx, sy, sz);
+
         return this;
     }
 
@@ -598,8 +604,9 @@ public class Geometry {
     public Geometry setScale(Vector3fc scaleFactors) {
         Validate.finite(scaleFactors, "scale factors");
 
-        meshToWorld.getScale()
-                .set(scaleFactors.x(), scaleFactors.y(), scaleFactors.z());
+        Vector3f scale = meshToWorld.getScale(); // alias
+        scale.set(scaleFactors);
+
         return this;
     }
 

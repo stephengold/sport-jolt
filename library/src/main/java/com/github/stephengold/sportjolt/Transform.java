@@ -28,15 +28,13 @@
  */
 package com.github.stephengold.sportjolt;
 
-import com.github.stephengold.joltjni.Quat;
-import com.github.stephengold.joltjni.RVec3;
-import com.github.stephengold.joltjni.Vec3;
-import com.github.stephengold.joltjni.readonly.QuatArg;
-import com.github.stephengold.joltjni.readonly.RVec3Arg;
-import com.github.stephengold.joltjni.readonly.Vec3Arg;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
+import org.joml.Quaternionfc;
+import org.joml.Vector3dc;
+import org.joml.Vector3f;
+import org.joml.Vector3fc;
 
 /**
  * A 3-D coordinate transform composed of translation, rotation, and scaling.
@@ -51,15 +49,15 @@ final public class Transform {
     /**
      * rotation component
      */
-    final private Quat rotation = new Quat();
+    final private Quaternionf rotation = new Quaternionf();
     /**
      * translation component, an offset for each local axis
      */
-    final private RVec3 translation = new RVec3();
+    final private Vector3f translation = new Vector3f();
     /**
      * scaling component, a scale factor for each local axis
      */
-    final private Vec3 scaling = Vec3.sOne();
+    final private Vector3f scaling = new Vector3f(1f);
     // *************************************************************************
     // constructors
 
@@ -77,7 +75,7 @@ final public class Transform {
      *
      * @return the pre-existing instance (not null)
      */
-    public Quat getRotation() {
+    public Quaternionf getRotation() {
         return rotation;
     }
 
@@ -86,7 +84,7 @@ final public class Transform {
      *
      * @return the pre-existing instance (not null)
      */
-    public Vec3 getScale() {
+    public Vector3f getScale() {
         return scaling;
     }
 
@@ -95,7 +93,7 @@ final public class Transform {
      *
      * @return the pre-existing instance (not null)
      */
-    public RVec3 getTranslation() {
+    public Vector3f getTranslation() {
         return translation;
     }
 
@@ -104,9 +102,9 @@ final public class Transform {
      * scaling=(1,1,1) rotation=(0,0,0,1).
      */
     public void loadIdentity() {
-        rotation.loadIdentity();
-        scaling.loadOne();
-        translation.loadZero();
+        rotation.identity();
+        scaling.set(1f);
+        translation.zero();
     }
 
     /**
@@ -115,7 +113,7 @@ final public class Transform {
      * @param rotation the desired rotation (not null, unaffected,
      * default=(0,0,0,1))
      */
-    public void setRotation(QuatArg rotation) {
+    public void setRotation(Quaternionfc rotation) {
         this.rotation.set(rotation);
     }
 
@@ -125,7 +123,7 @@ final public class Transform {
      * @param factor the desired uniform scale factor (default=1)
      */
     public void setScale(float factor) {
-        scaling.set(factor, factor, factor);
+        scaling.set(factor);
     }
 
     /**
@@ -134,7 +132,7 @@ final public class Transform {
      * @param factors the desired scaling (not null, unaffected,
      * default=(1,1,1))
      */
-    public void setScale(Vec3Arg factors) {
+    public void setScale(Vector3fc factors) {
         scaling.set(factors);
     }
 
@@ -144,7 +142,7 @@ final public class Transform {
      * @param offsets the desired offsets (not null, unaffected,
      * default=(0,0,0))
      */
-    public void setTranslation(RVec3Arg offsets) {
+    public void setTranslation(Vector3dc offsets) {
         translation.set(offsets);
     }
 
@@ -154,7 +152,7 @@ final public class Transform {
      * @param offsets the desired offsets (not null, unaffected,
      * default=(0,0,0))
      */
-    public void setTranslation(Vec3Arg offsets) {
+    public void setTranslation(Vector3fc offsets) {
         translation.set(offsets);
     }
 
@@ -164,8 +162,7 @@ final public class Transform {
      * @param storeResult storage for the result (not null, modified)
      */
     public void toRotationMatrix(Matrix3f storeResult) {
-        Quaternionf r = Utils.toJomlQuaternion(rotation);
-        storeResult.rotation(r);
+        storeResult.rotation(rotation);
     }
 
     /**
@@ -174,18 +171,9 @@ final public class Transform {
      * @param storeResult storage for the result (not null, modified)
      */
     public void toTransformMatrix(Matrix4f storeResult) {
-        float tx = translation.x();
-        float ty = translation.y();
-        float tz = translation.z();
-        storeResult.translation(tx, ty, tz);
-
-        Quaternionf r = Utils.toJomlQuaternion(rotation);
-        storeResult.rotate(r);
-
-        float sx = scaling.getX();
-        float sy = scaling.getY();
-        float sz = scaling.getZ();
-        storeResult.scale(sx, sy, sz);
+        storeResult.translation(translation);
+        storeResult.rotate(rotation);
+        storeResult.scale(scaling);
     }
     // *************************************************************************
     // Object methods
