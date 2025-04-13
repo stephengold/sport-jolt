@@ -30,12 +30,12 @@ package com.github.stephengold.sportjolt.physics;
 
 import com.github.stephengold.joltjni.BodyInterface;
 import com.github.stephengold.joltjni.PhysicsSystem;
+import com.github.stephengold.joltjni.Quat;
+import com.github.stephengold.joltjni.RVec3;
 import com.github.stephengold.joltjni.enumerate.EBodyType;
 import com.github.stephengold.joltjni.enumerate.EShapeType;
 import com.github.stephengold.joltjni.readonly.ConstBody;
 import com.github.stephengold.joltjni.readonly.ConstShape;
-import com.github.stephengold.joltjni.readonly.QuatArg;
-import com.github.stephengold.joltjni.readonly.RVec3Arg;
 import com.github.stephengold.sportjolt.BaseApplication;
 import com.github.stephengold.sportjolt.Constants;
 import com.github.stephengold.sportjolt.Geometry;
@@ -59,6 +59,14 @@ public class RigidBodyShapeGeometry extends Geometry {
      * rigid body to visualize
      */
     final private ConstBody rigidBody;
+    /**
+     * most recent orientation of the physics object
+     */
+    final private Quat lastOrientation = new Quat();
+    /**
+     * most recent location of the physics object
+     */
+    final private RVec3 lastLocation = new RVec3();
     /**
      * auxiliary data used to generate the current mesh
      */
@@ -173,12 +181,9 @@ public class RigidBodyShapeGeometry extends Geometry {
      * Update the mesh-to-world transform.
      */
     private void updateTransform() {
-        RVec3Arg location = rigidBody.getCenterOfMassPosition();
-        setLocation(location);
-
-        QuatArg orientation = rigidBody.getRotation();
-        setOrientation(orientation);
-
+        rigidBody.getPositionAndRotation(lastLocation, lastOrientation);
+        setLocation(lastLocation);
+        setOrientation(lastOrientation);
         setScale(1f);
     }
 }

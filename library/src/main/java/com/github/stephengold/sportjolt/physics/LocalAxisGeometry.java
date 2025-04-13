@@ -30,13 +30,12 @@ package com.github.stephengold.sportjolt.physics;
 
 import com.github.stephengold.joltjni.BodyInterface;
 import com.github.stephengold.joltjni.PhysicsSystem;
+import com.github.stephengold.joltjni.Quat;
+import com.github.stephengold.joltjni.RVec3;
 import com.github.stephengold.joltjni.readonly.ConstBody;
 import com.github.stephengold.joltjni.readonly.ConstCharacter;
 import com.github.stephengold.joltjni.readonly.ConstCharacterVirtual;
 import com.github.stephengold.joltjni.readonly.ConstJoltPhysicsObject;
-import com.github.stephengold.joltjni.readonly.QuatArg;
-import com.github.stephengold.joltjni.readonly.RMat44Arg;
-import com.github.stephengold.joltjni.readonly.RVec3Arg;
 import com.github.stephengold.sportjolt.BaseApplication;
 import com.github.stephengold.sportjolt.Constants;
 import com.github.stephengold.sportjolt.Geometry;
@@ -72,6 +71,14 @@ public class LocalAxisGeometry extends Geometry {
      * length of the axis (in world units)
      */
     final private float length;
+    /**
+     * most recent orientation of the physics object
+     */
+    final private Quat lastOrientation = new Quat();
+    /**
+     * most recent location of the physics object
+     */
+    final private RVec3 lastLocation = new RVec3();
     // *************************************************************************
     // constructors
 
@@ -157,29 +164,25 @@ public class LocalAxisGeometry extends Geometry {
 
         } else if (jpo instanceof ConstBody) {
             ConstBody body = (ConstBody) jpo;
-            RMat44Arg matrix = body.getCenterOfMassTransform();
 
-            RVec3Arg location = matrix.getTranslation();
-            setLocation(location);
-
-            QuatArg orientation = matrix.getQuaternion();
-            setOrientation(orientation);
+            body.getPositionAndRotation(lastLocation, lastOrientation);
+            setLocation(lastLocation);
+            setOrientation(lastOrientation);
 
         } else if (jpo instanceof ConstCharacter) {
             ConstCharacter character = (ConstCharacter) jpo;
-            RVec3Arg location = character.getCenterOfMassPosition();
-            setLocation(location);
 
-            QuatArg orientation = character.getRotation();
-            setOrientation(orientation);
+            character.getPositionAndRotation(
+                    lastLocation, lastOrientation, false);
+            setLocation(lastLocation);
+            setOrientation(lastOrientation);
 
         } else if (jpo instanceof ConstCharacterVirtual) {
             ConstCharacterVirtual character = (ConstCharacterVirtual) jpo;
-            RVec3Arg location = character.getCenterOfMassPosition();
-            setLocation(location);
 
-            QuatArg orientation = character.getRotation();
-            setOrientation(orientation);
+            character.getPositionAndRotation(lastLocation, lastOrientation);
+            setLocation(lastLocation);
+            setOrientation(lastOrientation);
 
         } else {
             throw new IllegalStateException(jpo.getClass().getSimpleName());

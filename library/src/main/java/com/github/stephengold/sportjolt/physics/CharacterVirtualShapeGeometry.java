@@ -31,10 +31,10 @@ package com.github.stephengold.sportjolt.physics;
 import com.github.stephengold.joltjni.BodyInterface;
 import com.github.stephengold.joltjni.CharacterVirtualRefC;
 import com.github.stephengold.joltjni.PhysicsSystem;
+import com.github.stephengold.joltjni.Quat;
+import com.github.stephengold.joltjni.RVec3;
 import com.github.stephengold.joltjni.readonly.ConstCharacterVirtual;
 import com.github.stephengold.joltjni.readonly.ConstShape;
-import com.github.stephengold.joltjni.readonly.QuatArg;
-import com.github.stephengold.joltjni.readonly.RVec3Arg;
 import com.github.stephengold.sportjolt.BaseApplication;
 import com.github.stephengold.sportjolt.Constants;
 import com.github.stephengold.sportjolt.Geometry;
@@ -60,6 +60,14 @@ public class CharacterVirtualShapeGeometry extends Geometry {
      * character to visualize
      */
     final private CharacterVirtualRefC character;
+    /**
+     * most recent orientation of the physics object
+     */
+    final private Quat lastOrientation = new Quat();
+    /**
+     * most recent location of the physics object
+     */
+    final private RVec3 lastLocation = new RVec3();
     /**
      * auxiliary data used to generate the current mesh
      */
@@ -168,12 +176,9 @@ public class CharacterVirtualShapeGeometry extends Geometry {
      */
     private void updateTransform() {
         ConstCharacterVirtual ccv = character.getPtr();
-        RVec3Arg location = ccv.getCenterOfMassPosition();
-        setLocation(location);
-
-        QuatArg orientation = ccv.getRotation();
-        setOrientation(orientation);
-
+        ccv.getPositionAndRotation(lastLocation, lastOrientation);
+        setLocation(lastLocation);
+        setOrientation(lastOrientation);
         setScale(1f);
     }
 }

@@ -31,10 +31,10 @@ package com.github.stephengold.sportjolt.physics;
 import com.github.stephengold.joltjni.BodyInterface;
 import com.github.stephengold.joltjni.CharacterRefC;
 import com.github.stephengold.joltjni.PhysicsSystem;
+import com.github.stephengold.joltjni.Quat;
+import com.github.stephengold.joltjni.RVec3;
 import com.github.stephengold.joltjni.readonly.ConstCharacter;
 import com.github.stephengold.joltjni.readonly.ConstShape;
-import com.github.stephengold.joltjni.readonly.QuatArg;
-import com.github.stephengold.joltjni.readonly.RVec3Arg;
 import com.github.stephengold.sportjolt.BaseApplication;
 import com.github.stephengold.sportjolt.Constants;
 import com.github.stephengold.sportjolt.Geometry;
@@ -60,6 +60,14 @@ public class CharacterShapeGeometry extends Geometry {
      * character to visualize
      */
     final private CharacterRefC character;
+    /**
+     * most recent orientation of the physics object
+     */
+    final private Quat lastOrientation = new Quat();
+    /**
+     * most recent location of the physics object
+     */
+    final private RVec3 lastLocation = new RVec3();
     /**
      * auxiliary data used to generate the current mesh
      */
@@ -167,13 +175,10 @@ public class CharacterShapeGeometry extends Geometry {
      * Update the mesh-to-world transform.
      */
     private void updateTransform() {
-        ConstCharacter cc = character.getPtr();
-        RVec3Arg location = cc.getCenterOfMassPosition();
-        setLocation(location);
-
-        QuatArg orientation = cc.getRotation();
-        setOrientation(orientation);
-
+        character.getPtr().getPositionAndRotation(
+                lastLocation, lastOrientation, false);
+        setLocation(lastLocation);
+        setOrientation(lastOrientation);
         setScale(1f);
     }
 }
