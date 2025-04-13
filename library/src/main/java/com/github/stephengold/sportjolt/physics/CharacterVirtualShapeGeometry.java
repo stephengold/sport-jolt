@@ -31,7 +31,6 @@ package com.github.stephengold.sportjolt.physics;
 import com.github.stephengold.joltjni.BodyInterface;
 import com.github.stephengold.joltjni.CharacterVirtualRefC;
 import com.github.stephengold.joltjni.PhysicsSystem;
-import com.github.stephengold.joltjni.readonly.ConstBodyId;
 import com.github.stephengold.joltjni.readonly.ConstCharacterVirtual;
 import com.github.stephengold.joltjni.readonly.ConstShape;
 import com.github.stephengold.joltjni.readonly.QuatArg;
@@ -130,7 +129,7 @@ public class CharacterVirtualShapeGeometry extends Geometry {
     @Override
     public boolean wasRemovedFrom(PhysicsSystem system) {
         BodyInterface bi = system.getBodyInterface();
-        ConstBodyId id = character.getPtr().getInnerBodyId();
+        int id = character.getPtr().getInnerBodyId();
         boolean result = !bi.isAdded(id); // TODO what if there's no inner body?
 
         return result;

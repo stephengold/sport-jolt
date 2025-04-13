@@ -33,7 +33,6 @@ import com.github.stephengold.joltjni.PhysicsSystem;
 import com.github.stephengold.joltjni.enumerate.EBodyType;
 import com.github.stephengold.joltjni.enumerate.EShapeType;
 import com.github.stephengold.joltjni.readonly.ConstBody;
-import com.github.stephengold.joltjni.readonly.ConstBodyId;
 import com.github.stephengold.joltjni.readonly.ConstShape;
 import com.github.stephengold.joltjni.readonly.QuatArg;
 import com.github.stephengold.joltjni.readonly.RVec3Arg;
@@ -134,8 +133,8 @@ public class RigidBodyShapeGeometry extends Geometry {
     @Override
     public boolean wasRemovedFrom(PhysicsSystem system) {
         BodyInterface bi = system.getBodyInterface();
-        ConstBodyId id = rigidBody.getId();
-        boolean result = !bi.isAdded(id);
+        int bodyId = rigidBody.getId();
+        boolean result = !bi.isAdded(bodyId);
 
         return result;
     }

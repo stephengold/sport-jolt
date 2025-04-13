@@ -32,7 +32,6 @@ import com.github.stephengold.joltjni.BodyInterface;
 import com.github.stephengold.joltjni.PhysicsSystem;
 import com.github.stephengold.joltjni.readonly.ConstAaBox;
 import com.github.stephengold.joltjni.readonly.ConstBody;
-import com.github.stephengold.joltjni.readonly.ConstBodyId;
 import com.github.stephengold.joltjni.readonly.ConstCharacter;
 import com.github.stephengold.joltjni.readonly.ConstCharacterVirtual;
 import com.github.stephengold.joltjni.readonly.ConstJoltPhysicsObject;
@@ -105,13 +104,13 @@ public class AabbGeometry extends Geometry {
         boolean result;
         if (jpo instanceof ConstBody) {
             ConstBody body = (ConstBody) jpo;
-            ConstBodyId id = body.getId();
-            result = !bi.isAdded(id);
+            int bodyId = body.getId();
+            result = !bi.isAdded(bodyId);
 
         } else if (jpo instanceof ConstCharacter) {
             ConstCharacter character = (ConstCharacter) jpo;
-            ConstBodyId id = character.getBodyId();
-            result = !bi.isAdded(id);
+            int bodyId = character.getBodyId();
+            result = !bi.isAdded(bodyId);
 
         } else {
             throw new IllegalStateException(jpo.getClass().getSimpleName());

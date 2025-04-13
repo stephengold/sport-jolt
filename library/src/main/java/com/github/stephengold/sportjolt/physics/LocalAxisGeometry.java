@@ -31,7 +31,6 @@ package com.github.stephengold.sportjolt.physics;
 import com.github.stephengold.joltjni.BodyInterface;
 import com.github.stephengold.joltjni.PhysicsSystem;
 import com.github.stephengold.joltjni.readonly.ConstBody;
-import com.github.stephengold.joltjni.readonly.ConstBodyId;
 import com.github.stephengold.joltjni.readonly.ConstCharacter;
 import com.github.stephengold.joltjni.readonly.ConstCharacterVirtual;
 import com.github.stephengold.joltjni.readonly.ConstJoltPhysicsObject;
@@ -134,8 +133,8 @@ public class LocalAxisGeometry extends Geometry {
         } else if (jpo instanceof ConstBody) {
             ConstBody body = (ConstBody) jpo;
             BodyInterface bi = system.getBodyInterface();
-            ConstBodyId id = body.getId();
-            result = !bi.isAdded(id);
+            int bodyId = body.getId();
+            result = !bi.isAdded(bodyId);
 
         } else if (jpo instanceof ConstCharacter) {
             result = false; // TODO

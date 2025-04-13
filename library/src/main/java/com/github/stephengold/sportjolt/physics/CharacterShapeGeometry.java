@@ -31,7 +31,6 @@ package com.github.stephengold.sportjolt.physics;
 import com.github.stephengold.joltjni.BodyInterface;
 import com.github.stephengold.joltjni.CharacterRefC;
 import com.github.stephengold.joltjni.PhysicsSystem;
-import com.github.stephengold.joltjni.readonly.ConstBodyId;
 import com.github.stephengold.joltjni.readonly.ConstCharacter;
 import com.github.stephengold.joltjni.readonly.ConstShape;
 import com.github.stephengold.joltjni.readonly.QuatArg;
@@ -130,8 +129,8 @@ public class CharacterShapeGeometry extends Geometry {
     @Override
     public boolean wasRemovedFrom(PhysicsSystem system) {
         BodyInterface bi = system.getBodyInterface();
-        ConstBodyId id = character.getPtr().getBodyId();
-        boolean result = !bi.isAdded(id);
+        int bodyId = character.getPtr().getBodyId();
+        boolean result = !bi.isAdded(bodyId);
 
         return result;
     }

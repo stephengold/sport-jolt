@@ -32,7 +32,6 @@ import com.github.stephengold.joltjni.BodyInterface;
 import com.github.stephengold.joltjni.PhysicsSystem;
 import com.github.stephengold.joltjni.enumerate.EBodyType;
 import com.github.stephengold.joltjni.readonly.ConstBody;
-import com.github.stephengold.joltjni.readonly.ConstBodyId;
 import com.github.stephengold.sportjolt.BaseApplication;
 import com.github.stephengold.sportjolt.Constants;
 import com.github.stephengold.sportjolt.Geometry;
@@ -97,8 +96,8 @@ public class LinksGeometry extends Geometry {
     @Override
     public boolean wasRemovedFrom(PhysicsSystem system) {
         BodyInterface bi = system.getBodyInterface();
-        ConstBodyId id = softBody.getId();
-        boolean result = !bi.isAdded(id);
+        int bodyId = softBody.getId();
+        boolean result = !bi.isAdded(bodyId);
 
         return result;
     }
