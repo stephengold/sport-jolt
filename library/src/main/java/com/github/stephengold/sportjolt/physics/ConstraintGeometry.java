@@ -47,11 +47,11 @@ import com.github.stephengold.sportjolt.Geometry;
 import com.github.stephengold.sportjolt.Mesh;
 import com.github.stephengold.sportjolt.Validate;
 import com.github.stephengold.sportjolt.mesh.ArrowMesh;
-import org.joml.Vector4fc;
 
 /**
- * Visualize one end of a {@code TwoBodyConstraint}, using a colored arrow from
- * the center of mass to the pivot.
+ * Visualize a {@code TwoBodyConstraint} using a colored arrow, either from
+ * pivot1 to pivot2 (if end=0) or else from the specified end's center of mass
+ * to its pivot.
  *
  * @author Stephen Gold sgold@sonic.net
  */
@@ -60,7 +60,7 @@ public class ConstraintGeometry extends Geometry {
     // fields
 
     /**
-     * end to visualize (1 or 2)
+     * end to visualize (0, 1, or 2)
      */
     final private int end;
     /**
@@ -75,15 +75,29 @@ public class ConstraintGeometry extends Geometry {
      * constraint and make the Geometry visible.
      *
      * @param constraint the constraint to visualize (not null, alias created)
-     * @param end which end to visualize (1 or 2)
+     * @param end which end to visualize (0, 1, or 2)
      */
     public ConstraintGeometry(TwoBodyConstraint constraint, int end) {
         super();
         Validate.nonNull(constraint, "constraint");
-        Validate.inRange(end, "end", 1, 2);
+        Validate.inRange(end, "end", 0, 2);
 
-        Vector4fc color = (end == 1) ? Constants.GREEN : Constants.RED;
-        super.setColor(color);
+        switch (end) {
+            case 0: // body1 pivot to body2 pivot
+                super.setColor(Constants.BLUE);
+                break;
+
+            case 1: // body1 center-of-mass to body1 pivot
+                super.setColor(Constants.GREEN);
+                break;
+
+            case 2: // body2 center-of-mass to body2 pivot
+                super.setColor(Constants.RED);
+                break;
+
+            default:
+                throw new IllegalArgumentException("end = " + end);
+        }
 
         Mesh mesh = ArrowMesh.getMesh(Jolt.SWIZZLE_Z);
         super.setMesh(mesh);
@@ -102,34 +116,59 @@ public class ConstraintGeometry extends Geometry {
      */
     @Override
     public void updateAndRender() {
-        ConstBody body;
-        Mat44Arg pivotToCom;
-        if (end == 1) {
-            body = constraint.getBody1();
-            pivotToCom = constraint.getConstraintToBody1Matrix();
-        } else if (end == 2) {
-            body = constraint.getBody2();
-            pivotToCom = constraint.getConstraintToBody2Matrix();
-        } else {
-            throw new RuntimeException();
+        RVec3Arg tail;
+        RVec3Arg tip;
+
+        switch (end) {
+            case 0: // body1 pivot to body2 pivot
+                ConstBody body1 = constraint.getBody1();
+                RMat44Arg com1ToWorld = body1.getCenterOfMassTransform();
+                Mat44Arg pivot1ToCom1 = constraint.getConstraintToBody1Matrix();
+                RMat44Arg pivot1ToWorld = Op.star(com1ToWorld, pivot1ToCom1);
+                tail = pivot1ToWorld.getTranslation();
+
+                ConstBody body2 = constraint.getBody2();
+                RMat44Arg com2ToWorld = body2.getCenterOfMassTransform();
+                Mat44Arg pivot2ToCom2 = constraint.getConstraintToBody2Matrix();
+                RMat44Arg pivot2ToWorld = Op.star(com2ToWorld, pivot2ToCom2);
+                tip = pivot2ToWorld.getTranslation();
+                break;
+
+            case 1: // body1 center-of-mass to body1 pivot
+                ConstBody body = constraint.getBody1();
+                RMat44Arg comToWorld = body.getCenterOfMassTransform();
+                tail = comToWorld.getTranslation();
+
+                Mat44Arg pivotToCom = constraint.getConstraintToBody1Matrix();
+                RMat44Arg pivotToWorld = Op.star(comToWorld, pivotToCom);
+                tip = pivotToWorld.getTranslation();
+                break;
+
+            case 2: // body2 center-of-mass to body2 pivot
+                body = constraint.getBody2();
+                comToWorld = body.getCenterOfMassTransform();
+                tail = comToWorld.getTranslation();
+
+                pivotToCom = constraint.getConstraintToBody2Matrix();
+                pivotToWorld = Op.star(comToWorld, pivotToCom);
+                tip = pivotToWorld.getTranslation();
+                break;
+
+            default:
+                throw new IllegalStateException("end = " + end);
         }
-        RMat44Arg comToWorld = body.getCenterOfMassTransform();
-        RVec3Arg com = comToWorld.getTranslation();
-        RMat44Arg pivotToWorld = Op.star(comToWorld, pivotToCom);
-        RVec3Arg pivot = pivotToWorld.getTranslation();
-        RVec3Arg offset = Op.minus(pivot, com);
+
+        setLocation(tail);
+
+        RVec3Arg offset = Op.minus(tip, tail);
         float length = (float) offset.length();
         setScale(length);
-
         if (length > 0f) {
             Vec3 direction = offset.toVec3();
             direction.scaleInPlace(1f / length);
             QuatArg rotation = Quat.sFromTo(Vec3.sAxisZ(), direction);
             setOrientation(rotation);
         }
-
-        RVec3Arg location = comToWorld.getTranslation();
-        setLocation(location);
 
         super.updateAndRender();
     }
