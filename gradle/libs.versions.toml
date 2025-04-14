@@ -3,19 +3,19 @@
 [versions]
 
 checkstyle = "10.23.0"
-joltjni = "0.9.9"
+jolt-jni = "0.9.9"
 lwjgl = "3.3.6"
 
 [libraries]
 
-jolt-jni-linux64 = { module = "com.github.stephengold:jolt-jni-Linux64", version.ref = "joltjni" }
-jolt-jni-linux64fma = { module = "com.github.stephengold:jolt-jni-Linux64_fma", version.ref = "joltjni" }
-jolt-jni-linuxarm32hf = { module = "com.github.stephengold:jolt-jni-Linux_ARM32hf", version.ref = "joltjni" }
-jolt-jni-linuxarm64 = { module = "com.github.stephengold:jolt-jni-Linux_ARM64", version.ref = "joltjni" }
-jolt-jni-macosx64 = { module = "com.github.stephengold:jolt-jni-MacOSX64", version.ref = "joltjni" }
-jolt-jni-macosxarm64 = { module = "com.github.stephengold:jolt-jni-MacOSX_ARM64", version.ref = "joltjni" }
-jolt-jni-windows64 = { module = "com.github.stephengold:jolt-jni-Windows64", version.ref = "joltjni" }
-jolt-jni-windows64avx2 = { module = "com.github.stephengold:jolt-jni-Windows64_avx2", version.ref = "joltjni" }
+jolt-jni-linux64 = { module = "com.github.stephengold:jolt-jni-Linux64", version.ref = "jolt-jni" }
+jolt-jni-linux64fma = { module = "com.github.stephengold:jolt-jni-Linux64_fma", version.ref = "jolt-jni" }
+jolt-jni-linuxarm32hf = { module = "com.github.stephengold:jolt-jni-Linux_ARM32hf", version.ref = "jolt-jni" }
+jolt-jni-linuxarm64 = { module = "com.github.stephengold:jolt-jni-Linux_ARM64", version.ref = "jolt-jni" }
+jolt-jni-macosx64 = { module = "com.github.stephengold:jolt-jni-MacOSX64", version.ref = "jolt-jni" }
+jolt-jni-macosxarm64 = { module = "com.github.stephengold:jolt-jni-MacOSX_ARM64", version.ref = "jolt-jni" }
+jolt-jni-windows64 = { module = "com.github.stephengold:jolt-jni-Windows64", version.ref = "jolt-jni" }
+jolt-jni-windows64avx2 = { module = "com.github.stephengold:jolt-jni-Windows64_avx2", version.ref = "jolt-jni" }
 
 joml = "org.joml:joml:1.10.8"
 jsnaploader = "io.github.electrostat-lab:snaploader:1.1.1-stable"
