@@ -29,6 +29,7 @@
 package com.github.stephengold.sportjolt.javaapp;
 
 import com.github.stephengold.sportjolt.BaseApplication;
+import com.github.stephengold.sportjolt.javaapp.demo.NewtonsCradle;
 import com.github.stephengold.sportjolt.javaapp.demo.Pachinko;
 import com.github.stephengold.sportjolt.javaapp.demo.ThousandCubes;
 import com.github.stephengold.sportjolt.javaapp.test.AssimpTest;
@@ -68,7 +69,7 @@ final class AppChooser extends JFrame {
      */
     public static void main(String[] arguments) {
         Logger.getLogger("").setLevel(Level.WARNING);
-        List<BaseApplication> apps = new ArrayList<>(13);
+        List<BaseApplication> apps = new ArrayList<>(14);
 
         apps.add(new AssimpTest());
         apps.add(new CheckerboardTest());
@@ -78,10 +79,11 @@ final class AppChooser extends JFrame {
 
         apps.add(new MouseTest());
         apps.add(new MouseTest2());
+        apps.add(new NewtonsCradle());
         apps.add(new OctasphereTest());
         apps.add(new Pachinko());
-        apps.add(new RainbowTest());
 
+        apps.add(new RainbowTest());
         apps.add(new SpriteTest());
         apps.add(new TextureTest());
         apps.add(new ThousandCubes());

@@ -115,7 +115,14 @@ You can install the artifacts to your local Maven repository:
 
 ### Demos
 
-Two demonstration applications (in Java) are included:
+Three demonstration applications (in Java) are included:
+
++ NewtonsCradle (a "Newton's cradle" toy)
+  + using Bash or Fish or PowerShell or Zsh: `./gradlew :java-apps:NewtonsCradle`
+  + using Windows Command Prompt: `.\gradlew :java-apps:NewtonsCradle`
+  + Press Pause or "." to start or pause the physics.
+  + Press 1/2/3/4/5 to restart with a different number of balls.
+  + Press W/A/S/D/Q/Z to move the camera.
 
 + Pachinko (2-D simulation of a simple Pachinko machine)
   + using Bash or Fish or PowerShell or Zsh: `./gradlew :java-apps:Pachinko`
