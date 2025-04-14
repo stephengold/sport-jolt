@@ -89,6 +89,7 @@ public class ClipspaceTest extends BaseApplication {
      */
     @Override
     public void initialize() {
+        setVsync(true);
         setBackgroundColor(Constants.SKY_BLUE);
 
         float radius = 0.5f; // as a multiple of half the window size

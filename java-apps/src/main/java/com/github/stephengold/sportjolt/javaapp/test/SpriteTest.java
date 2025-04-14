@@ -86,6 +86,7 @@ public class SpriteTest extends BaseApplication {
      */
     @Override
     public void initialize() {
+        setVsync(true);
         setBackgroundColor(Constants.SKY_BLUE);
 
         // a mesh composed of 2 points

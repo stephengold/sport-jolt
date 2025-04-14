@@ -91,6 +91,8 @@ public class MouseTest extends BaseApplication {
      */
     @Override
     public void initialize() {
+        setVsync(true);
+
         float size = 0.2f;
         Mesh mesh = new CrosshairsMesh(size);
         crosshairs = new Geometry(mesh)

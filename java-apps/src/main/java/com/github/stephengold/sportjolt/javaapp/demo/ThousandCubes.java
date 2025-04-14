@@ -181,6 +181,7 @@ public class ThousandCubes extends BasePhysicsApp {
     public void initialize() {
         super.initialize();
 
+        setVsync(true);
         addCrosshairs();
         configureCamera();
         configureInput();

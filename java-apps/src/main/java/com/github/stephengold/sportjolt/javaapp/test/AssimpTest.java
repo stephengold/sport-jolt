@@ -101,6 +101,8 @@ public class AssimpTest extends BaseApplication {
      */
     @Override
     public void initialize() {
+        setVsync(true);
+
         // Load the viking_room model using Assimp:
         String modelName = "/Models/viking_room/viking_room.obj";
         int postFlags = Assimp.aiProcess_FlipUVs;

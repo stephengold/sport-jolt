@@ -95,6 +95,8 @@ public class MouseTest2 extends BaseApplication {
      */
     @Override
     public void initialize() {
+        setVsync(true);
+
         Mesh ballMesh = OctasphereMesh.getMesh(3);
         nearBall = new Geometry(ballMesh)
                 .setBackCulling(false)

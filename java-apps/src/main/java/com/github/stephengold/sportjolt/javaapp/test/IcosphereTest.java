@@ -84,6 +84,7 @@ public class IcosphereTest extends BaseApplication {
      */
     @Override
     public void initialize() {
+        setVsync(true);
         getCameraInputProcessor().setRotationMode(RotateMode.DragLMB);
         setBackgroundColor(Constants.SKY_BLUE);
 
