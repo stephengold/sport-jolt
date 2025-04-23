@@ -20,7 +20,7 @@ jolt-jni-windows64avx2 = { module = "com.github.stephengold:jolt-jni-Windows64_a
 joml = "org.joml:joml:1.10.8"
 jsnaploader = "io.github.electrostat-lab:snaploader:1.1.1-stable"
 log4j-impl = "org.apache.logging.log4j:log4j-slf4j2-impl:2.24.3"
-oshi-core = "com.github.oshi:oshi-core:6.8.0"
+oshi-core = "com.github.oshi:oshi-core:6.8.1"
 
 lwjgl = { module = "org.lwjgl:lwjgl", version.ref = "lwjgl" }
 lwjgl-assimp = { module = "org.lwjgl:lwjgl-assimp", version.ref = "lwjgl" }
