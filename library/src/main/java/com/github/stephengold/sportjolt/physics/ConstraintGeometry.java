@@ -182,8 +182,8 @@ public class ConstraintGeometry extends Geometry {
      */
     @Override
     public boolean wasRemovedFrom(PhysicsSystem system) {
-        ConstTwoBodyConstraint cc = constraint.getPtr();
-        boolean result = !system.containsConstraint(cc);
+        ConstTwoBodyConstraint tbc = constraint.getPtr();
+        boolean result = !system.containsConstraint(tbc);
 
         return result;
     }
