@@ -33,6 +33,7 @@ import com.github.stephengold.joltjni.PhysicsSystem;
 import com.github.stephengold.joltjni.Quat;
 import com.github.stephengold.joltjni.RVec3;
 import com.github.stephengold.joltjni.enumerate.EBodyType;
+import com.github.stephengold.joltjni.enumerate.EShapeSubType;
 import com.github.stephengold.joltjni.enumerate.EShapeType;
 import com.github.stephengold.joltjni.readonly.ConstBody;
 import com.github.stephengold.joltjni.readonly.ConstShape;
@@ -96,9 +97,11 @@ public class RigidBodyShapeGeometry extends Geometry {
         Mesh mesh = BasePhysicsApp.meshForShape(shape, summary);
         super.setMesh(mesh);
 
-        // Disable back-face culling for non-convex collision shapes.
+        // Disable back-face culling for most convex shapes:
         boolean isConvex = (shape.getType() == EShapeType.Convex);
-        super.setBackCulling(isConvex);
+        boolean isTriangle = (shape.getSubType() == EShapeSubType.Triangle);
+        boolean cullBackFaces = isConvex && !isTriangle;
+        super.setBackCulling(cullBackFaces);
 
         BaseApplication.makeVisible(this);
     }
