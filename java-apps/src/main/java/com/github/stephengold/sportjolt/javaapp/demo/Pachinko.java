@@ -341,7 +341,7 @@ public class Pachinko
      * @param numRows (&ge;4, &le;9)
      */
     private void restartSimulation(int numRows) {
-        assert numRows >= 4 && numRows <= 9 : numRows;
+        Validate.inRange(numRows, "number of rows", 4, 9);
 
         physicsSystem.removeAllBodies();
 
