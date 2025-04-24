@@ -99,6 +99,11 @@ public abstract class BasePhysicsApp extends BaseApplication {
     // fields
 
     /**
+     * callbacks invoked before each simulation step
+     */
+    final private static Collection<PhysicsTickListener> tickListeners
+            = new ArrayList<>(5);
+    /**
      * time step (in seconds, &gt;0)
      */
     protected float timePerStep = 1f / 60f;
@@ -118,11 +123,6 @@ public abstract class BasePhysicsApp extends BaseApplication {
      * timestamp of the previous render() if renderCount > 0
      */
     private long lastPhysicsUpdate;
-    /**
-     * callbacks invoked before each simulation step
-     */
-    final private static Collection<PhysicsTickListener> tickListeners
-            = new ArrayList<>(5);
     /**
      * map shape summaries to auto-generated meshes, for reuse
      */
