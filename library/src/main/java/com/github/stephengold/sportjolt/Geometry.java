@@ -291,13 +291,18 @@ public class Geometry {
      * <p>
      * The rotation axis is assumed to be a unit vector.
      *
-     * @param angle the rotation angle (in radians, 0&rarr;no effect)
-     * @param x the X component of the rotation axis
-     * @param y the Y component of the rotation axis
-     * @param z the Z component of the rotation axis
+     * @param angle the rotation angle (in radians, finite, 0&rarr;no effect)
+     * @param x the X component of the rotation axis (finite)
+     * @param y the Y component of the rotation axis (finite)
+     * @param z the Z component of the rotation axis (finite)
      * @return the (modified) current geometry (for chaining)
      */
     public Geometry rotate(float angle, float x, float y, float z) {
+        Validate.finite(angle, "angle");
+        Validate.finite(x, "x");
+        Validate.finite(y, "y");
+        Validate.finite(z, "z");
+
         Quaternionf rotation = meshToWorld.getRotation(); // alias
         rotation.rotateAxis(angle, x, y, z, rotation);
 
@@ -307,10 +312,12 @@ public class Geometry {
     /**
      * Uniformly scale the model by the specified factor.
      *
-     * @param factor the scaling factor (1&rarr;no effect)
+     * @param factor the scaling factor (finite, 1&rarr;no effect)
      * @return the (modified) current geometry (for chaining)
      */
     public Geometry scale(float factor) {
+        Validate.finite(factor, "factor");
+
         Vector3f scale = meshToWorld.getScale(); // alias
         scale.mul(factor);
 
@@ -571,6 +578,7 @@ public class Geometry {
      * @return the (modified) current geometry (for chaining)
      */
     public Geometry setScale(float scaleFactor) {
+        Validate.finite(scaleFactor, "scale factor");
         meshToWorld.setScale(scaleFactor);
         return this;
     }
