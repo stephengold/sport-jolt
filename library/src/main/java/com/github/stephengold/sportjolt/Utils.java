@@ -392,6 +392,33 @@ final public class Utils {
     }
 
     /**
+     * Return the least non-negative value congruent with the input value with
+     * respect to the specified modulus.
+     * <p>
+     * This differs from remainder for negative input values. For instance,
+     * modulo(-1, 4) == 3, while -1 % 4 == -1.
+     *
+     * @param iValue the input value
+     * @param modulus (&gt;0)
+     * @return iValue MOD modulus (&lt;modulus, &ge;0)
+     */
+    public static int modulo(int iValue, int modulus) {
+        assert Validate.positive(modulus, "modulus");
+
+        int remainder = iValue % modulus;
+        int result;
+        if (iValue >= 0) {
+            result = remainder;
+        } else {
+            result = (remainder + modulus) % modulus;
+        }
+
+        assert result >= 0f : result;
+        assert result < modulus : result;
+        return result;
+    }
+
+    /**
      * Enable or disable the specified OpenGL capability.
      *
      * @param capability the numeric code for the capability
