@@ -244,7 +244,7 @@ public class Geometry {
      * @param offset the offset (in worldspace, not null, finite, unaffected)
      */
     public void move(Vector3fc offset) {
-        Validate.finite(offset, "finite offset");
+        Validate.finite(offset, "offset");
 
         Vector3f location = meshToWorld.getTranslation(); // alias
         location.add(offset);
@@ -659,6 +659,7 @@ public class Geometry {
      * program's global uniforms have already been set! Meant to be overridden.
      */
     public void updateAndRender() {
+        //System.out.println("updateAndRender:  " + this);
         if (mesh.countIndexedVertices() == 0) {
             return;
         }
