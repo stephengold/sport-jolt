@@ -94,8 +94,10 @@ final public class Utils {
     public static void checkForOglError() {
         if (assertions) {
             int errorCode = GL11C.glGetError();
-            if (errorCode != GL11C.GL_NO_ERROR) {
-                throw new IllegalStateException("errorCode = " + errorCode);
+            if (errorCode == GL11C.GL_OUT_OF_MEMORY) {
+                throw new IllegalStateException("OpenGL out of memory");
+            } else if (errorCode != GL11C.GL_NO_ERROR) {
+                throw new IllegalStateException("OpenGL error " + errorCode);
             }
         }
     }
