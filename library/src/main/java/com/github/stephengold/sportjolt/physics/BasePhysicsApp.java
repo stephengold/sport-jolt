@@ -465,6 +465,10 @@ public abstract class BasePhysicsApp extends BaseApplication {
     protected void cleanUp() {
         physicsSystem.removeAllBodies();
 
+        Collection<Geometry> geometries = listVisible();
+        hideAll(geometries);
+
+        // Discard all meshes auto-generated for collision shapes:
         for (Mesh mesh : meshCache.values()) {
             mesh.cleanUp();
         }
