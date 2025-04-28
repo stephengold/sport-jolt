@@ -256,7 +256,7 @@ public class Pachinko
     }
 
     /**
-     * Configure the Camera and CIP during startup.
+     * Configure the camera and CIP during initialization.
      */
     private static void configureCamera() {
         CameraInputProcessor cip = getCameraInputProcessor();
@@ -267,7 +267,7 @@ public class Pachinko
     }
 
     /**
-     * Configure keyboard input during startup.
+     * Configure keyboard input during initialization.
      */
     private void configureInput() {
         getInputManager().add(new InputProcessor() {

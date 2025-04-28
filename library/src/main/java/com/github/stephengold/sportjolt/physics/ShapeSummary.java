@@ -34,8 +34,7 @@ import com.github.stephengold.joltjni.readonly.ConstShape;
 import java.util.Objects;
 
 /**
- * Summarize inputs used to generate a Mesh for a Shape. Note:
- * immutable.
+ * Summarize inputs used to generate a Mesh for a Shape. Note: immutable.
  *
  * @author Stephen Gold sgold@sonic.net
  */
@@ -128,9 +127,9 @@ class ShapeSummary {
     }
 
     /**
-     * Return the algorithm to generate meshes, if any.
+     * Return the algorithm to generate meshes.
      *
-     * @return the pre-existing object (not null)
+     * @return the pre-existing object
      */
     MeshingStrategy meshingStrategy() {
         return meshingStrategy;

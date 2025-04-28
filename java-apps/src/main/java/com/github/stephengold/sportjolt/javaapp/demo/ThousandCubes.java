@@ -309,7 +309,7 @@ public class ThousandCubes extends BasePhysicsApp {
     }
 
     /**
-     * Configure the Camera and CIP during startup.
+     * Configure the Camera and CIP during initialization.
      */
     private static void configureCamera() {
         getCameraInputProcessor().setRotationMode(RotateMode.Immediate);
@@ -319,7 +319,7 @@ public class ThousandCubes extends BasePhysicsApp {
     }
 
     /**
-     * Configure keyboard input during startup.
+     * Configure keyboard input during initialization.
      */
     private void configureInput() {
         getInputManager().add(new InputProcessor() {

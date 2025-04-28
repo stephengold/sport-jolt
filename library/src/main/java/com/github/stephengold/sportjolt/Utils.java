@@ -88,8 +88,8 @@ final public class Utils {
     }
 
     /**
-     * Throw a runtime exception if OpenGL has detected an error since the
-     * previous invocation of this method.
+     * Throw a runtime exception if assertions are enabled and OpenGL has
+     * detected an error since the previous invocation of this method.
      */
     public static void checkForOglError() {
         if (assertions) {
