@@ -130,7 +130,7 @@ public class Pachinko
      * @return a new object
      */
     @Override
-    public PhysicsSystem createSystem() {
+    protected PhysicsSystem createSystem() {
         // Use 2 broadphase layers for efficiency:
         int bpLayerNonMoving = 0;
         int bpLayerMoving = 1;
@@ -162,7 +162,7 @@ public class Pachinko
      * Initialize the application.
      */
     @Override
-    public void initialize() {
+    protected void initialize() {
         super.initialize();
 
         setVsync(true);
@@ -175,7 +175,7 @@ public class Pachinko
      * Populate the PhysicsSystem. Invoked once during initialization.
      */
     @Override
-    public void populateSystem() {
+    protected void populateSystem() {
         ConstShape ballShape = new SphereShape(ballRadius);
         ballBcs = new BodyCreationSettings()
                 .setAllowSleeping(false)

@@ -141,7 +141,7 @@ public class ThousandCubes extends BasePhysicsApp {
      * @return a new object
      */
     @Override
-    public PhysicsSystem createSystem() {
+    protected PhysicsSystem createSystem() {
         if (Utils.areAssertionsEnabled()) {
             System.out.println("Warning: assertions are enabled.");
         }
@@ -178,7 +178,7 @@ public class ThousandCubes extends BasePhysicsApp {
      * Initialize the application.
      */
     @Override
-    public void initialize() {
+    protected void initialize() {
         super.initialize();
 
         setVsync(true);
@@ -192,7 +192,7 @@ public class ThousandCubes extends BasePhysicsApp {
      * Populate the PhysicsSystem. Invoked once during initialization.
      */
     @Override
-    public void populateSystem() {
+    protected void populateSystem() {
         // Create and add the floor (a static body):
         ConstPlane plane = new Plane(0f, 1f, 0f, 0f);
         ConstShape shape = new PlaneShape(plane);

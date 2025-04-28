@@ -120,7 +120,7 @@ public class NewtonsCradle extends BasePhysicsApp {
      * @return a new object
      */
     @Override
-    public PhysicsSystem createSystem() {
+    protected PhysicsSystem createSystem() {
         // Use a single broadphase layer for simplicity:
         int numBpLayers = 1;
         MapObj2Bp mapObj2Bp = new MapObj2Bp(numObjLayers, numBpLayers)
@@ -150,7 +150,7 @@ public class NewtonsCradle extends BasePhysicsApp {
      * Initialize the application.
      */
     @Override
-    public void initialize() {
+    protected void initialize() {
         super.initialize();
 
         setVsync(true);
@@ -163,7 +163,7 @@ public class NewtonsCradle extends BasePhysicsApp {
      * Populate the PhysicsSystem. Invoked once during initialization.
      */
     @Override
-    public void populateSystem() {
+    protected void populateSystem() {
         float radius = 9.9f;
         ConstShape shape = new SphereShape(radius);
         ballBcs = new BodyCreationSettings()
