@@ -30,6 +30,7 @@ package com.github.stephengold.sportjolt.javaapp.demo;
 
 import com.github.stephengold.joltjni.Body;
 import com.github.stephengold.joltjni.BodyCreationSettings;
+import com.github.stephengold.joltjni.BodyIdArray;
 import com.github.stephengold.joltjni.BodyInterface;
 import com.github.stephengold.joltjni.BoxShape;
 import com.github.stephengold.joltjni.Jolt;
@@ -81,6 +82,18 @@ public class ThousandCubes extends BasePhysicsApp {
      * broadphase layer for non-moving bodies
      */
     final private static int bpLayerNonMoving = 1;
+    /**
+     * how many columns of boxes (along the system's Z axis)
+     */
+    final private static int numColumns = 10;
+    /**
+     * how many layers of boxes (along the system's Y axis)
+     */
+    final private static int numLayers = 10;
+    /**
+     * how many rows of boxes (along the system's X axis)
+     */
+    final private static int numRows = 10;
     // *************************************************************************
     // fields
 
@@ -163,7 +176,8 @@ public class ThousandCubes extends BasePhysicsApp {
         ObjVsObjFilter objVsObjFilter = new ObjVsObjFilter(numObjLayers)
                 .disablePair(objLayerNonMoving, objLayerNonMoving);
 
-        int maxBodies = 1_800;
+        int numBoxes = numColumns * numLayers * numRows;
+        int maxBodies = numBoxes + 500;
         int numBodyMutexes = 0; // 0 means "use the default value"
         int maxBodyPairs = 65_536;
         int maxContacts = 20_480;
@@ -234,14 +248,26 @@ public class ThousandCubes extends BasePhysicsApp {
                 .setShape(boxShape);
         boxBcs.getMassPropertiesOverride().setMass(10f);
 
-        // Create 1000 boxes, arranged in a cube:
-        for (int i = 0; i < 10; ++i) {
-            for (int j = 0; j < 10; ++j) {
-                for (int k = 0; k < 10; ++k) {
-                    addBox(2f * i, 2f * j, 2f * k - 2.5f);
+        // Create many boxes, arranged in a rectangular grid:
+        int numBoxes = numColumns * numLayers * numRows;
+        BodyIdArray boxIds = new BodyIdArray(numBoxes);
+        int boxIndex = 0;
+        for (int i = 0; i < numRows; ++i) {
+            for (int j = 0; j < numLayers; ++j) {
+                for (int k = 0; k < numColumns; ++k) {
+                    float x = 2f * i;
+                    float y = 2f * j;
+                    float z = 2f * k;
+                    assert boxIndex <= numBoxes;
+                    addBox(x, y, z, boxIds, boxIndex);
+                    ++boxIndex;
                 }
             }
         }
+
+        // Add the boxes to the physics system in a single batch:
+        long handle = bi.addBodiesPrepare(boxIds, numBoxes);
+        bi.addBodiesFinalize(boxIds, numBoxes, handle, EActivation.Activate);
     }
 
     /**
@@ -269,18 +295,24 @@ public class ThousandCubes extends BasePhysicsApp {
     // private methods
 
     /**
-     * Add a dynamic box to the system, at the specified coordinates.
+     * Add a dynamic box to the specified array, at the specified coordinates.
      *
      * @param x the desired X coordinate (in system coordinates)
      * @param y the desired Y coordinate (in system coordinates)
      * @param z the desired Z coordinate (in system coordinates)
+     * @param boxIds the array to add to (not null, modified)
+     * @param boxIndex the index of the box in the array (&ge;0)
      */
-    private void addBox(float x, float y, float z) {
-        // Create and add a box:
-        BodyInterface bi = physicsSystem.getBodyInterface();
+    private void addBox(
+            float x, float y, float z, BodyIdArray boxIds, int boxIndex) {
+        // Create a box:
         boxBcs.setPosition(x, y, z);
+        BodyInterface bi = physicsSystem.getBodyInterface();
         Body box = bi.createBody(boxBcs);
-        bi.addBody(box, EActivation.Activate);
+        assert box.getBroadPhaseLayer() == bpLayerMoving;
+
+        int bodyId = box.getId();
+        boxIds.set(boxIndex, bodyId);
 
         // Visualize the box in a random color:
         float red = Std.pow(random.nextFloat(), 2.2f);
