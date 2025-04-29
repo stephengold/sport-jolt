@@ -65,6 +65,8 @@ By default, physics objects are not visualized.
   invoke the `visualizeWheels()` method on it.
 + To visualize the bounding box of a body, character, or vehicle,
   instantiate an `AabbGeometry` for the object.
++ To visualize the center of mass of a body,
+  instantiate a `ComGeometry` for it.
 + To visualize a `Constraint`,
   instantiate a `ConstraintGeometry` for each end.
 + To visualize the faces of a soft body,
