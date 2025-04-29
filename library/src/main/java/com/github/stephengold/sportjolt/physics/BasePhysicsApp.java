@@ -461,7 +461,8 @@ public abstract class BasePhysicsApp extends BaseApplication {
      */
     @Override
     protected void cleanUp() {
-        physicsSystem.removeAllBodies();
+        physicsSystem.removeAllConstraints();
+        physicsSystem.destroyAllBodies();
 
         Collection<Geometry> geometries = listVisible();
         hideAll(geometries);
