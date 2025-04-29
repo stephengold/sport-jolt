@@ -4,10 +4,11 @@ for [the Jolt-JNI 3-D physics library][joltjni].
 
 It contains 2 subprojects:
 
-1. library: the Sport-Jolt graphics engine (a single JVM runtime library)
-2. java-apps: demos and non-automated test software in Java
+1. library: the Sport-Jolt graphics engine (a single JVM runtime library,
+   written in [Java])
+2. java-apps: demos, non-automated test software, and other apps (in Java)
 
-Complete source code (in [Java]) is provided under
+Complete source code is provided under
 [a 3-clause BSD license][license].
 
 
@@ -35,7 +36,46 @@ It has been tested on [Linux], macOS, and Windows.
 
 <a name="add"></a>
 
-## Coding a Sport-Jolt application
+## How to add Sport Jolt to an existing project
+
+Sport Jolt comes pre-built as a single library
+that can be downloaded from Maven Central or GitHub.
+However, the native-library dependencies are intentionally omitted
+from Sport Jolt's POM
+so developers can specify *which* Jolt-JNI and LWJGL natives should be used.
+
+For projects built using [Maven] or [Gradle], it is
+*not* sufficient to specify the
+dependency on the Sport-Jolt Library.
+You must also explicitly specify the native-library dependencies.
+
+### Gradle-built projects
+
+Add to the project’s "build.gradle" or "build.gradle.kts" file:
+
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        // JVM library:
+        implementation("com.github.stephengold:sport-jolt:0.9.1")
+
+        // Libbulletjme native libraries:
+        runtimeOnly("com.github.stephengold:jolt-jni-Linux64:0.9.10:DebugSp")
+          // Jolt-JNI native libraries for other platforms could be added.
+
+        // LWJGL native libraries:
+        runtimeOnly("org.lwjgl:lwjgl:3.3.6:natives-linux")
+        runtimeOnly("org.lwjgl:lwjgl-assimp:3.3.6:natives-linux")
+        runtimeOnly("org.lwjgl:lwjgl-glfw:3.3.6:natives-linux")
+        runtimeOnly("org.lwjgl:lwjgl-opengl:3.3.6:natives-linux")
+          // LWJGL native libraries for other platforms could be added.
+    }
+
+For some older versions of Gradle,
+it's necessary to replace `implementation` with `compile`.
+
+### Coding a Sport-Jolt application
 
 Every Sport-Jolt application should extend the `BasePhysicsApp` class,
 which provides hooks for:
@@ -49,7 +89,7 @@ The graphics engine doesn't have a scene graph.
 Instead, it maintains an internal list of renderable objects,
 called *geometries*.
 Instantiating a geometry automatically adds it to the list
-and causes it to be visualized.
+and causes it to be rendered.
 
 + To visualize the world (system) coordinate axes,
   instantiate one or more `LocalAxisGeometry` objects.
@@ -102,7 +142,7 @@ By default, physics objects are not visualized.
   + using [Git]:
     + `git clone https://github.com/stephengold/sport-jolt.git`
     + `cd sport-jolt`
-    + `git checkout -b latest 0.9.0`
+    + `git checkout -b latest 0.9.1`
 4. (optional) Edit the "gradle.properties" file to configure the build.
 5. Run the [Gradle] wrapper:
   + using Bash or Fish or PowerShell or Zsh: `./gradlew build`
@@ -123,7 +163,7 @@ Three demonstration applications (in Java) are included:
   + using Bash or Fish or PowerShell or Zsh: `./gradlew :java-apps:NewtonsCradle`
   + using Windows Command Prompt: `.\gradlew :java-apps:NewtonsCradle`
   + Press Pause or "." to start or pause the physics.
-  + Press 1/2/3/4/5 to restart with a different number of balls.
+  + Press 1/2/3/4/5 to reinitialize with a different number of balls.
   + Press W/A/S/D/Q/Z to move the camera.
 
 + Pachinko (2-D simulation of a simple Pachinko machine)

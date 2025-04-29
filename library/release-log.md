@@ -1,6 +1,6 @@
 # release log for the Sport-Jolt Library
 
-## Version 0.9.1 released on TBD
+## Version 0.9.1 released on 29 April 2025
 
 + Improved the performance of the `ThousandCubes` demo (see issue #1):
   + Redesigned the `Geometry` and `Transform` classes. (API changes)
