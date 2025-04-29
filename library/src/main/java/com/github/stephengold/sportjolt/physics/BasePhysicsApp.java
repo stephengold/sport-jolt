@@ -94,7 +94,7 @@ public abstract class BasePhysicsApp extends BaseApplication {
     /**
      * expected version string of the Jolt-JNI native library
      */
-    final private static String expectedVersion = "0.9.9";
+    final private static String expectedVersion = "0.9.10";
     // *************************************************************************
     // fields
 

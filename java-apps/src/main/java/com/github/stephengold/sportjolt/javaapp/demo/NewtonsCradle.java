@@ -31,8 +31,9 @@ package com.github.stephengold.sportjolt.javaapp.demo;
 import com.github.stephengold.joltjni.Body;
 import com.github.stephengold.joltjni.BodyCreationSettings;
 import com.github.stephengold.joltjni.BodyInterface;
+import com.github.stephengold.joltjni.BroadPhaseLayerInterface;
+import com.github.stephengold.joltjni.BroadPhaseLayerInterfaceTable;
 import com.github.stephengold.joltjni.DistanceConstraintSettings;
-import com.github.stephengold.joltjni.MapObj2Bp;
 import com.github.stephengold.joltjni.ObjVsBpFilter;
 import com.github.stephengold.joltjni.ObjVsObjFilter;
 import com.github.stephengold.joltjni.PhysicsSystem;
@@ -123,9 +124,10 @@ public class NewtonsCradle extends BasePhysicsApp {
     protected PhysicsSystem createSystem() {
         // Use a single broadphase layer for simplicity:
         int numBpLayers = 1;
-        MapObj2Bp mapObj2Bp = new MapObj2Bp(numObjLayers, numBpLayers)
-                .add(objLayerNonMoving, 0)
-                .add(objLayerMoving, 0);
+        BroadPhaseLayerInterface mapObj2Bp
+                = new BroadPhaseLayerInterfaceTable(numObjLayers, numBpLayers)
+                        .mapObjectToBroadPhaseLayer(objLayerNonMoving, 0)
+                        .mapObjectToBroadPhaseLayer(objLayerMoving, 0);
         ObjVsBpFilter objVsBpFilter
                 = new ObjVsBpFilter(numObjLayers, numBpLayers);
         ObjVsObjFilter objVsObjFilter = new ObjVsObjFilter(numObjLayers);

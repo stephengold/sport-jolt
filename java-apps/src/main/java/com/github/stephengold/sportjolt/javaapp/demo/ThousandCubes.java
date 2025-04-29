@@ -33,8 +33,9 @@ import com.github.stephengold.joltjni.BodyCreationSettings;
 import com.github.stephengold.joltjni.BodyIdArray;
 import com.github.stephengold.joltjni.BodyInterface;
 import com.github.stephengold.joltjni.BoxShape;
+import com.github.stephengold.joltjni.BroadPhaseLayerInterface;
+import com.github.stephengold.joltjni.BroadPhaseLayerInterfaceTable;
 import com.github.stephengold.joltjni.Jolt;
-import com.github.stephengold.joltjni.MapObj2Bp;
 import com.github.stephengold.joltjni.ObjVsBpFilter;
 import com.github.stephengold.joltjni.ObjVsObjFilter;
 import com.github.stephengold.joltjni.PhysicsSystem;
@@ -167,9 +168,12 @@ public class ThousandCubes extends BasePhysicsApp {
 
         // Use 2 broadphase layers for efficiency:
         int numBpLayers = 2;
-        MapObj2Bp mapObj2Bp = new MapObj2Bp(numObjLayers, numBpLayers)
-                .add(objLayerNonMoving, bpLayerNonMoving)
-                .add(objLayerMoving, bpLayerMoving);
+        BroadPhaseLayerInterface mapObj2Bp
+                = new BroadPhaseLayerInterfaceTable(numObjLayers, numBpLayers)
+                        .mapObjectToBroadPhaseLayer(
+                                objLayerNonMoving, bpLayerNonMoving)
+                        .mapObjectToBroadPhaseLayer(
+                                objLayerMoving, bpLayerMoving);
         ObjVsBpFilter objVsBpFilter
                 = new ObjVsBpFilter(numObjLayers, numBpLayers)
                         .disablePair(objLayerNonMoving, bpLayerNonMoving);
