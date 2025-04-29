@@ -1,0 +1,13 @@
+Licensing history for files in "java-apps/src/main/resources/Textures/Terrain/splat"
+
+Based on "jme3-testdata":
+* download files:    mountains512.png
+* downloaded from:   https://github.com/jMonkeyEngine/jmonkeyengine/blob/v3.5.0-stable/jme3-testdata/src/main/resources/Textures/Terrain/splat
+* license type:      BSD-3-Clause (3-Clause BSD)
+* license URL:       https://github.com/jMonkeyEngine/jmonkeyengine/blob/v3.5.0-stable/LICENSE
+
+Files used without modification:
+* mountains512.png
+
+Added files (also licensed BSD-3-Clause):
+* license.txt
