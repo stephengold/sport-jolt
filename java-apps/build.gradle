@@ -37,6 +37,12 @@ tasks.register('ThousandCubes', JavaExec) {
     mainClass = 'com.github.stephengold.sportjolt.javaapp.demo.ThousandCubes'
 }
 
+//   generate images for use in the tutorial:
+tasks.register('ShapeImages', JavaExec) {
+    description = 'Runs the ShapeImages image generator.'
+    mainClass = 'com.github.stephengold.sportjolt.javaapp.image.ShapeImages'
+}
+
 //   non-physics test apps in Java:
 tasks.register('AssimpTest', JavaExec) {
     description = 'Runs the Assimp test app.'

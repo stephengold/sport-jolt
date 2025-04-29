@@ -32,6 +32,7 @@ import com.github.stephengold.sportjolt.BaseApplication;
 import com.github.stephengold.sportjolt.javaapp.demo.NewtonsCradle;
 import com.github.stephengold.sportjolt.javaapp.demo.Pachinko;
 import com.github.stephengold.sportjolt.javaapp.demo.ThousandCubes;
+import com.github.stephengold.sportjolt.javaapp.image.ShapeImages;
 import com.github.stephengold.sportjolt.javaapp.test.AssimpTest;
 import com.github.stephengold.sportjolt.javaapp.test.CheckerboardTest;
 import com.github.stephengold.sportjolt.javaapp.test.ClipspaceTest;
@@ -84,6 +85,7 @@ final class AppChooser extends JFrame {
         apps.add(new Pachinko());
 
         apps.add(new RainbowTest());
+        apps.add(new ShapeImages());
         apps.add(new SpriteTest());
         apps.add(new TextureTest());
         apps.add(new ThousandCubes());
