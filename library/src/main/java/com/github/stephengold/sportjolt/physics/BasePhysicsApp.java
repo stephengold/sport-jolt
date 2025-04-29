@@ -394,10 +394,8 @@ public abstract class BasePhysicsApp extends BaseApplication {
             textureKey = null;
 
             if (subType == EShapeSubType.Capsule
-                    || subType == EShapeSubType.Cylinder
                     || subType == EShapeSubType.HeightField
-                    || subType == EShapeSubType.TaperedCapsule
-                    || subType == EShapeSubType.TaperedCylinder) {
+                    || subType == EShapeSubType.TaperedCapsule) {
                 meshingStrategy = new MeshingStrategy("low/Smooth");
             } else {
                 meshingStrategy = new MeshingStrategy("low/Facet");
