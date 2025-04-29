@@ -471,20 +471,21 @@ final public class Utils {
     }
 
     /**
-     * Convert a BufferedImage to an array of heights.
+     * Convert a BufferedImage to a {@code FloatBuffer} of heights.
      *
      * @param image the image to use (not null, unaffected)
      * @param maxHeight the vertical scaling factor
-     * @return a new array of values in the range [0, maxHeight], one element
-     * for each pixel in the image
+     * @return a new direct buffer containing values in the range [0,
+     * maxHeight], one value for each pixel in the image
      */
-    public static float[] toHeightArray(BufferedImage image, float maxHeight) {
+    public static FloatBuffer toHeightBuffer(
+            BufferedImage image, float maxHeight) {
         int imageWidth = image.getWidth();
         int imageHeight = image.getHeight();
         int numSamples = imageWidth * imageHeight;
-        float[] result = new float[numSamples];
+        FloatBuffer result = Jolt.newDirectFloatBuffer(numSamples);
 
-        int index = 0;
+        int floatIndex = 0;
         for (int y = 0; y < imageHeight; ++y) {
             for (int x = 0; x < imageWidth; ++x) {
                 int srgb = image.getRGB(x, y);
@@ -498,9 +499,9 @@ final public class Utils {
                 blue = Math.pow(blue, 2.2);
 
                 double height = 0.299 * red + 0.587 * green + 0.114 * blue;
-                result[index] = maxHeight * (float) height;
+                result.put(floatIndex, maxHeight * (float) height);
 
-                ++index;
+                ++floatIndex;
             }
         }
 
