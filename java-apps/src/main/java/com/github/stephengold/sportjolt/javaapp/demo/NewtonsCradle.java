@@ -45,6 +45,7 @@ import com.github.stephengold.joltjni.enumerate.EActivation;
 import com.github.stephengold.joltjni.readonly.ConstShape;
 import com.github.stephengold.joltjni.readonly.Vec3Arg;
 import com.github.stephengold.sportjolt.Constants;
+import com.github.stephengold.sportjolt.Validate;
 import com.github.stephengold.sportjolt.input.CameraInputProcessor;
 import com.github.stephengold.sportjolt.input.InputProcessor;
 import com.github.stephengold.sportjolt.input.RotateMode;
@@ -313,6 +314,8 @@ public class NewtonsCradle extends BasePhysicsApp {
      * @param numBalls (&ge;1)
      */
     private void restartSimulation(int numBalls) {
+        Validate.positive(numBalls, "number of balls");
+
         cleanUp();
         physicsSpeed = PAUSED_SPEED;
 
