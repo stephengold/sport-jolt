@@ -70,7 +70,7 @@ final class AppChooser extends JFrame {
      */
     public static void main(String[] arguments) {
         Logger.getLogger("").setLevel(Level.WARNING);
-        List<BaseApplication> apps = new ArrayList<>(14);
+        List<BaseApplication> apps = new ArrayList<>(15);
 
         apps.add(new AssimpTest());
         apps.add(new CheckerboardTest());

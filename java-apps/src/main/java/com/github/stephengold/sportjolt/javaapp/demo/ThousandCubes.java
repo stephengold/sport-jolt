@@ -322,7 +322,8 @@ public class ThousandCubes extends BasePhysicsApp {
         float red = Std.pow(random.nextFloat(), 2.2f);
         float green = Std.pow(random.nextFloat(), 2.2f);
         float blue = Std.pow(random.nextFloat(), 2.2f);
-        visualizeShape(box).setColor(new Vector4f(red, green, blue, 1f));
+        float alpha = 1f;
+        visualizeShape(box).setColor(new Vector4f(red, green, blue, alpha));
     }
 
     /**

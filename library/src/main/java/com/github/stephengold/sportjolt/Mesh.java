@@ -163,7 +163,7 @@ public class Mesh {
     }
 
     /**
-     * Instantiate a mutable mesh with the specified tppology and vertex
+     * Instantiate a mutable mesh with the specified topology and vertex
      * positions, but no indices, colors, normals, or texture coordinates.
      *
      * @param topology the desired topology (not null)
