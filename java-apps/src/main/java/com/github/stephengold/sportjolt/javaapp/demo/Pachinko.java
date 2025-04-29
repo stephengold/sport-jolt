@@ -348,7 +348,7 @@ public class Pachinko
     private void restartSimulation(int numRows) {
         Validate.inRange(numRows, "number of rows", 4, 9);
 
-        physicsSystem.removeAllBodies();
+        cleanUp();
 
         float barHalfWidth = 0.3f;
         int lastRow = numRows - 1;

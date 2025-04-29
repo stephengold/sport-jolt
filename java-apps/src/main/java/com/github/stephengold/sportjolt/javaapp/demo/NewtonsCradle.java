@@ -313,7 +313,7 @@ public class NewtonsCradle extends BasePhysicsApp {
      * @param numBalls (&ge;1)
      */
     private void restartSimulation(int numBalls) {
-        physicsSystem.removeAllBodies();
+        cleanUp();
         physicsSpeed = PAUSED_SPEED;
 
         float xSeparation = 20f; // slightly more than the ball diameter
