@@ -62,7 +62,7 @@ By default, physics objects are not visualized.
 + To visualize the local coordinate axes of a body, character, or vehicle,
   invoke the `visualizeAxes()` method on it.
 + To visualize the wheels of a vehicle,
-  invoke the `visualizeWheels()` method on it.
+  invoke the `visualizeWheels()` method on them.
 + To visualize the bounding box of a body, character, or vehicle,
   instantiate an `AabbGeometry` for the object.
 + To visualize the center of mass of a body,
@@ -129,7 +129,7 @@ Three demonstration applications (in Java) are included:
 + Pachinko (2-D simulation of a simple Pachinko machine)
   + using Bash or Fish or PowerShell or Zsh: `./gradlew :java-apps:Pachinko`
   + using Windows Command Prompt: `.\gradlew :java-apps:Pachinko`
-  + Press Pause or "." to pause the physics.
+  + Press Pause or "." to pause or resume the physics.
   + Press 4/5/6/7/8/9 to restart the simulation with a different pin layout.
 
 + ThousandCubes
@@ -139,7 +139,7 @@ Three demonstration applications (in Java) are included:
   + using Windows Command Prompt:
     `.\gradlew -Passertions=false -Pbtf=ReleaseSp :java-apps:ThousandCubes`
   + Press E to shoot.
-  + Press Pause or "." to pause the physics.
+  + Press Pause or "." to pause or resume the physics.
   + Press W/A/S/D/Q/Z to move the camera.
 
 ### Cleanup
