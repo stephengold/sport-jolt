@@ -76,14 +76,6 @@ public class ThousandCubes extends BasePhysicsApp {
     // constants
 
     /**
-     * broadphase layer for moving bodies (the default layer)
-     */
-    final private static int bpLayerMoving = 0;
-    /**
-     * broadphase layer for non-moving bodies
-     */
-    final private static int bpLayerNonMoving = 1;
-    /**
      * how many columns of boxes (along the system's Z axis)
      */
     final private static int numColumns = 10;
@@ -313,7 +305,6 @@ public class ThousandCubes extends BasePhysicsApp {
         boxBcs.setPosition(x, y, z);
         BodyInterface bi = physicsSystem.getBodyInterface();
         Body box = bi.createBody(boxBcs);
-        assert box.getBroadPhaseLayer() == bpLayerMoving;
 
         int bodyId = box.getId();
         boxIds.set(boxIndex, bodyId);
