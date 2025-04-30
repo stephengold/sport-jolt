@@ -216,7 +216,7 @@ public class ThousandCubes extends BasePhysicsApp {
         ConstShape shape = new PlaneShape(plane);
         BodyCreationSettings floorBcs = new BodyCreationSettings()
                 .setMotionType(EMotionType.Static)
-                .setObjectLayer(bpLayerNonMoving)
+                .setObjectLayer(objLayerNonMoving)
                 .setShape(shape);
         BodyInterface bi = physicsSystem.getBodyInterface();
         Body floor = bi.createBody(floorBcs);
