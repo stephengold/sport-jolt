@@ -28,11 +28,15 @@
  */
 package com.github.stephengold.sportjolt.physics;
 
+import com.github.stephengold.joltjni.BroadPhaseLayerInterfaceTable;
 import com.github.stephengold.joltjni.CharacterVirtual;
 import com.github.stephengold.joltjni.JobSystem;
 import com.github.stephengold.joltjni.JobSystemThreadPool;
 import com.github.stephengold.joltjni.Jolt;
 import com.github.stephengold.joltjni.JoltPhysicsObject;
+import com.github.stephengold.joltjni.ObjectLayerPairFilterTable;
+import com.github.stephengold.joltjni.ObjectVsBroadPhaseLayerFilter;
+import com.github.stephengold.joltjni.ObjectVsBroadPhaseLayerFilterTable;
 import com.github.stephengold.joltjni.PhysicsSystem;
 import com.github.stephengold.joltjni.TempAllocator;
 import com.github.stephengold.joltjni.TempAllocatorMalloc;
@@ -158,11 +162,81 @@ public abstract class BasePhysicsApp extends BaseApplication {
     }
 
     /**
-     * Create the PhysicsSystem during initialization.
+     * Create the PhysicsSystem during initialization. Meant to be overridden.
      *
      * @return a new object
      */
-    protected abstract PhysicsSystem createSystem();
+    protected PhysicsSystem createSystem() {
+        int maxBodies = 100;
+        int numBpLayers = 2;
+        PhysicsSystem result = createSystem(maxBodies, numBpLayers);
+
+        return result;
+    }
+
+    /**
+     * Create a generic PhysicsSystem with the specified parameters.
+     *
+     * @param maxBodies the maximum number of bodies (&ge;1)
+     * @param numBpLayers the number of broadphase layers (1 or 2)
+     * @return a new object
+     */
+    protected PhysicsSystem createSystem(int maxBodies, int numBpLayers) {
+        Validate.positive(maxBodies, "maximum number of bodies");
+        Validate.inRange(numBpLayers, "number of BP layers", 1, 2);
+        /*
+         * The number of object layers in Sport-Jolt is fixed at 2:
+         * one for moving objects and one for non-moving ones.
+         *
+         * Configure an object-layer pair filter to ignore collisions
+         * between non-moving objects:
+         */
+        ObjectLayerPairFilterTable ovoFilter
+                = new ObjectLayerPairFilterTable(numObjLayers);
+        ovoFilter.enableCollision(objLayerMoving, objLayerMoving);
+        ovoFilter.enableCollision(objLayerMoving, objLayerNonMoving);
+
+        BroadPhaseLayerInterfaceTable layerMap
+                = new BroadPhaseLayerInterfaceTable(numObjLayers, numBpLayers);
+        if (numBpLayers == 2) {
+            /*
+             * Identity non-moving objects sooner
+             * by mapping them to a separate broadphase layer:
+             */
+            int bpLayerMoving = 0;
+            int bpLayerNonMoving = 1;
+            layerMap.mapObjectToBroadPhaseLayer(
+                    objLayerMoving, bpLayerMoving);
+            layerMap.mapObjectToBroadPhaseLayer(
+                    objLayerNonMoving, bpLayerNonMoving);
+        } else {
+            /*
+             * Map all objects to a single broadphase layer,
+             * which is simpler but less efficient:
+             */
+            int bpLayerAll = 0;
+            layerMap.mapObjectToBroadPhaseLayer(objLayerMoving, bpLayerAll);
+            layerMap.mapObjectToBroadPhaseLayer(objLayerNonMoving, bpLayerAll);
+        }
+        /*
+         * Pre-compute the rules for colliding object layers
+         * with broadphase layers:
+         */
+        ObjectVsBroadPhaseLayerFilter ovbFilter
+                = new ObjectVsBroadPhaseLayerFilterTable(
+                        layerMap, numBpLayers, ovoFilter, numObjLayers);
+
+        int numBodyMutexes = 0; // 0 means "use the default value"
+
+        long possiblePairs = maxBodies * (maxBodies - 1) / 2;
+        int maxBodyPairs = (int) Math.min(possiblePairs, 60_000);
+        int maxContacts = 6 * (maxBodies + 6);
+        PhysicsSystem result = new PhysicsSystem();
+        result.init(maxBodies, numBodyMutexes, maxBodyPairs, maxContacts,
+                layerMap, ovbFilter, ovoFilter);
+
+        return result;
+    }
 
     /**
      * Load and initialize the Jolt-JNI native library.

@@ -33,10 +33,6 @@ import com.github.stephengold.joltjni.BodyCreationSettings;
 import com.github.stephengold.joltjni.BodyInterface;
 import com.github.stephengold.joltjni.BoxShape;
 import com.github.stephengold.joltjni.BoxShapeSettings;
-import com.github.stephengold.joltjni.BroadPhaseLayerInterface;
-import com.github.stephengold.joltjni.BroadPhaseLayerInterfaceTable;
-import com.github.stephengold.joltjni.ObjVsBpFilter;
-import com.github.stephengold.joltjni.ObjVsObjFilter;
 import com.github.stephengold.joltjni.PhysicsSystem;
 import com.github.stephengold.joltjni.Quat;
 import com.github.stephengold.joltjni.SphereShape;
@@ -132,29 +128,9 @@ public class Pachinko
      */
     @Override
     protected PhysicsSystem createSystem() {
-        // Use 2 broadphase layers for efficiency:
-        int bpLayerNonMoving = 0;
-        int bpLayerMoving = 1;
-        int numBpLayers = 2;
-        BroadPhaseLayerInterface mapObj2Bp
-                = new BroadPhaseLayerInterfaceTable(numObjLayers, numBpLayers)
-                        .mapObjectToBroadPhaseLayer(
-                                objLayerNonMoving, bpLayerNonMoving)
-                        .mapObjectToBroadPhaseLayer(
-                                objLayerMoving, bpLayerMoving);
-        ObjVsBpFilter objVsBpFilter
-                = new ObjVsBpFilter(numObjLayers, numBpLayers)
-                        .disablePair(objLayerNonMoving, bpLayerNonMoving);
-        ObjVsObjFilter objVsObjFilter = new ObjVsObjFilter(numObjLayers)
-                .disablePair(objLayerNonMoving, objLayerNonMoving);
-
-        int maxBodies = 1_800;
-        int numBodyMutexes = 0; // 0 means "use the default value"
-        int maxBodyPairs = 65_536;
-        int maxContacts = 20_480;
-        PhysicsSystem result = new PhysicsSystem();
-        result.init(maxBodies, numBodyMutexes, maxBodyPairs, maxContacts,
-                mapObj2Bp, objVsBpFilter, objVsObjFilter);
+        int maxBodies = 500; // allow for 499 balls plus the playing field
+        int numBpLayers = 2; // use 2 broadphase layers for efficiency
+        PhysicsSystem result = createSystem(maxBodies, numBpLayers);
 
         // To enable the callbacks, register this app as a tick listener:
         addTickListener(this);

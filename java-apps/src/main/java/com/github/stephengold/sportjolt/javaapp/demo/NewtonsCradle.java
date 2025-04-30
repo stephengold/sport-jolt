@@ -31,11 +31,7 @@ package com.github.stephengold.sportjolt.javaapp.demo;
 import com.github.stephengold.joltjni.Body;
 import com.github.stephengold.joltjni.BodyCreationSettings;
 import com.github.stephengold.joltjni.BodyInterface;
-import com.github.stephengold.joltjni.BroadPhaseLayerInterface;
-import com.github.stephengold.joltjni.BroadPhaseLayerInterfaceTable;
 import com.github.stephengold.joltjni.DistanceConstraintSettings;
-import com.github.stephengold.joltjni.ObjVsBpFilter;
-import com.github.stephengold.joltjni.ObjVsObjFilter;
 import com.github.stephengold.joltjni.PhysicsSystem;
 import com.github.stephengold.joltjni.RVec3;
 import com.github.stephengold.joltjni.SphereShape;
@@ -123,23 +119,9 @@ public class NewtonsCradle extends BasePhysicsApp {
      */
     @Override
     protected PhysicsSystem createSystem() {
-        // Use a single broadphase layer for simplicity:
-        int numBpLayers = 1;
-        BroadPhaseLayerInterface mapObj2Bp
-                = new BroadPhaseLayerInterfaceTable(numObjLayers, numBpLayers)
-                        .mapObjectToBroadPhaseLayer(objLayerNonMoving, 0)
-                        .mapObjectToBroadPhaseLayer(objLayerMoving, 0);
-        ObjVsBpFilter objVsBpFilter
-                = new ObjVsBpFilter(numObjLayers, numBpLayers);
-        ObjVsObjFilter objVsObjFilter = new ObjVsObjFilter(numObjLayers);
-
-        int maxBodies = 20;
-        int numBodyMutexes = 0; // 0 means "use the default value"
-        int maxBodyPairs = 20;
-        int maxContacts = 20;
-        PhysicsSystem result = new PhysicsSystem();
-        result.init(maxBodies, numBodyMutexes, maxBodyPairs, maxContacts,
-                mapObj2Bp, objVsBpFilter, objVsObjFilter);
+        int numBpLayers = 1; // use a single broadphase layer for simplicity
+        int maxBodies = 5; // allow for 5 balls
+        PhysicsSystem result = createSystem(maxBodies, numBpLayers);
 
         result.setGravity(0f, -150f, 0f);
 
