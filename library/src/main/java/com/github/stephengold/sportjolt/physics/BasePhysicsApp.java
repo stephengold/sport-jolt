@@ -128,7 +128,8 @@ public abstract class BasePhysicsApp extends BaseApplication {
      */
     private JobSystem jobSystem;
     /**
-     * timestamp of the previous render() if renderCount > 0
+     * timestamp of the previous render() (for {@code renderCount>0}, in
+     * nanoseconds)
      */
     private long lastPhysicsUpdate;
     /**
@@ -306,7 +307,7 @@ public abstract class BasePhysicsApp extends BaseApplication {
         }
 
         //Jolt.setTraceAllocations(true); // to log Jolt-JNI heap allocations
-        JoltPhysicsObject.startCleaner(); // to free Jolt objects automatically
+        JoltPhysicsObject.startCleaner(); // to reclaim native memory
 
         Jolt.registerDefaultAllocator();
         Jolt.installDefaultAssertCallback();
@@ -344,13 +345,13 @@ public abstract class BasePhysicsApp extends BaseApplication {
     }
 
     /**
-     * Add physics objects to the PhysicsSystem during initialization.
+     * Populate the PhysicsSystem. Invoked once during initialization.
      */
     abstract protected void populateSystem();
 
     /**
      * Advance the physics simulation by the specified interval. Invoked during
-     * each update.
+     * each update. Meant to be overridden.
      *
      * @param intervalSeconds the elapsed (real) time since the previous
      * invocation of {@code updatePhysics} (in seconds, &ge;0)

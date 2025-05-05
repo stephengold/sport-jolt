@@ -177,7 +177,8 @@ public class ThousandCubes extends BasePhysicsApp {
     }
 
     /**
-     * Populate the PhysicsSystem. Invoked once during initialization.
+     * Populate the PhysicsSystem with bodies. Invoked once during
+     * initialization.
      */
     @Override
     protected void populateSystem() {

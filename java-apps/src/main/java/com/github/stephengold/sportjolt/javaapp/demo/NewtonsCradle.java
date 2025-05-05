@@ -145,7 +145,8 @@ public class NewtonsCradle extends BasePhysicsApp {
     }
 
     /**
-     * Populate the PhysicsSystem. Invoked once during initialization.
+     * Populate the PhysicsSystem with bodies and constraints. Invoked once
+     * during initialization.
      */
     @Override
     protected void populateSystem() {
