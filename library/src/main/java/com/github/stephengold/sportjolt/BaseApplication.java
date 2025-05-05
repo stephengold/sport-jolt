@@ -449,6 +449,15 @@ abstract public class BaseApplication {
     abstract protected void initialize();
 
     /**
+     * Return the initial window title.
+     *
+     * @return the title text (not null)
+     */
+    protected static String initialWindowTitle() {
+        return initialWindowTitle;
+    }
+
+    /**
      * Callback invoked during each iteration of the main update loop. Meant to
      * be overridden.
      */
