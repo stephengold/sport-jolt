@@ -222,7 +222,7 @@ public class ShapeImages extends BasePhysicsApp {
         ss = new BoxShapeSettings(1.5f, 1.5f, 1.5f);
         shapeRef = ss.create().get();
         bcs = new BodyCreationSettings();
-        bcs.setPosition(-1f, 1.5f, -3f);
+        bcs.setPosition(-1., 1.5, -3.);
         bcs.setRotation(new Quat(0.6f, -0.8f, 0f, 0f));
         bcs.setShape(shapeRef);
         addSettings.add(bcs);
@@ -230,7 +230,7 @@ public class ShapeImages extends BasePhysicsApp {
         ss = new BoxShapeSettings(0.1f, 0.1f, 0.6f);
         shapeRef = ss.create().get();
         bcs = new BodyCreationSettings();
-        bcs.setPosition(1f, 1f, 3f);
+        bcs.setPosition(1., 1., 3.);
         bcs.setRotation(new Quat(0f, 0.6f, 0.8f, 0f));
         bcs.setShape(shapeRef);
         addSettings.add(bcs);
@@ -247,7 +247,7 @@ public class ShapeImages extends BasePhysicsApp {
         ShapeSettings ss = new CapsuleShapeSettings(halfHeight, radius);
         ShapeRefC shapeRef = ss.create().get();
         BodyCreationSettings bcs = new BodyCreationSettings();
-        bcs.setPosition(0f, 0f, 1f);
+        bcs.setPosition(0., 0., 1.);
         bcs.setShape(shapeRef);
         addSettings.add(bcs);
 
@@ -256,7 +256,7 @@ public class ShapeImages extends BasePhysicsApp {
         ss = new CapsuleShapeSettings(halfHeight, radius);
         shapeRef = ss.create().get();
         bcs = new BodyCreationSettings();
-        bcs.setPosition(-1f, 1.5f, -3f);
+        bcs.setPosition(-1., 1.5, -3.);
         bcs.setRotation(new Quat(0.6f, -0.8f, 0f, 0f));
         bcs.setShape(shapeRef);
         addSettings.add(bcs);
@@ -293,7 +293,7 @@ public class ShapeImages extends BasePhysicsApp {
         ShapeRefC shapeRef = compoundSettings.create().get();
 
         BodyCreationSettings bcs = new BodyCreationSettings();
-        bcs.setPosition(-4f, -1f, -10f);
+        bcs.setPosition(-4., -1., -10.);
         bcs.setShape(shapeRef);
         addSettings.add(bcs);
         /*
@@ -324,7 +324,7 @@ public class ShapeImages extends BasePhysicsApp {
         shapeRef = compoundSettings.create().get();
 
         bcs = new BodyCreationSettings();
-        bcs.setPosition(-6f, 0f, -2f);
+        bcs.setPosition(-6., 0., -2.);
         bcs.setRotation(new Quat(0f, 0.6f, 0.8f, 0f));
         bcs.setShape(shapeRef);
         addSettings.add(bcs);
@@ -348,7 +348,7 @@ public class ShapeImages extends BasePhysicsApp {
                 = new ConvexHullShapeSettings(numVertices, positionFloats);
         ShapeRefC shapeRef = ss.create().get();
         BodyCreationSettings bcs = new BodyCreationSettings();
-        bcs.setPosition(0f, 0f, 1f);
+        bcs.setPosition(0., 0., 1.);
         bcs.setRotation(new Quat(0f, 0.6f, 0f, -0.8f));
         bcs.setShape(shapeRef);
         addSettings.add(bcs);
@@ -368,7 +368,7 @@ public class ShapeImages extends BasePhysicsApp {
         ss = new ConvexHullShapeSettings(cornerLocations);
         shapeRef = ss.create().get();
         bcs = new BodyCreationSettings();
-        bcs.setPosition(1f, 1f, -1f);
+        bcs.setPosition(1., 1., -1.);
         bcs.setRotation(new Quat(-0.5f, 0.5f, 0.5f, 0.5f));
         bcs.setShape(shapeRef);
         addSettings.add(bcs);
@@ -385,7 +385,7 @@ public class ShapeImages extends BasePhysicsApp {
         ShapeSettings ss = new CylinderShapeSettings(halfHeight, radius);
         ShapeRefC shapeRef = ss.create().get();
         BodyCreationSettings bcs = new BodyCreationSettings();
-        bcs.setPosition(0f, 0f, 1f);
+        bcs.setPosition(0., 0., 1.);
         bcs.setShape(shapeRef);
         addSettings.add(bcs);
 
@@ -394,7 +394,7 @@ public class ShapeImages extends BasePhysicsApp {
         ss = new CylinderShapeSettings(halfHeight, radius);
         shapeRef = ss.create().get();
         bcs = new BodyCreationSettings();
-        bcs.setPosition(-1f, 1.5f, -3f);
+        bcs.setPosition(-1., 1.5, -3.);
         bcs.setRotation(new Quat(0.6f, -0.8f, 0f, 0f));
         bcs.setShape(shapeRef);
         addSettings.add(bcs);
@@ -418,7 +418,7 @@ public class ShapeImages extends BasePhysicsApp {
 
         ShapeRefC shapeRef = ss.create().get();
         BodyCreationSettings bcs = new BodyCreationSettings();
-        bcs.setPosition(0f, 1.5f, 0.4f);
+        bcs.setPosition(0., 1.5, 0.4);
         bcs.setRotation(Quat.sEulerAngles(0.1f, 0f, -0.1f));
         bcs.setShape(shapeRef);
         addSettings.add(bcs);
@@ -434,7 +434,7 @@ public class ShapeImages extends BasePhysicsApp {
         ShapeSettings ss = new MeshShapeSettings(floatBuffer);
         ShapeRefC shapeRef = ss.create().get();
         BodyCreationSettings bcs = new BodyCreationSettings();
-        bcs.setPosition(3f, 1.3f, 3.5f);
+        bcs.setPosition(3., 1.3, 3.5);
         bcs.setRotation(new Quat(0.5f, 0.5f, 0.5f, -0.5f));
         bcs.setShape(shapeRef);
         addSettings.add(bcs);
@@ -466,7 +466,7 @@ public class ShapeImages extends BasePhysicsApp {
         ss = new OffsetCenterOfMassShapeSettings(offset, ss);
         ShapeRefC shapeRef = ss.create().get();
         BodyCreationSettings bcs = new BodyCreationSettings();
-        bcs.setPosition(-2f, 1f, 2f);
+        bcs.setPosition(-2., 1., 2.);
         bcs.setShape(shapeRef);
         addSettings.add(bcs);
 
@@ -475,7 +475,7 @@ public class ShapeImages extends BasePhysicsApp {
         ss = new OffsetCenterOfMassShapeSettings(offset, ss);
         shapeRef = ss.create().get();
         bcs = new BodyCreationSettings();
-        bcs.setPosition(-1f, 1.5f, -2.5f);
+        bcs.setPosition(-1., 1.5, -2.5);
         bcs.setRotation(new Quat(0.6f, -0.8f, 0f, 0f));
         bcs.setShape(shapeRef);
         addSettings.add(bcs);
@@ -495,7 +495,7 @@ public class ShapeImages extends BasePhysicsApp {
         ss = new RotatedTranslatedShapeSettings(offset, rotation, ss);
         ShapeRefC shapeRef = ss.create().get();
         BodyCreationSettings bcs = new BodyCreationSettings();
-        bcs.setPosition(-1f, 1f, 1f);
+        bcs.setPosition(-1., 1., 1.);
         bcs.setShape(shapeRef);
         addSettings.add(bcs);
 
@@ -505,7 +505,7 @@ public class ShapeImages extends BasePhysicsApp {
         ss = new RotatedTranslatedShapeSettings(offset, rotation, ss);
         shapeRef = ss.create().get();
         bcs = new BodyCreationSettings();
-        bcs.setPosition(-2.2f, -1f, 2.2f);
+        bcs.setPosition(-2.2, -1., 2.2);
         bcs.setShape(shapeRef);
         addSettings.add(bcs);
 
@@ -515,7 +515,7 @@ public class ShapeImages extends BasePhysicsApp {
         ss = new RotatedTranslatedShapeSettings(offset, rotation, ss);
         shapeRef = ss.create().get();
         bcs = new BodyCreationSettings();
-        bcs.setPosition(0f, 2f, 0f);
+        bcs.setPosition(0., 2., 0.);
         bcs.setShape(shapeRef);
         addSettings.add(bcs);
 
@@ -525,7 +525,7 @@ public class ShapeImages extends BasePhysicsApp {
         ss = new RotatedTranslatedShapeSettings(offset, rotation, ss);
         shapeRef = ss.create().get();
         bcs = new BodyCreationSettings();
-        bcs.setPosition(1f, -0.5f, 0f);
+        bcs.setPosition(1., -0.5, 0.);
         bcs.setShape(shapeRef);
         addSettings.add(bcs);
     }
@@ -547,7 +547,7 @@ public class ShapeImages extends BasePhysicsApp {
         ss = new SphereShapeSettings(sphereRadius);
         shapeRef = ss.create().get();
         bcs = new BodyCreationSettings();
-        bcs.setPosition(-1f, 1.5f, -3f);
+        bcs.setPosition(-1., 1.5, -3.);
         bcs.setRotation(new Quat(0.6f, -0.8f, 0f, 0f));
         bcs.setShape(shapeRef);
         addSettings.add(bcs);
@@ -556,7 +556,7 @@ public class ShapeImages extends BasePhysicsApp {
         ss = new SphereShapeSettings(sphereRadius);
         shapeRef = ss.create().get();
         bcs = new BodyCreationSettings();
-        bcs.setPosition(1f, 1f, 3f);
+        bcs.setPosition(1., 1., 3.);
         bcs.setRotation(new Quat(0f, 0.6f, 0.8f, 0f));
         bcs.setShape(shapeRef);
         addSettings.add(bcs);
@@ -576,7 +576,7 @@ public class ShapeImages extends BasePhysicsApp {
                 halfHeight, topRadius, bottomRadius);
         ShapeRefC shapeRef = ss.create().get();
         BodyCreationSettings bcs = new BodyCreationSettings();
-        bcs.setPosition(0f, 0f, 1f);
+        bcs.setPosition(0., 0., 1.);
         bcs.setShape(shapeRef);
         addSettings.add(bcs);
 
@@ -587,7 +587,7 @@ public class ShapeImages extends BasePhysicsApp {
                 halfHeight, topRadius, bottomRadius);
         shapeRef = ss.create().get();
         bcs = new BodyCreationSettings();
-        bcs.setPosition(-1f, 1.5f, -3f);
+        bcs.setPosition(-1., 1.5, -3.);
         bcs.setRotation(new Quat(0.6f, -0.8f, 0f, 0f));
         bcs.setShape(shapeRef);
         addSettings.add(bcs);
@@ -607,7 +607,7 @@ public class ShapeImages extends BasePhysicsApp {
                 halfHeight, topRadius, bottomRadius);
         ShapeRefC shapeRef = ss.create().get();
         BodyCreationSettings bcs = new BodyCreationSettings();
-        bcs.setPosition(0f, 0f, 1f);
+        bcs.setPosition(0., 0., 1.);
         bcs.setShape(shapeRef);
         addSettings.add(bcs);
 
@@ -618,7 +618,7 @@ public class ShapeImages extends BasePhysicsApp {
                 halfHeight, topRadius, bottomRadius);
         shapeRef = ss.create().get();
         bcs = new BodyCreationSettings();
-        bcs.setPosition(-1f, 1.5f, -3f);
+        bcs.setPosition(-1., 1.5, -3.);
         bcs.setRotation(new Quat(0.6f, -0.8f, 0f, 0f));
         bcs.setShape(shapeRef);
         addSettings.add(bcs);
@@ -638,7 +638,7 @@ public class ShapeImages extends BasePhysicsApp {
         BodyCreationSettings bcs = new BodyCreationSettings();
         bcs.setOverrideMassProperties(
                 EOverrideMassProperties.MassAndInertiaProvided);
-        bcs.setPosition(1f, 1.2f, 2f);
+        bcs.setPosition(1., 1.2, 2.);
         bcs.setRotation(new Quat(0.5f, -0.5f, 0.5f, -0.5f));
         bcs.setShape(shapeRef);
         addSettings.add(bcs);
@@ -651,7 +651,7 @@ public class ShapeImages extends BasePhysicsApp {
         bcs = new BodyCreationSettings();
         bcs.setOverrideMassProperties(
                 EOverrideMassProperties.MassAndInertiaProvided);
-        bcs.setPosition(-2f, 1f, 1f);
+        bcs.setPosition(-2., 1., 1.);
         bcs.setShape(shapeRef);
         addSettings.add(bcs);
     }
