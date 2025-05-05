@@ -1,6 +1,6 @@
 # release log for the Sport-Jolt Library
 
-## Version 0.9.2 released on TBD
+## Version 0.9.2 released on 5 May 2025
 
 + Added 4 methods:
   + `BaseApplication.initialWindowTitle()`
