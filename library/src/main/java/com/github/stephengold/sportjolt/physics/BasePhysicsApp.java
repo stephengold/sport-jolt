@@ -108,6 +108,10 @@ public abstract class BasePhysicsApp extends BaseApplication {
     final private static Collection<PhysicsTickListener> tickListeners
             = new ArrayList<>(5);
     /**
+     * total time simulated (in simulated seconds)
+     */
+    private static double totalSimulatedTime;
+    /**
      * time step (in seconds, &gt;0)
      */
     protected float timePerStep = 1f / 60f;
@@ -368,6 +372,7 @@ public abstract class BasePhysicsApp extends BaseApplication {
             int collisionSteps = 1;
             physicsSystem.update(
                     timePerStep, collisionSteps, tempAllocator, jobSystem);
+            totalSimulatedTime += collisionSteps * timePerStep;
 
             // Notify any step listeners:
             for (PhysicsTickListener listeners : tickListeners) {
@@ -581,6 +586,15 @@ public abstract class BasePhysicsApp extends BaseApplication {
 
         cleanUpGeometries();
         super.render();
+    }
+
+    /**
+     * Return the total time simulated.
+     *
+     * @return the total time (in simulated seconds)
+     */
+    protected static double totalSimulatedTime() {
+        return totalSimulatedTime;
     }
     // *************************************************************************
     // private methods
