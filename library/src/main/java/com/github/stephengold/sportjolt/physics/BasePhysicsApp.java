@@ -112,13 +112,13 @@ public abstract class BasePhysicsApp extends BaseApplication {
      */
     private static double totalSimulatedTime;
     /**
+     * simulation lag (for {@code maxSubSteps>0}, in seconds, &ge;0)
+     */
+    private float physicsLag;
+    /**
      * time step (in seconds, &gt;0)
      */
     protected float timePerStep = 1f / 60f;
-    /**
-     * simulation lag (for {@code maxSubSteps>0} in seconds, &ge;0)
-     */
-    private float physicsLag;
     /**
      * how many times render() has been invoked
      */
