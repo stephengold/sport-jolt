@@ -95,6 +95,10 @@ public class ThousandCubes extends BasePhysicsApp {
      */
     private static BodyCreationSettings launchBcs;
     /**
+     * total time simulated as of the previous window-title update (in seconds)
+     */
+    private static Double previousTotalSimulatedTime;
+    /**
      * simulation speed (simulated seconds per wall-clock second)
      */
     private static float physicsSpeed = 1f;
@@ -106,6 +110,15 @@ public class ThousandCubes extends BasePhysicsApp {
      * loop geometry for the crosshairs
      */
     private static Geometry loop;
+    /**
+     * timestamp of the previous window-title update (in nanoseconds)
+     */
+    private static Long previousTitleUpdate;
+    /**
+     * total wall-clock time in physics simulation as of the previous
+     * window-title update (in nanoseconds)
+     */
+    private static Long previousTotalPhysicsNanos;
     /**
      * generate random colors for boxes
      */
@@ -265,6 +278,44 @@ public class ThousandCubes extends BasePhysicsApp {
     public void updatePhysics(float wallClockSeconds) {
         float simulateSeconds = physicsSpeed * wallClockSeconds;
         super.updatePhysics(simulateSeconds);
+    }
+
+    /**
+     * Invoked before each frame is rendered, to update the text in the window's
+     * title bar.
+     */
+    @Override
+    protected void updateWindowTitle() {
+        long now = System.nanoTime();
+        if (previousTitleUpdate == null) {
+            previousTitleUpdate = now;
+            previousTotalPhysicsNanos = totalPhysicsNanos();
+            previousTotalSimulatedTime = totalSimulatedTime();
+
+        } else if (now >= previousTitleUpdate + 1_000_000_000L) {
+            long wallClockNanos = now - previousTitleUpdate;
+            double wallClockInterval = 1e-9 * wallClockNanos;
+
+            // Estimate the fraction of wall-clock time spent in simulation:
+            long totalPhysicsNanos = totalPhysicsNanos();
+            long physicsNanos = totalPhysicsNanos - previousTotalPhysicsNanos;
+            float physicsPercent = (100f * physicsNanos) / wallClockNanos;
+
+            // Estimate the actual simulation speed:
+            double totalSimulatedTime = totalSimulatedTime();
+            double simulatedTime
+                    = totalSimulatedTime - previousTotalSimulatedTime;
+            double actualSpeed = simulatedTime / wallClockInterval;
+
+            String initialWindowTitle = initialWindowTitle();
+            String title = String.format("%s   speed=%.2f   %.1f%% physics",
+                    initialWindowTitle, actualSpeed, physicsPercent);
+            setWindowTitle(title);
+
+            previousTitleUpdate = now;
+            previousTotalPhysicsNanos = totalPhysicsNanos;
+            previousTotalSimulatedTime = totalSimulatedTime;
+        }
     }
     // *************************************************************************
     // private methods
