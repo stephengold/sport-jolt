@@ -240,6 +240,7 @@ public abstract class BasePhysicsApp extends BaseApplication {
 
         long possiblePairs = maxBodies * (maxBodies - 1) / 2;
         int maxBodyPairs = (int) Math.min(possiblePairs, 60_000);
+        maxBodyPairs = Math.max(3, maxBodyPairs);
         int maxContacts = 6 * (maxBodies + 6);
         PhysicsSystem result = new PhysicsSystem();
         result.init(maxBodies, numBodyMutexes, maxBodyPairs, maxContacts,
