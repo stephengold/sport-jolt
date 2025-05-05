@@ -1,5 +1,16 @@
 # release log for the Sport-Jolt Library
 
+## Version 0.9.2 released on TBD
+
++ Added 4 methods:
+  + `BaseApplication.initialWindowTitle()`
+  + `BasePhysicsApp.createSystem(int maxBodies, int numBpLayers)`
+    to create a generic `PhysicsSystem`
+  + `BasePhysicsApp.totalPhysicsNanos()`
+    to report cumulative wall-clock time spent in physics simulation
+  + `BasePhysicsApp.totalSimulatedTime()`
+    to report total time simulated
+
 ## Version 0.9.1 released on 29 April 2025
 
 + Improved the performance of the `ThousandCubes` demo (see issue #1):
