@@ -29,7 +29,6 @@
 package com.github.stephengold.sportjolt.physics;
 
 import com.github.stephengold.joltjni.BroadPhaseLayerInterfaceTable;
-import com.github.stephengold.joltjni.CharacterVirtual;
 import com.github.stephengold.joltjni.JobSystem;
 import com.github.stephengold.joltjni.JobSystemThreadPool;
 import com.github.stephengold.joltjni.Jolt;
@@ -502,7 +501,7 @@ public abstract class BasePhysicsApp extends BaseApplication {
             geometry = new CharacterShapeGeometry(character, meshingStrategy);
 
         } else if (jpo instanceof ConstCharacterVirtual) {
-            ConstCharacterVirtual character = (CharacterVirtual) jpo;
+            ConstCharacterVirtual character = (ConstCharacterVirtual) jpo;
             geometry = new CharacterVirtualShapeGeometry(
                     character, meshingStrategy);
 
