@@ -97,7 +97,8 @@ public class LocalAxisGeometry extends Geometry {
         Validate.axisIndex(axisIndex, "axisIndex");
         Validate.nonNegative(length, "length");
         assert jpo == null || jpo instanceof ConstBody
-                || jpo instanceof ConstCharacter;
+                || jpo instanceof ConstCharacter
+                || jpo instanceof ConstCharacterVirtual;
 
         this.jpo = jpo;
         this.length = length;
@@ -144,7 +145,17 @@ public class LocalAxisGeometry extends Geometry {
             result = !bi.isAdded(bodyId);
 
         } else if (jpo instanceof ConstCharacter) {
-            result = false; // TODO
+            ConstCharacter character = (ConstCharacter) jpo;
+            BodyInterface bi = system.getBodyInterface();
+            int bodyId = character.getBodyId();
+            result = !bi.isAdded(bodyId);
+
+        } else if (jpo instanceof ConstCharacterVirtual) {
+            /*
+             * In general there's no way to test this, so the
+             * application will have to explicitly remove the geometry.
+             */
+            result = false;
 
         } else {
             throw new IllegalStateException(jpo.getClass().getSimpleName());
