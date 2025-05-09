@@ -258,7 +258,8 @@ public abstract class BasePhysicsApp extends BaseApplication {
     }
 
     /**
-     * Load and initialize the Jolt-JNI native library.
+     * Load and initialize the Jolt-JNI native library. Intended for internal
+     * use of the Sport-Jolt library.
      */
     public static void initializeJoltJni() {
         PlatformPredicate linuxWithFma = new PlatformPredicate(
@@ -298,7 +299,7 @@ public abstract class BasePhysicsApp extends BaseApplication {
                 .initPlatformLibrary()
                 .setRetryWithCleanExtraction(true);
 
-        // Load a Jolt-JNI native library for this platform.
+        // Load a Jolt-JNI native library for this platform:
         try {
             loader.loadLibrary(LoadingCriterion.CLEAN_EXTRACTION);
         } catch (Exception exception) {
