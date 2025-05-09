@@ -166,7 +166,7 @@ public abstract class BasePhysicsApp extends BaseApplication {
      *
      * @param listener the listener to add (not null, alias created)
      */
-    public void addTickListener(PhysicsTickListener listener) {
+    protected void addTickListener(PhysicsTickListener listener) {
         tickListeners.add(listener);
     }
 
@@ -356,7 +356,7 @@ public abstract class BasePhysicsApp extends BaseApplication {
      * @param intervalSeconds the elapsed (real) time since the previous
      * invocation of {@code updatePhysics} (in seconds, &ge;0)
      */
-    public void updatePhysics(float intervalSeconds) {
+    protected void updatePhysics(float intervalSeconds) {
         assert physicsLag >= 0f : physicsLag;
         float timeSinceStep = physicsLag + intervalSeconds;
         int numSubSteps = (int) Math.floor(timeSinceStep / timePerStep);
@@ -395,7 +395,7 @@ public abstract class BasePhysicsApp extends BaseApplication {
      * &ge;0)
      * @return an array of new, visible geometries
      */
-    public static Geometry[] visualizeAxes(
+    protected static Geometry[] visualizeAxes(
             ConstJoltPhysicsObject jpo, float axisLength) {
         Validate.nonNegative(axisLength, "axis length");
 
@@ -416,7 +416,7 @@ public abstract class BasePhysicsApp extends BaseApplication {
      * @param jpo the physics object to visualize (not null)
      * @return a new, visible Geometry
      */
-    public static Geometry visualizeShape(ConstJoltPhysicsObject jpo) {
+    protected static Geometry visualizeShape(ConstJoltPhysicsObject jpo) {
         float uvScale = 1f;
         Geometry result = visualizeShape(jpo, uvScale);
 
@@ -430,7 +430,7 @@ public abstract class BasePhysicsApp extends BaseApplication {
      * @param uvScale the UV scale factor to use (default=1)
      * @return a new, visible Geometry
      */
-    public static Geometry visualizeShape(
+    protected static Geometry visualizeShape(
             ConstJoltPhysicsObject jpo, float uvScale) {
         ConstShape shape;
         if (jpo instanceof ConstBody) {
@@ -529,7 +529,7 @@ public abstract class BasePhysicsApp extends BaseApplication {
      * @param vehicle the vehicle to visualize (not null)
      * @return an array of new, visible geometries
      */
-    public static Geometry[] visualizeWheels(VehicleConstraint vehicle) {
+    protected static Geometry[] visualizeWheels(VehicleConstraint vehicle) {
         int numWheels = vehicle.countWheels();
         Geometry[] result = new Geometry[numWheels];
         for (int wheelIndex = 0; wheelIndex < numWheels; ++wheelIndex) {
