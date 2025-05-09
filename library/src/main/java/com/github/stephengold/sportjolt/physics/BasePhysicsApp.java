@@ -249,6 +249,15 @@ public abstract class BasePhysicsApp extends BaseApplication {
     }
 
     /**
+     * Access the temporary memory allocator.
+     *
+     * @return the pre-existing instance
+     */
+    protected TempAllocator getTempAllocator() {
+        return tempAllocator;
+    }
+
+    /**
      * Load and initialize the Jolt-JNI native library.
      */
     public static void initializeJoltJni() {
