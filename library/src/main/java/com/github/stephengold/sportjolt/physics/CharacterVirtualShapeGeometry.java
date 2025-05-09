@@ -28,7 +28,6 @@
  */
 package com.github.stephengold.sportjolt.physics;
 
-import com.github.stephengold.joltjni.BodyInterface;
 import com.github.stephengold.joltjni.CharacterVirtualRefC;
 import com.github.stephengold.joltjni.PhysicsSystem;
 import com.github.stephengold.joltjni.Quat;
@@ -129,18 +128,15 @@ public class CharacterVirtualShapeGeometry extends Geometry {
 
     /**
      * Test whether the character has been removed from the specified
-     * {@code PhysicsSystem}.
+     * {@code PhysicsSystem}. In general there's no way to test this, so the
+     * application will have to explicitly remove this geometry.
      *
      * @param system the system to test (not null, unaffected)
      * @return {@code true} if removed, otherwise {@code false}
      */
     @Override
     public boolean wasRemovedFrom(PhysicsSystem system) {
-        BodyInterface bi = system.getBodyInterface();
-        int id = character.getPtr().getInnerBodyId();
-        boolean result = !bi.isAdded(id); // TODO what if there's no inner body?
-
-        return result;
+        return false;
     }
     // *************************************************************************
     // private methods
