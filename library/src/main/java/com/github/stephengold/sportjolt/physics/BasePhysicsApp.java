@@ -600,7 +600,7 @@ public abstract class BasePhysicsApp extends BaseApplication {
 
             long nanoTimeAfter = System.nanoTime();
             long updateNanos = nanoTimeAfter - nanoTime;
-            this.totalPhysicsNanos += updateNanos;
+            totalPhysicsNanos += updateNanos;
         }
         this.lastPhysicsUpdate = nanoTime;
 
