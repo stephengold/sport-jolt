@@ -29,12 +29,12 @@
 package com.github.stephengold.sportjolt.physics;
 
 import com.github.stephengold.joltjni.BodyInterface;
+import com.github.stephengold.joltjni.JoltPhysicsObject;
 import com.github.stephengold.joltjni.PhysicsSystem;
 import com.github.stephengold.joltjni.readonly.ConstAaBox;
 import com.github.stephengold.joltjni.readonly.ConstBody;
 import com.github.stephengold.joltjni.readonly.ConstCharacter;
 import com.github.stephengold.joltjni.readonly.ConstCharacterVirtual;
-import com.github.stephengold.joltjni.readonly.ConstJoltPhysicsObject;
 import com.github.stephengold.joltjni.readonly.Vec3Arg;
 import com.github.stephengold.sportjolt.BaseApplication;
 import com.github.stephengold.sportjolt.Geometry;
@@ -52,7 +52,7 @@ public class AabbGeometry extends Geometry {
     /**
      * physics object to visualize
      */
-    final private ConstJoltPhysicsObject jpo;
+    final private JoltPhysicsObject jpo;
     // *************************************************************************
     // constructors
 
@@ -62,11 +62,12 @@ public class AabbGeometry extends Geometry {
      *
      * @param jpo the physics object (not null, alias created)
      */
-    public AabbGeometry(ConstJoltPhysicsObject jpo) {
+    public AabbGeometry(JoltPhysicsObject jpo) {
         super();
         Validate.nonNull(jpo, "physics object");
         if (jpo instanceof ConstBody || jpo instanceof ConstCharacter
-                || jpo instanceof ConstCharacterVirtual) {
+                || jpo instanceof ConstCharacterVirtual
+                || jpo instanceof PhysicsSystem) {
             // do nothing
         } else {
             throw new IllegalStateException(jpo.getClass().getSimpleName());
@@ -120,6 +121,9 @@ public class AabbGeometry extends Geometry {
              */
             result = false;
 
+        } else if (jpo instanceof PhysicsSystem) {
+            result = false;
+
         } else {
             throw new IllegalStateException(jpo.getClass().getSimpleName());
         }
@@ -145,6 +149,10 @@ public class AabbGeometry extends Geometry {
         } else if (jpo instanceof ConstCharacterVirtual) {
             ConstCharacterVirtual character = (ConstCharacterVirtual) jpo;
             bbox = character.getTransformedShape().getWorldSpaceBounds();
+
+        } else if (jpo instanceof PhysicsSystem) {
+            PhysicsSystem system = (PhysicsSystem) jpo;
+            bbox = system.getBounds();
 
         } else {
             throw new IllegalStateException(jpo.getClass().getSimpleName());
