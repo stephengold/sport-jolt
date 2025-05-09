@@ -65,7 +65,8 @@ public class AabbGeometry extends Geometry {
     public AabbGeometry(ConstJoltPhysicsObject jpo) {
         super();
         Validate.nonNull(jpo, "physics object");
-        if (jpo instanceof ConstBody || jpo instanceof ConstCharacter) {
+        if (jpo instanceof ConstBody || jpo instanceof ConstCharacter
+                || jpo instanceof ConstCharacterVirtual) {
             // do nothing
         } else {
             throw new IllegalStateException(jpo.getClass().getSimpleName());
@@ -111,6 +112,13 @@ public class AabbGeometry extends Geometry {
             ConstCharacter character = (ConstCharacter) jpo;
             int bodyId = character.getBodyId();
             result = !bi.isAdded(bodyId);
+
+        } else if (jpo instanceof ConstCharacterVirtual) {
+            /*
+             * In general there's no way to test this, so the
+             * application will have to explicitly remove the Geometry.
+             */
+            result = false;
 
         } else {
             throw new IllegalStateException(jpo.getClass().getSimpleName());
