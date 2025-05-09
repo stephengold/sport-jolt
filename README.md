@@ -58,7 +58,7 @@ Add to the project’s "build.gradle" or "build.gradle.kts" file:
     }
     dependencies {
         // JVM library:
-        implementation("com.github.stephengold:sport-jolt:0.9.2")
+        implementation("com.github.stephengold:sport-jolt:0.9.3")
 
         // Libbulletjme native libraries:
         runtimeOnly("com.github.stephengold:jolt-jni-Linux64:0.9.10:DebugSp")
@@ -103,7 +103,7 @@ By default, physics objects are not visualized.
   invoke the `visualizeAxes()` method on it.
 + To visualize the wheels of a vehicle,
   invoke the `visualizeWheels()` method on them.
-+ To visualize the bounding box of a body, character, or vehicle,
++ To visualize the bounding box of a body, character, system, or vehicle,
   instantiate an `AabbGeometry` for the object.
 + To visualize the center of mass of a body,
   instantiate a `ComGeometry` for it.
@@ -142,7 +142,7 @@ By default, physics objects are not visualized.
   + using [Git]:
     + `git clone https://github.com/stephengold/sport-jolt.git`
     + `cd sport-jolt`
-    + `git checkout -b latest 0.9.2`
+    + `git checkout -b latest 0.9.3`
 4. (optional) Edit the "gradle.properties" file to configure the build.
 5. Run the [Gradle] wrapper:
   + using Bash or Fish or PowerShell or Zsh: `./gradlew build`

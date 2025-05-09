@@ -1,6 +1,6 @@
 # release log for the Sport-Jolt Library
 
-## Version 0.9.3 released on TBD
+## Version 0.9.3 released on 8 May 2025
 
 + API change:
   + de-publicize 6 methods in the `BasePhysicsApp` class
