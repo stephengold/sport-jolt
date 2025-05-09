@@ -129,7 +129,7 @@ public class CharacterVirtualShapeGeometry extends Geometry {
     /**
      * Test whether the character has been removed from the specified
      * {@code PhysicsSystem}. In general there's no way to test this, so the
-     * application will have to explicitly remove this geometry.
+     * application will have to explicitly remove the geometry.
      *
      * @param system the system to test (not null, unaffected)
      * @return {@code true} if removed, otherwise {@code false}

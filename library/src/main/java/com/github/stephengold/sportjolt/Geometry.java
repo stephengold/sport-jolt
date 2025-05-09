@@ -726,7 +726,7 @@ public class Geometry {
      * Test whether the physics object (if any) has been removed from the
      * specified {@code PhysicsSystem}. Meant to be overridden.
      *
-     * @param space the CollisionSpace to test (not null)
+     * @param space the {@code PhysicsSystem} to test (not null)
      * @return true if removed, otherwise false
      */
     public boolean wasRemovedFrom(PhysicsSystem space) {
