@@ -1,5 +1,20 @@
 # release log for the Sport-Jolt Library
 
+## Version 0.9.3 released on TBD
+
++ API change:
+  + de-publicize 6 methods in the `BasePhysicsApp` class
+
++ Bugfixes:
+  + `createSystem()` with maxBodies=2 triggers a native assertion
+  + failing cast in `BasePhysicsApp.visualizeShape()`
+  + `CharacterVirtualShapeGeometry` without a body is never visualized
+
++ Add the `getTempAllocator()` method to the `BasePhysicsApp` class.
++ Handle characters better in `LocalAxisGeometry`.
++ Add support in `AabbGeometry` to visualize the bounds
+  of a `CharacterVirtual` or a `PhysicsSystem`.
+
 ## Version 0.9.2 released on 5 May 2025
 
 + Added 4 methods:
