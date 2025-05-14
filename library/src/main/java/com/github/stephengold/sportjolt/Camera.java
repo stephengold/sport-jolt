@@ -30,7 +30,7 @@ package com.github.stephengold.sportjolt;
 
 import com.github.stephengold.joltjni.Jolt;
 import com.github.stephengold.joltjni.Vec3;
-import com.github.stephengold.joltjni.readonly.Vec3Arg;
+import com.github.stephengold.joltjni.readonly.RVec3Arg;
 import com.github.stephengold.joltjni.std.Std;
 import org.joml.Vector2fc;
 import org.joml.Vector3f;
@@ -338,9 +338,9 @@ public class Camera {
      * unaffected)
      * @return the (modified) current instance (for chaining)
      */
-    public Camera setLocation(Vec3Arg location) {
+    public Camera setLocation(RVec3Arg location) {
         Validate.finite(location, "location");
-        eyeLocation.set(location.getX(), location.getY(), location.getZ());
+        eyeLocation.set(location.x(), location.y(), location.z());
         return this;
     }
 
