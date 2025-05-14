@@ -406,15 +406,15 @@ public class ShapeImages extends BasePhysicsApp {
      * @param addSettings the list to modify (not null, added to)
      */
     private static void addHeightField(List<BodyCreationSettings> addSettings) {
-        FloatBuffer heightArray = loadMountains512Heights();
-        int numFloats = heightArray.capacity();
+        FloatBuffer heightBuffer = loadMountains512Heights();
+        int numFloats = heightBuffer.capacity();
 
         Vec3Arg offset = new Vec3(0f, 0f, 0f);
         Vec3Arg scale = new Vec3(0.006f, 0.006f, 0.006f);
         int sampleCount = 512;
         assert numFloats == sampleCount * sampleCount;
         ShapeSettings ss = new HeightFieldShapeSettings(
-                heightArray, offset, scale, sampleCount);
+                heightBuffer, offset, scale, sampleCount);
 
         ShapeRefC shapeRef = ss.create().get();
         BodyCreationSettings bcs = new BodyCreationSettings();
