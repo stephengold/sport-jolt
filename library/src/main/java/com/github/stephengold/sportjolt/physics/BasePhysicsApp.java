@@ -463,7 +463,8 @@ public abstract class BasePhysicsApp extends BaseApplication {
         TextureKey textureKey;
 
         EShapeSubType subType = shape.getSubType();
-        if (subType == EShapeSubType.Plane) {
+        if (subType == EShapeSubType.Plane
+                || subType == EShapeSubType.HeightField) {
             meshingStrategy = new MeshingStrategy(
                     0, NormalsOption.Facet,
                     UvsOption.Linear, new Vector4f(uvScale, 0f, 0f, 0f),
@@ -491,7 +492,6 @@ public abstract class BasePhysicsApp extends BaseApplication {
             textureKey = null;
 
             if (subType == EShapeSubType.Capsule
-                    || subType == EShapeSubType.HeightField
                     || subType == EShapeSubType.TaperedCapsule) {
                 meshingStrategy = new MeshingStrategy("low/Smooth");
             } else {
