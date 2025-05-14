@@ -503,7 +503,7 @@ public abstract class BasePhysicsApp extends BaseApplication {
         if (jpo instanceof ConstBody) {
             ConstBody body = (ConstBody) jpo;
             if (body.isSoftBody()) {
-                throw new IllegalArgumentException(jpo.toString()); // TODO
+                geometry = new FacesGeometry(body);
             } else {
                 geometry = new RigidBodyShapeGeometry(body, meshingStrategy);
             }
