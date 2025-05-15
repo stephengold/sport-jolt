@@ -72,6 +72,10 @@ public class ThousandCubes extends BasePhysicsApp {
     // constants
 
     /**
+     * simulation speed when "paused"
+     */
+    final private static float pausedSpeed = 1e-9f;
+    /**
      * how many columns of boxes (along the system's Z axis)
      */
     final private static int numColumns = 10;
@@ -287,7 +291,13 @@ public class ThousandCubes extends BasePhysicsApp {
     @Override
     protected void updateWindowTitle() {
         long now = System.nanoTime();
-        if (previousTitleUpdate == null) {
+
+        if (isPaused()) {
+            String initialWindowTitle = initialWindowTitle();
+            String title = initialWindowTitle + "  *PAUSED*";
+            setWindowTitle(title);
+
+        } else if (previousTitleUpdate == null) {
             previousTitleUpdate = now;
             previousTotalPhysicsNanos = totalPhysicsNanos();
             previousTotalSimulatedTime = totalSimulatedTime();
@@ -385,7 +395,7 @@ public class ThousandCubes extends BasePhysicsApp {
             public void onKeyboard(int keyId, boolean isPressed) {
                 switch (keyId) {
                     case GLFW.GLFW_KEY_E:
-                        if (isPressed) {
+                        if (isPressed && !isPaused()) {
                             launchRedBall();
                         }
                         return;
@@ -402,6 +412,19 @@ public class ThousandCubes extends BasePhysicsApp {
                 super.onKeyboard(keyId, isPressed);
             }
         });
+    }
+
+    /**
+     * Test whether physics simulation is paused.
+     *
+     * @return {@code true} if paused, otherwise {@code false}
+     */
+    private static boolean isPaused() {
+        if (physicsSpeed <= pausedSpeed) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -428,8 +451,7 @@ public class ThousandCubes extends BasePhysicsApp {
      * Toggle the physics simulation: paused/running.
      */
     private static void togglePause() {
-        float pausedSpeed = 1e-9f;
-        physicsSpeed = (physicsSpeed <= pausedSpeed) ? 1f : pausedSpeed;
+        physicsSpeed = isPaused() ? 1f : pausedSpeed;
     }
 
     /**

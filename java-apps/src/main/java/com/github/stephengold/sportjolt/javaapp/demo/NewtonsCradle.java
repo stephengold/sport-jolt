@@ -172,6 +172,22 @@ public class NewtonsCradle extends BasePhysicsApp {
         float simulateSeconds = physicsSpeed * wallClockSeconds;
         super.updatePhysics(simulateSeconds);
     }
+
+    /**
+     * Invoked before each frame is rendered, to update the text in the window's
+     * title bar.
+     */
+    @Override
+    protected void updateWindowTitle() {
+        String initialWindowTitle = initialWindowTitle();
+        String title;
+        if (isPaused()) {
+            title = initialWindowTitle + "  *PAUSED*";
+        } else {
+            title = initialWindowTitle;
+        }
+        setWindowTitle(title);
+    }
     // *************************************************************************
     // private methods
 
@@ -292,6 +308,19 @@ public class NewtonsCradle extends BasePhysicsApp {
     }
 
     /**
+     * Test whether physics simulation is paused.
+     *
+     * @return {@code true} if paused, otherwise {@code false}
+     */
+    private static boolean isPaused() {
+        if (physicsSpeed <= PAUSED_SPEED) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Restart the simulation (paused) with the specified number of balls.
      *
      * @param numBalls (&ge;1)
@@ -323,6 +352,6 @@ public class NewtonsCradle extends BasePhysicsApp {
      * Toggle the physics simulation: paused/running.
      */
     private static void togglePause() {
-        physicsSpeed = (physicsSpeed <= PAUSED_SPEED) ? 1f : PAUSED_SPEED;
+        physicsSpeed = isPaused() ? 1f : PAUSED_SPEED;
     }
 }

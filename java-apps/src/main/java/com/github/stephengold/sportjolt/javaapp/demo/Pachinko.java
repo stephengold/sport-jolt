@@ -75,6 +75,10 @@ public class Pachinko
      * radius of each ball (in meters)
      */
     final private static float ballRadius = 1f;
+    /**
+     * simulation speed when "paused"
+     */
+    final private static float pausedSpeed = 1e-9f;
     // *************************************************************************
     // fields
 
@@ -186,6 +190,22 @@ public class Pachinko
     public void updatePhysics(float wallClockSeconds) {
         float simulateSeconds = physicsSpeed * wallClockSeconds;
         super.updatePhysics(simulateSeconds);
+    }
+
+    /**
+     * Invoked before each frame is rendered, to update the text in the window's
+     * title bar.
+     */
+    @Override
+    protected void updateWindowTitle() {
+        String initialWindowTitle = initialWindowTitle();
+        String title;
+        if (isPaused()) {
+            title = initialWindowTitle + "  *PAUSED*";
+        } else {
+            title = initialWindowTitle;
+        }
+        setWindowTitle(title);
     }
     // *************************************************************************
     // PhysicsTickListener methods
@@ -315,6 +335,19 @@ public class Pachinko
                 super.onKeyboard(keyId, isPressed);
             }
         });
+    }
+
+    /**
+     * Test whether physics simulation is paused.
+     *
+     * @return {@code true} if paused, otherwise {@code false}
+     */
+    private static boolean isPaused() {
+        if (physicsSpeed <= pausedSpeed) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
