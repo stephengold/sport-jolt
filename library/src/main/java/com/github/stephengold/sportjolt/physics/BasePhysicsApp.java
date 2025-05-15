@@ -491,7 +491,7 @@ public abstract class BasePhysicsApp extends BaseApplication {
                     "procedural:///checkerboard?size=2&color0=999999ff",
                     Filter.Nearest, Filter.Nearest);
 
-        } else {
+        } else { // shape isn't a heightfield, plane, or sphere:
             programName = "Phong/Distant/Monochrome";
             textureKey = null;
 
