@@ -45,7 +45,7 @@ import java.nio.IntBuffer;
 /**
  * An auto-generated LineList mesh to visualize the edges in a soft body.
  */
-class LinksMesh extends Mesh {
+class EdgesMesh extends Mesh {
     // *************************************************************************
     // fields
 
@@ -66,7 +66,7 @@ class LinksMesh extends Mesh {
      * @param softBody the soft body from which to generate the mesh (not null,
      * alias created)
      */
-    LinksMesh(ConstBody softBody) {
+    EdgesMesh(ConstBody softBody) {
         super(Topology.LineList, softBody.getSoftBodyCreationSettings()
                 .getSettings().countVertices());
 

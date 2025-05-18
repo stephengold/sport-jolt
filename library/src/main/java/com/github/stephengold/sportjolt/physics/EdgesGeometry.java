@@ -39,9 +39,9 @@ import com.github.stephengold.sportjolt.Mesh;
 import com.github.stephengold.sportjolt.Validate;
 
 /**
- * Visualize the links of a soft body.
+ * Visualize the edges of a soft body.
  */
-public class LinksGeometry extends Geometry {
+public class EdgesGeometry extends Geometry {
     // *************************************************************************
     // fields
 
@@ -58,7 +58,7 @@ public class LinksGeometry extends Geometry {
      *
      * @param softBody the soft body to visualize (not null, alias created)
      */
-    public LinksGeometry(ConstBody softBody) {
+    public EdgesGeometry(ConstBody softBody) {
         super();
 
         Validate.nonNull(softBody, "soft body");
@@ -67,7 +67,7 @@ public class LinksGeometry extends Geometry {
         this.softBody = softBody;
         super.setColor(Constants.ORANGE);
 
-        Mesh mesh = new LinksMesh(softBody);
+        Mesh mesh = new EdgesMesh(softBody);
         super.setMesh(mesh);
 
         super.setProgram("Unshaded/Monochrome");
@@ -108,10 +108,10 @@ public class LinksGeometry extends Geometry {
      * Update the Mesh.
      */
     private void updateMesh() {
-        LinksMesh mesh = (LinksMesh) getMesh();
+        EdgesMesh mesh = (EdgesMesh) getMesh();
         boolean success = mesh.update();
         if (!success) {
-            mesh = new LinksMesh(softBody);
+            mesh = new EdgesMesh(softBody);
             setMesh(mesh);
         }
     }
