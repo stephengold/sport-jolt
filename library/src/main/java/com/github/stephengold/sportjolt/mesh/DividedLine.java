@@ -28,13 +28,13 @@
  */
 package com.github.stephengold.sportjolt.mesh;
 
-import com.github.stephengold.joltjni.Vec3;
-import com.github.stephengold.joltjni.operator.Op;
 import com.github.stephengold.sportjolt.IndexBuffer;
 import com.github.stephengold.sportjolt.Mesh;
 import com.github.stephengold.sportjolt.Topology;
 import com.github.stephengold.sportjolt.Validate;
 import com.github.stephengold.sportjolt.VertexBuffer;
+import org.joml.Vector3f;
+import org.joml.Vector3fc;
 
 /**
  * A GL-LINES mesh (with indices) that renders a subdivided line segment.
@@ -55,7 +55,8 @@ public class DividedLine extends Mesh {
      * null, unaffected)
      * @param numSegments number of sub-segments (&ge;1)
      */
-    public DividedLine(Vec3 endPoint1, Vec3 endPoint2, int numSegments) {
+    public DividedLine(
+            Vector3fc endPoint1, Vector3fc endPoint2, int numSegments) {
         super(Topology.LineList, numSegments + 1);
         Validate.positive(numSegments, "number of segments");
 
@@ -63,10 +64,10 @@ public class DividedLine extends Mesh {
         VertexBuffer posBuffer = super.createPositions();
 
         // Write the locations of all vertices:
+        Vector3f temp = new Vector3f();
         for (int vIndex = 0; vIndex < numVertices; ++vIndex) {
             float t2 = vIndex / (float) numSegments;
-            float t1 = 1f - t2;
-            Vec3 temp = Op.plus(Op.star(t1, endPoint1), Op.star(t2, endPoint2));
+            endPoint1.lerp(endPoint2, t2, temp);
             posBuffer.put(temp);
         }
         assert posBuffer.position() == posBuffer.capacity();
