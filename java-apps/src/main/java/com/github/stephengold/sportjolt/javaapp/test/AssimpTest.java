@@ -83,6 +83,7 @@ public class AssimpTest extends BaseApplication {
      */
     public static void main(String[] arguments) {
         AssimpTest application = new AssimpTest();
+        //setDebuggingEnabled(true);
         application.start();
     }
     // *************************************************************************

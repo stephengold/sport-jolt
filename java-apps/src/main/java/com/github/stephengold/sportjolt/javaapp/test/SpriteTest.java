@@ -106,11 +106,11 @@ public class SpriteTest extends BaseApplication {
 
     /**
      * Generate a sprite texture with the "pin" shape.
-     * 
+     *
      * @return a new object
      */
     private static TextureKey createSpriteTexture() {
-        String resourceName = "/Textures/shapes/pin.png"; // createTextureKey
+        String resourceName = "/Textures/shapes/pin.png";
         Filter magFilter = Filter.Linear;
         Filter minFilter = Filter.NearestMipmapLinear;
         WrapFunction wrapU = WrapFunction.ClampToEdge;
