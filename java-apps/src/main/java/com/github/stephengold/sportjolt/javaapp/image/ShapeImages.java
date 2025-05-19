@@ -707,6 +707,7 @@ public class ShapeImages extends BasePhysicsApp {
                     case GLFW.GLFW_KEY_ENTER:
                     case GLFW.GLFW_KEY_KP_6:
                     case GLFW.GLFW_KEY_N:
+                    case GLFW.GLFW_KEY_SPACE:
                         if (isPressed) {
                             advanceSelectedSubtype(+1);
                         }
