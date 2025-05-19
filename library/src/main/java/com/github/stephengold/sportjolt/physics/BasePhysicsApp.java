@@ -336,7 +336,8 @@ public abstract class BasePhysicsApp extends BaseApplication {
 
         int numBodyMutexes = 0; // 0 means "use the default value"
 
-        long possiblePairs = maxBodies * (maxBodies - 1) / 2;
+        long maxBodiesLong = maxBodies;
+        long possiblePairs = maxBodiesLong * (maxBodiesLong - 1) / 2;
         int maxBodyPairs = (int) Math.min(possiblePairs, 60_000);
         maxBodyPairs = Math.max(3, maxBodyPairs);
         int maxContacts = 6 * (maxBodies + 6);
