@@ -94,20 +94,33 @@ public class SpriteTest extends BaseApplication {
         Vector3fc p1 = new Vector3f(0f, 1f, 0f);
         Mesh pointsMesh = new Mesh(Topology.PointList, p0, p1);
 
-        String resourceName = "/Textures/shapes/pin.png";
+        TextureKey textureKey = createSpriteTexture();
+
+        new Geometry(pointsMesh)
+                .setColor(Constants.YELLOW)
+                .setProgram("Unshaded/Sprite")
+                .setTexture(textureKey);
+    }
+    // *************************************************************************
+    // private methods
+
+    /**
+     * Generate a sprite texture with the "pin" shape.
+     * 
+     * @return a new object
+     */
+    private static TextureKey createSpriteTexture() {
+        String resourceName = "/Textures/shapes/pin.png"; // createTextureKey
         Filter magFilter = Filter.Linear;
         Filter minFilter = Filter.NearestMipmapLinear;
         WrapFunction wrapU = WrapFunction.ClampToEdge;
         WrapFunction wrapV = WrapFunction.ClampToEdge;
         boolean mipmaps = true;
         float maxAniso = 1f;
-        TextureKey textureKey = new TextureKey(
+        TextureKey result = new TextureKey(
                 "classpath://" + resourceName, magFilter, minFilter,
                 wrapU, wrapV, mipmaps, FlipAxes.noFlip, maxAniso);
 
-        new Geometry(pointsMesh)
-                .setColor(Constants.YELLOW)
-                .setProgram("Unshaded/Sprite")
-                .setTexture(textureKey);
+        return result;
     }
 }
