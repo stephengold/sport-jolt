@@ -1,6 +1,6 @@
 # release log for the Sport-Jolt Library
 
-## Version 0.9.4 released on TBD
+## Version 0.9.4 released on 18 May 2025
 
 + API changes:
   + Renamed the `LinksMesh` and `LinksGeometry` classes.
