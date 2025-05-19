@@ -425,19 +425,7 @@ public abstract class BasePhysicsApp extends BaseApplication {
      */
     protected static Geometry visualizeShape(
             ConstJoltPhysicsObject jpo, float uvScale) {
-        ConstShape shape;
-        if (jpo instanceof ConstBody) {
-            shape = ((ConstBody) jpo).getShape();
-        } else if (jpo instanceof ConstCharacter) {
-            shape = ((ConstCharacter) jpo).getShape();
-        } else if (jpo instanceof ConstCharacterVirtual) {
-            shape = ((ConstCharacterVirtual) jpo).getShape();
-        } else if (jpo instanceof VehicleConstraint) {
-            shape = ((VehicleConstraint) jpo).getVehicleBody().getShape();
-        } else {
-            String className = jpo.getClass().getSimpleName();
-            throw new IllegalArgumentException("class = " + className);
-        }
+        ConstShape shape = getShape(jpo);
 
         MeshingStrategy meshingStrategy;
         String programName;
@@ -665,6 +653,30 @@ public abstract class BasePhysicsApp extends BaseApplication {
             int bpLayerAll = 0;
             result.mapObjectToBroadPhaseLayer(objLayerMoving, bpLayerAll);
             result.mapObjectToBroadPhaseLayer(objLayerNonMoving, bpLayerAll);
+        }
+
+        return result;
+    }
+
+    /**
+     * Access the shape of the specified physics object.
+     *
+     * @param jpo the physics object (not null, unaffected)
+     * @return the pre-existing object
+     */
+    private static ConstShape getShape(ConstJoltPhysicsObject jpo) {
+        ConstShape result;
+        if (jpo instanceof ConstBody) {
+            result = ((ConstBody) jpo).getShape();
+        } else if (jpo instanceof ConstCharacter) {
+            result = ((ConstCharacter) jpo).getShape();
+        } else if (jpo instanceof ConstCharacterVirtual) {
+            result = ((ConstCharacterVirtual) jpo).getShape();
+        } else if (jpo instanceof VehicleConstraint) {
+            result = ((VehicleConstraint) jpo).getVehicleBody().getShape();
+        } else {
+            String className = jpo.getClass().getSimpleName();
+            throw new IllegalArgumentException("class = " + className);
         }
 
         return result;
