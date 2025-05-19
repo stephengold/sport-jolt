@@ -36,6 +36,7 @@ import com.github.stephengold.joltjni.CapsuleShapeSettings;
 import com.github.stephengold.joltjni.CompoundShapeSettings;
 import com.github.stephengold.joltjni.ConvexHullShapeSettings;
 import com.github.stephengold.joltjni.CylinderShapeSettings;
+import com.github.stephengold.joltjni.HeightFieldShape;
 import com.github.stephengold.joltjni.HeightFieldShapeSettings;
 import com.github.stephengold.joltjni.Jolt;
 import com.github.stephengold.joltjni.MassProperties;
@@ -889,7 +890,12 @@ public class ShapeImages extends BasePhysicsApp {
             if (!makeStatic) {
                 new ComGeometry(body).setDepthTest(false);
             }
-            visualizeShape(body);
+
+            if (shape instanceof HeightFieldShape) {
+                visualizeShape(body).setProgram("Phong/Distant/Monochrome");
+            } else {
+                visualizeShape(body);
+            }
         }
 
         // Add the bodies to the physics space:
