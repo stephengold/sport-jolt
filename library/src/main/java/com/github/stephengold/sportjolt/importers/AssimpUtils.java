@@ -86,9 +86,9 @@ final public class AssimpUtils {
         ByteBuffer pLoadedBytes = Utils.loadResourceAsBytes(resourceName);
 
         if (BaseApplication.isDebuggingEnabled()) {
-            AILogStream logStream = AILogStream.create();
             String filename = null;
-            logStream = Assimp.aiGetPredefinedLogStream(
+            AILogStream logStream = AILogStream.create();
+            Assimp.aiGetPredefinedLogStream(
                     Assimp.aiDefaultLogStream_STDOUT, filename, logStream);
             Assimp.aiAttachLogStream(logStream);
             Assimp.aiEnableVerboseLogging(true);
