@@ -137,31 +137,31 @@ public class AabbGeometry extends Geometry {
      * Update the mesh-to-world transform.
      */
     private void updateTransform() {
-        ConstAaBox bbox;
+        ConstAaBox box;
         if (jpo instanceof ConstBody) {
             ConstBody body = (ConstBody) jpo;
-            bbox = body.getWorldSpaceBounds();
+            box = body.getWorldSpaceBounds();
 
         } else if (jpo instanceof ConstCharacter) {
             ConstCharacter character = (ConstCharacter) jpo;
-            bbox = character.getTransformedShape().getWorldSpaceBounds();
+            box = character.getTransformedShape().getWorldSpaceBounds();
 
         } else if (jpo instanceof ConstCharacterVirtual) {
             ConstCharacterVirtual character = (ConstCharacterVirtual) jpo;
-            bbox = character.getTransformedShape().getWorldSpaceBounds();
+            box = character.getTransformedShape().getWorldSpaceBounds();
 
         } else if (jpo instanceof PhysicsSystem) {
             PhysicsSystem system = (PhysicsSystem) jpo;
-            bbox = system.getBounds();
+            box = system.getBounds();
 
         } else {
             throw new IllegalStateException(jpo.getClass().getSimpleName());
         }
 
-        Vec3Arg center = bbox.getCenter(); // garbage
+        Vec3Arg center = box.getCenter(); // garbage
         setLocation(center);
 
-        Vec3Arg extent = bbox.getExtent(); // garbage
+        Vec3Arg extent = box.getExtent(); // garbage
         setScale(extent);
     }
 }

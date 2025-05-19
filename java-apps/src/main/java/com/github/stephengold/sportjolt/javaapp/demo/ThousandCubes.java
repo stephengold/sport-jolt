@@ -212,9 +212,9 @@ public class ThousandCubes extends BasePhysicsApp {
 
         // Visualize the floor:
         String resourceName = "/Textures/greenTile.png";
-        float maxAniso = 16f;
+        float maxAnisotropy = 16f;
         TextureKey textureKey
-                = new TextureKey("classpath://" + resourceName, maxAniso);
+                = new TextureKey("classpath://" + resourceName, maxAnisotropy);
         visualizeShape(floor, 0.05f)
                 .setSpecularColor(Constants.DARK_GRAY)
                 .setTexture(textureKey);

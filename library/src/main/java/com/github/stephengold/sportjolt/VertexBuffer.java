@@ -687,9 +687,9 @@ final public class VertexBuffer {
         }
 
         int numFloats = capacity();
-        int numVecs = numFloats / fpv;
+        int numVectors = numFloats / fpv;
         Vec3 vecIn = new Vec3();
-        for (int i = 0; i < numVecs; ++i) {
+        for (int i = 0; i < numVectors; ++i) {
             vecIn.set(dataBuffer.get(3 * i), dataBuffer.get(3 * i + 1),
                     dataBuffer.get(3 * i + 2));
             Vec3Arg vecOut = Op.star(rotation, vecIn);
@@ -768,9 +768,9 @@ final public class VertexBuffer {
         }
 
         int numFloats = capacity();
-        int numVecs = numFloats / fpv;
+        int numVectors = numFloats / fpv;
         Vec3 vecIn = new Vec3();
-        for (int i = 0; i < numVecs; ++i) {
+        for (int i = 0; i < numVectors; ++i) {
             vecIn.set(dataBuffer.get(3 * i), dataBuffer.get(3 * i + 1),
                     dataBuffer.get(3 * i + 2));
             Vec3Arg vecOut = Op.star(transform, vecIn).toVec3();
