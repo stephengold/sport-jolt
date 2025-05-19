@@ -151,7 +151,6 @@ abstract public class BaseApplication {
      * @return the pre-existing instance (not null)
      */
     public static Camera getCamera() {
-        assert cam != null;
         return cam;
     }
 
