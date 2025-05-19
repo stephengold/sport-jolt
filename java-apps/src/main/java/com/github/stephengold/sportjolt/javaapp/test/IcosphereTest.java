@@ -75,7 +75,7 @@ public class IcosphereTest extends BaseApplication {
      * Callback invoked after the main update loop terminates.
      */
     @Override
-    public void cleanUp() {
+    protected void cleanUp() {
         // do nothing
     }
 
@@ -83,7 +83,7 @@ public class IcosphereTest extends BaseApplication {
      * Initialize the application.
      */
     @Override
-    public void initialize() {
+    protected void initialize() {
         setVsync(true);
         getCameraInputProcessor().setRotationMode(RotateMode.DragLMB);
         setBackgroundColor(Constants.SKY_BLUE);

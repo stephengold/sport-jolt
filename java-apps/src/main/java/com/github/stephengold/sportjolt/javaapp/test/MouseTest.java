@@ -82,7 +82,7 @@ public class MouseTest extends BaseApplication {
      * Callback invoked after the main update loop terminates.
      */
     @Override
-    public void cleanUp() {
+    protected void cleanUp() {
         // do nothing
     }
 
@@ -90,7 +90,7 @@ public class MouseTest extends BaseApplication {
      * Initialize the application.
      */
     @Override
-    public void initialize() {
+    protected void initialize() {
         setVsync(true);
 
         float size = 0.2f;
@@ -103,7 +103,7 @@ public class MouseTest extends BaseApplication {
      * Callback invoked during each iteration of the main update loop.
      */
     @Override
-    public void render() {
+    protected void render() {
         updateColor();
         updateLocation();
         updateScales();

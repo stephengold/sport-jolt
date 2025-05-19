@@ -85,7 +85,7 @@ public class DynamicMeshTest extends BaseApplication {
      * Callback invoked after the main update loop terminates.
      */
     @Override
-    public void cleanUp() {
+    protected void cleanUp() {
         // do nothing
     }
 
@@ -93,7 +93,7 @@ public class DynamicMeshTest extends BaseApplication {
      * Initialize the application.
      */
     @Override
-    public void initialize() {
+    protected void initialize() {
         setVsync(true);
         setBackgroundColor(Constants.SKY_BLUE);
 
@@ -117,7 +117,7 @@ public class DynamicMeshTest extends BaseApplication {
      * Callback invoked during each iteration of the main update loop.
      */
     @Override
-    public void render() {
+    protected void render() {
         // Modify the X-Y position of the first vertex.
         float time = 1e-9f * System.nanoTime(); // in sec
         VertexBuffer pos = quadGeometry.getMesh().getPositions();

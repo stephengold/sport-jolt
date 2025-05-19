@@ -86,7 +86,7 @@ public class MouseTest2 extends BaseApplication {
      * Callback invoked after the main update loop terminates.
      */
     @Override
-    public void cleanUp() {
+    protected void cleanUp() {
         // do nothing
     }
 
@@ -94,7 +94,7 @@ public class MouseTest2 extends BaseApplication {
      * Initialize the application.
      */
     @Override
-    public void initialize() {
+    protected void initialize() {
         setVsync(true);
 
         Mesh ballMesh = OctasphereMesh.getMesh(3);
@@ -113,7 +113,7 @@ public class MouseTest2 extends BaseApplication {
      * Callback invoked during each iteration of the main update loop.
      */
     @Override
-    public void render() {
+    protected void render() {
         updateLocation();
         super.render();
     }

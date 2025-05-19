@@ -266,7 +266,7 @@ public class ThousandCubes extends BasePhysicsApp {
      * Callback invoked during each iteration of the main update loop.
      */
     @Override
-    public void render() {
+    protected void render() {
         updateScales();
         super.render();
     }
@@ -279,7 +279,7 @@ public class ThousandCubes extends BasePhysicsApp {
      * invocation of {@code updatePhysics} (in seconds, &ge;0)
      */
     @Override
-    public void updatePhysics(float wallClockSeconds) {
+    protected void updatePhysics(float wallClockSeconds) {
         float simulateSeconds = physicsSpeed * wallClockSeconds;
         super.updatePhysics(simulateSeconds);
     }

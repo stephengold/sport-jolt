@@ -180,7 +180,7 @@ public class ShapeImages extends BasePhysicsApp {
      * invocation of {@code updatePhysics} (in seconds, &ge;0)
      */
     @Override
-    public void updatePhysics(float intervalSeconds) {
+    protected void updatePhysics(float intervalSeconds) {
         super.updatePhysics(0f);
     }
 

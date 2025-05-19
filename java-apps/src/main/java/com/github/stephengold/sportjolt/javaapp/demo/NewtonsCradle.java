@@ -167,7 +167,7 @@ public class NewtonsCradle extends BasePhysicsApp {
      * invocation of {@code updatePhysics} (in seconds, &ge;0)
      */
     @Override
-    public void updatePhysics(float wallClockSeconds) {
+    protected void updatePhysics(float wallClockSeconds) {
         float simulateSeconds = physicsSpeed * wallClockSeconds;
         super.updatePhysics(simulateSeconds);
     }

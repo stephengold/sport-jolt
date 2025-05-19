@@ -91,7 +91,7 @@ public class TextureTest extends BaseApplication {
      * Callback invoked after the main update loop terminates.
      */
     @Override
-    public void cleanUp() {
+    protected void cleanUp() {
         // do nothing
     }
 
@@ -99,7 +99,7 @@ public class TextureTest extends BaseApplication {
      * Initialize the application.
      */
     @Override
-    public void initialize() {
+    protected void initialize() {
         setVsync(true);
         setBackgroundColor(Constants.SKY_BLUE);
 
@@ -131,7 +131,7 @@ public class TextureTest extends BaseApplication {
      * Callback invoked during each iteration of the main update loop.
      */
     @Override
-    public void render() {
+    protected void render() {
         updateScales();
         super.render();
         blendTexture(redBarTextureName, new OverOp());

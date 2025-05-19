@@ -92,7 +92,7 @@ public class AssimpTest extends BaseApplication {
      * Callback invoked by SPORT after the main update loop terminates.
      */
     @Override
-    public void cleanUp() {
+    protected void cleanUp() {
         // do nothing
     }
 
@@ -100,7 +100,7 @@ public class AssimpTest extends BaseApplication {
      * Initialize the application.
      */
     @Override
-    public void initialize() {
+    protected void initialize() {
         setVsync(true);
 
         // Load the viking_room model using Assimp:
