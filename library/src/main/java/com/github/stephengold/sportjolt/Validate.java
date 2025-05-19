@@ -428,7 +428,8 @@ final public class Validate {
      * collection is null
      * @throws IllegalArgumentException if the collection is empty
      */
-    public static boolean nonEmpty(Collection collection, String description) {
+    public static boolean nonEmpty(
+            Collection<?> collection, String description) {
         nonNull(collection, description);
 
         if (collection.isEmpty()) {

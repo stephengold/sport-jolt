@@ -341,7 +341,7 @@ final public class Utils {
         }
 
         Scanner scanner
-                = new Scanner(inputStream, StandardCharsets.UTF_8.name());
+                = new Scanner(inputStream, StandardCharsets.UTF_8);
         String result = scanner.useDelimiter("\\A").next();
 
         return result;
