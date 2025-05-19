@@ -60,9 +60,7 @@ import org.lwjgl.glfw.GLFW;
  * @see <a href="https://en.wikipedia.org/wiki/Pachinko">Wikipedia</a>
  * @author Stephen Gold sgold@sonic.net
  */
-public class Pachinko
-        extends BasePhysicsApp
-        implements PhysicsTickListener {
+public class Pachinko extends BasePhysicsApp implements PhysicsTickListener {
     // *************************************************************************
     // constants
 
