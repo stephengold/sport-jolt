@@ -28,6 +28,7 @@
  */
 package com.github.stephengold.sportjolt.physics;
 
+import com.github.stephengold.joltjni.BroadPhaseLayerInterface;
 import com.github.stephengold.joltjni.BroadPhaseLayerInterfaceTable;
 import com.github.stephengold.joltjni.JobSystem;
 import com.github.stephengold.joltjni.JobSystemThreadPool;
@@ -304,28 +305,7 @@ public abstract class BasePhysicsApp extends BaseApplication {
         ovoFilter.enableCollision(objLayerMoving, objLayerMoving);
         ovoFilter.enableCollision(objLayerMoving, objLayerNonMoving);
 
-        BroadPhaseLayerInterfaceTable layerMap
-                = new BroadPhaseLayerInterfaceTable(numObjLayers, numBpLayers);
-        if (numBpLayers == 2) {
-            /*
-             * Identity non-moving objects sooner
-             * by mapping them to a separate broadphase layer:
-             */
-            int bpLayerMoving = 0;
-            int bpLayerNonMoving = 1;
-            layerMap.mapObjectToBroadPhaseLayer(
-                    objLayerMoving, bpLayerMoving);
-            layerMap.mapObjectToBroadPhaseLayer(
-                    objLayerNonMoving, bpLayerNonMoving);
-        } else {
-            /*
-             * Map all objects to a single broadphase layer,
-             * which is simpler but less efficient:
-             */
-            int bpLayerAll = 0;
-            layerMap.mapObjectToBroadPhaseLayer(objLayerMoving, bpLayerAll);
-            layerMap.mapObjectToBroadPhaseLayer(objLayerNonMoving, bpLayerAll);
-        }
+        BroadPhaseLayerInterface layerMap = createLayerMap(numBpLayers);
         /*
          * Pre-compute the rules for colliding object layers
          * with broadphase layers:
@@ -654,6 +634,40 @@ public abstract class BasePhysicsApp extends BaseApplication {
         }
 
         hideAll(geometriesToHide);
+    }
+
+    /**
+     * Generate a mapping from object layers to broadphase layers.
+     *
+     * @param numBpLayers the desired number of broadphase layers (1 or 2)
+     * @return a new object
+     */
+    private static BroadPhaseLayerInterface createLayerMap(int numBpLayers) {
+        BroadPhaseLayerInterfaceTable result
+                = new BroadPhaseLayerInterfaceTable(numObjLayers, numBpLayers);
+        if (numBpLayers == 2) {
+            /*
+             * Identity non-moving objects sooner
+             * by mapping them to a separate broadphase layer:
+             */
+            int bpLayerMoving = 0;
+            int bpLayerNonMoving = 1;
+            result.mapObjectToBroadPhaseLayer(objLayerMoving, bpLayerMoving);
+            result.mapObjectToBroadPhaseLayer(
+                    objLayerNonMoving, bpLayerNonMoving);
+
+        } else {
+            assert numBpLayers == 1 : "numBpLayers = " + numBpLayers;
+            /*
+             * Map all objects to a single broadphase layer,
+             * which is simpler but less efficient:
+             */
+            int bpLayerAll = 0;
+            result.mapObjectToBroadPhaseLayer(objLayerMoving, bpLayerAll);
+            result.mapObjectToBroadPhaseLayer(objLayerNonMoving, bpLayerAll);
+        }
+
+        return result;
     }
 
     /**
