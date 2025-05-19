@@ -73,16 +73,7 @@ public class ComGeometry extends Geometry {
 
         super.setProgram("Unshaded/Sprite");
 
-        String resourceName = "/Textures/shapes/ring.png";
-        Filter magFilter = Filter.Linear;
-        Filter minFilter = Filter.NearestMipmapLinear;
-        WrapFunction wrapU = WrapFunction.ClampToEdge;
-        WrapFunction wrapV = WrapFunction.ClampToEdge;
-        boolean mipmaps = true;
-        float maxAniso = 1f;
-        TextureKey textureKey = new TextureKey(
-                "classpath://" + resourceName, magFilter, minFilter, wrapU,
-                wrapV, mipmaps, FlipAxes.noFlip, maxAniso);
+        TextureKey textureKey = createSpriteTexture();
         super.setTexture(textureKey);
 
         BaseApplication.makeVisible(this);
@@ -111,6 +102,28 @@ public class ComGeometry extends Geometry {
         BodyInterface bi = system.getBodyInterface();
         int bodyId = body.getId();
         boolean result = !bi.isAdded(bodyId);
+
+        return result;
+    }
+    // *************************************************************************
+    // private methods
+
+    /**
+     * Generate a sprite texture with the "ring" shape.
+     *
+     * @return a new object
+     */
+    private static TextureKey createSpriteTexture() {
+        String resourceName = "/Textures/shapes/ring.png";
+        Filter magFilter = Filter.Linear;
+        Filter minFilter = Filter.NearestMipmapLinear;
+        WrapFunction wrapU = WrapFunction.ClampToEdge;
+        WrapFunction wrapV = WrapFunction.ClampToEdge;
+        boolean mipmaps = true;
+        float maxAniso = 1f;
+        TextureKey result = new TextureKey(
+                "classpath://" + resourceName, magFilter, minFilter,
+                wrapU, wrapV, mipmaps, FlipAxes.noFlip, maxAniso);
 
         return result;
     }
