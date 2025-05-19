@@ -1,5 +1,20 @@
 # release log for the Sport-Jolt Library
 
+## Version 0.9.4 released on TBD
+
++ API changes:
+  + Renamed the `LinksMesh` and `LinksGeometry` classes.
+  + Changed the argument type of `Camera.setLocation()`.
+  + Changed the return type of `InputManager.destroy()`.
+  + Use JOML vectors for efficiency in the `DividedLine` class.
+
++ Bugfixes:
+  + potential for incorrect setting due to `int` overflow in `BasePhysicsApp`
+
++ Began handling soft bodies in `BasePhysicsApp.visualizeShape()`.
++ Began visualizing heightfield shapes with a checkerboard texture.
++ Updated the Jolt-JNI library to v1.0.0 .
+
 ## Version 0.9.3 released on 8 May 2025
 
 + API change:
