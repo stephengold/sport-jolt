@@ -521,7 +521,7 @@ abstract public class BaseApplication {
      */
     private static void cleanUpBase() {
         if (inputManager != null) {
-            inputManager = inputManager.destroy();
+            inputManager.destroy();
         }
         deferredQueue.clear();
         visibleGeometries.clear();

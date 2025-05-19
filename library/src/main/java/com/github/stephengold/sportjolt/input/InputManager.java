@@ -100,10 +100,8 @@ public class InputManager {
 
     /**
      * Destroy all resources owned by the input manager.
-     *
-     * @return null
      */
-    public InputManager destroy() {
+    public void destroy() {
         Callback callback = GLFW.glfwSetCharCallback(glfwWindowHandle, null);
         if (callback != null) {
             callback.free();
@@ -128,8 +126,6 @@ public class InputManager {
         if (callback != null) {
             callback.free();
         }
-
-        return null;
     }
 
     /**
