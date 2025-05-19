@@ -40,7 +40,7 @@ import org.joml.Vector3fc;
  * The attributes of a single vertex in a mesh.
  *
  * @author Stephen Gold sgold@sonic.net
- *
+ * <p>
  * Derived from the Vertex class in Cristian Herrera's Vulkan-Tutorial-Java
  * project.
  */

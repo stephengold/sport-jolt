@@ -50,9 +50,6 @@ public class OctasphereTest extends BaseApplication {
      * <p>
      * This no-arg constructor was made explicit to avoid javadoc warnings from
      * JDK 18+.
-     *
-     * loc[0.00000 0.00000 10.0000] az=-1.57 upAng=0.00 look[-0.00 0.00 -1.00]
-     * up[0.00 1.00 0.00] right[1.00 0.00 -0.00]
      */
     public OctasphereTest() {
         // do nothing

@@ -48,7 +48,7 @@ public class CameraInputProcessor extends InputProcessor {
 
     /**
      * maximum magnitude of the camera's up angle after mouse rotation is
-     * applied. This prevents the camera from looking to straight up or straight
+     * applied. This prevents the camera from looking straight up or straight
      * down.
      */
     final private static float maxUpAngleRadians = Jolt.degreesToRadians(85f);

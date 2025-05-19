@@ -55,9 +55,8 @@ import org.lwjgl.glfw.GLFW;
 
 /**
  * A physics demo that simulates a "Newton's cradle" toy.
- * <p>
- * https://en.wikipedia.org/wiki/Newton%27s_cradle
  *
+ * @see <a href="https://en.wikipedia.org/wiki/Newton%27s_cradle">Wikipedia</a>
  * @author Stephen Gold sgold@sonic.net
  */
 public class NewtonsCradle extends BasePhysicsApp {

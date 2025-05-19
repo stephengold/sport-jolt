@@ -53,7 +53,7 @@ import org.lwjgl.assimp.Assimp;
  * Utility methods to import 3-D models using the Assimp library.
  *
  * @author Stephen Gold sgold@sonic.net
- *
+ * <p>
  * Derived from ModelLoader.java in Cristian Herrera's Vulkan-Tutorial-Java
  * project.
  */

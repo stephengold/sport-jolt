@@ -56,9 +56,8 @@ import org.lwjgl.glfw.GLFW;
 
 /**
  * A 2-D physics demo that simulates a simple Pachinko machine.
- * <p>
- * https://en.wikipedia.org/wiki/Pachinko
  *
+ * @see <a href="https://en.wikipedia.org/wiki/Pachinko">Wikipedia</a>
  * @author Stephen Gold sgold@sonic.net
  */
 public class Pachinko
