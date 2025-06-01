@@ -635,7 +635,7 @@ public abstract class BasePhysicsApp extends BaseApplication {
                 = new BroadPhaseLayerInterfaceTable(numObjLayers, numBpLayers);
         if (numBpLayers == 2) {
             /*
-             * Identity non-moving objects sooner
+             * Identify non-moving objects sooner
              * by mapping them to a separate broadphase layer:
              */
             int bpLayerMoving = 0;
