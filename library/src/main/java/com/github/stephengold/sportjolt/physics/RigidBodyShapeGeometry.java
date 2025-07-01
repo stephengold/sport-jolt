@@ -84,8 +84,6 @@ public class RigidBodyShapeGeometry extends Geometry {
      */
     RigidBodyShapeGeometry(
             ConstBody rigidBody, MeshingStrategy meshingStrategy) {
-        super();
-
         Validate.nonNull(rigidBody, "rigid body");
         Validate.nonNull(meshingStrategy, "meshing strategy");
         assert rigidBody.getBodyType() == EBodyType.RigidBody;

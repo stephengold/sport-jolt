@@ -42,6 +42,7 @@ import com.github.stephengold.joltjni.enumerate.EActivation;
 import com.github.stephengold.joltjni.enumerate.EAllowedDofs;
 import com.github.stephengold.joltjni.enumerate.EMotionType;
 import com.github.stephengold.joltjni.enumerate.EOverrideMassProperties;
+import com.github.stephengold.joltjni.readonly.ConstBoxShapeSettings;
 import com.github.stephengold.joltjni.readonly.ConstShape;
 import com.github.stephengold.joltjni.readonly.QuatArg;
 import com.github.stephengold.sportjolt.Constants;
@@ -401,7 +402,7 @@ public class Pachinko extends BasePhysicsApp implements PhysicsTickListener {
         // Add a child shape for the horizontal stop at the bottom:
         float yStop = yBar - barHalfLength;
         float stopHalfWidth = pinSpacing * (numBars - 1) / 2f + barHalfWidth;
-        BoxShapeSettings stopShape = new BoxShapeSettings(
+        ConstBoxShapeSettings stopShape = new BoxShapeSettings(
                 stopHalfWidth, barHalfWidth, pinHalfHeight);
         fieldShape.addShape(0f, yStop, 0f, stopShape);
 
