@@ -31,15 +31,14 @@ package com.github.stephengold.sportjolt.physics;
 import com.github.stephengold.joltjni.Jolt;
 import com.github.stephengold.joltjni.PhysicsSystem;
 import com.github.stephengold.joltjni.Quat;
+import com.github.stephengold.joltjni.RVec3;
 import com.github.stephengold.joltjni.TwoBodyConstraint;
 import com.github.stephengold.joltjni.TwoBodyConstraintRef;
 import com.github.stephengold.joltjni.Vec3;
 import com.github.stephengold.joltjni.operator.Op;
 import com.github.stephengold.joltjni.readonly.ConstBody;
 import com.github.stephengold.joltjni.readonly.ConstTwoBodyConstraint;
-import com.github.stephengold.joltjni.readonly.Mat44Arg;
 import com.github.stephengold.joltjni.readonly.QuatArg;
-import com.github.stephengold.joltjni.readonly.RMat44Arg;
 import com.github.stephengold.joltjni.readonly.RVec3Arg;
 import com.github.stephengold.sportjolt.BaseApplication;
 import com.github.stephengold.sportjolt.Constants;
@@ -47,6 +46,7 @@ import com.github.stephengold.sportjolt.Geometry;
 import com.github.stephengold.sportjolt.Mesh;
 import com.github.stephengold.sportjolt.Validate;
 import com.github.stephengold.sportjolt.mesh.ArrowMesh;
+import java.nio.DoubleBuffer;
 
 /**
  * Visualize a {@code TwoBodyConstraint} using a colored arrow, either from
@@ -116,42 +116,35 @@ public class ConstraintGeometry extends Geometry {
      */
     @Override
     public void updateAndRender() {
-        RVec3Arg tail;
-        RVec3Arg tip;
+        DoubleBuffer buffer = Jolt.newDirectDoubleBuffer(3);
+        RVec3 tail = new RVec3();
+        RVec3 tip = new RVec3();
 
         switch (end) {
             case 0: // body1 pivot to body2 pivot
-                ConstBody body1 = constraint.getBody1();
-                RMat44Arg com1ToWorld = body1.getCenterOfMassTransform();
-                Mat44Arg pivot1ToCom1 = constraint.getConstraintToBody1Matrix();
-                RMat44Arg pivot1ToWorld = Op.star(com1ToWorld, pivot1ToCom1);
-                tail = pivot1ToWorld.getTranslation();
+                constraint.getBody1PivotLocation(buffer);
+                tail.set(buffer);
 
-                ConstBody body2 = constraint.getBody2();
-                RMat44Arg com2ToWorld = body2.getCenterOfMassTransform();
-                Mat44Arg pivot2ToCom2 = constraint.getConstraintToBody2Matrix();
-                RMat44Arg pivot2ToWorld = Op.star(com2ToWorld, pivot2ToCom2);
-                tip = pivot2ToWorld.getTranslation();
+                constraint.getBody2PivotLocation(buffer);
+                tip.set(buffer);
                 break;
 
             case 1: // body1 center-of-mass to body1 pivot
-                ConstBody body = constraint.getBody1();
-                RMat44Arg comToWorld = body.getCenterOfMassTransform();
-                tail = comToWorld.getTranslation();
+                ConstBody body1 = constraint.getBody1();
+                body1.getCenterOfMassPosition(buffer);
+                tail.set(buffer);
 
-                Mat44Arg pivotToCom = constraint.getConstraintToBody1Matrix();
-                RMat44Arg pivotToWorld = Op.star(comToWorld, pivotToCom);
-                tip = pivotToWorld.getTranslation();
+                constraint.getBody1PivotLocation(buffer);
+                tip.set(buffer);
                 break;
 
             case 2: // body2 center-of-mass to body2 pivot
-                body = constraint.getBody2();
-                comToWorld = body.getCenterOfMassTransform();
-                tail = comToWorld.getTranslation();
+                ConstBody body2 = constraint.getBody2();
+                body2.getCenterOfMassPosition(buffer);
+                tail.set(buffer);
 
-                pivotToCom = constraint.getConstraintToBody2Matrix();
-                pivotToWorld = Op.star(comToWorld, pivotToCom);
-                tip = pivotToWorld.getTranslation();
+                constraint.getBody2PivotLocation(buffer);
+                tip.set(buffer);
                 break;
 
             default:
