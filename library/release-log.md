@@ -1,5 +1,9 @@
 # release log for the Sport-Jolt Library
 
+## Version 0.9.5 released on TODO
+
+Updated the Jolt-JNI library to v2.0.1 and the OSHI library to v6.8.2 .
+
 ## Version 0.9.4 released on 18 May 2025
 
 + API changes:
