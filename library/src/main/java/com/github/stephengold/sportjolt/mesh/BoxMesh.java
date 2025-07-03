@@ -120,7 +120,7 @@ public class BoxMesh extends Mesh {
     /**
      * Instantiate an axis-aligned box.
      *
-     * @param halfExtent The extent used to generate the axis-aligned box.
+     * @param halfExtent half the desired extent
      */
     public BoxMesh(float halfExtent) {
         this(halfExtent, halfExtent, halfExtent);
@@ -129,7 +129,7 @@ public class BoxMesh extends Mesh {
     /**
      * Instantiate an axis-aligned box.
      *
-     * @param halfExtent The extent used to generate the axis-aligned box.
+     * @param halfExtent half the desired extent
      */
     public BoxMesh(Vec3Arg halfExtent) {
         this(halfExtent.getX(), halfExtent.getY(), halfExtent.getZ(),

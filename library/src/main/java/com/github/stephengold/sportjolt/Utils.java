@@ -219,12 +219,12 @@ final public class Utils {
      * No rounding error is introduced when v1==v2.
      *
      * @param t the weight given to {@code v1}
-     * @param v0 the function value at t=0 (not null, unaffected unless it's
-     * also {@code storeResult})
-     * @param v1 the function value at t=1 (not null, unaffected unless it's
-     * also {@code storeResult})
-     * @param storeResult storage for the result (modified if not null, may be
-     * {@code v0} or {@code v1})
+     * @param v0 the function value at t=0 (not {@code null}, unaffected unless
+     * it's also {@code storeResult})
+     * @param v1 the function value at t=1 (not {@code null}, unaffected unless
+     * it's also {@code storeResult})
+     * @param storeResult storage for the result (modified if not {@code null},
+     * may be {@code v0} or {@code v1})
      * @return the interpolated value (either {@code storeResult} or a new
      * instance)
      */
@@ -243,7 +243,7 @@ final public class Utils {
     /**
      * Load raw bytes from the named classpath resource.
      *
-     * @param resourceName the name of the resource (not null)
+     * @param resourceName the name of the resource (not {@code null})
      * @return a new array
      */
     public static ByteBuffer loadResourceAsBytes(String resourceName) {
@@ -307,7 +307,7 @@ final public class Utils {
     /**
      * Load an AWT BufferedImage from the named classpath resource.
      *
-     * @param resourceName the name of the resource (not null)
+     * @param resourceName the name of the resource (not {@code null})
      * @return a new object
      */
     public static BufferedImage loadResourceAsImage(String resourceName) {
@@ -332,7 +332,8 @@ final public class Utils {
     /**
      * Load UTF-8 text from the named resource.
      *
-     * @param resourceName the name of the classpath resource to load (not null)
+     * @param resourceName the name of the classpath resource to load (not
+     * {@code null})
      * @return the text (possibly multiple lines)
      */
     public static String loadResourceAsString(String resourceName) {
@@ -460,8 +461,8 @@ final public class Utils {
     /**
      * Copy the specified FloatBuffer to an array.
      *
-     * @param buffer the buffer to copy (not null, unaffected)
-     * @return a new array (not null)
+     * @param buffer the buffer to copy (not {@code null}, unaffected)
+     * @return a new array
      */
     public static float[] toArray(FloatBuffer buffer) {
         float[] array = new float[buffer.limit()];
@@ -475,7 +476,7 @@ final public class Utils {
     /**
      * Convert a BufferedImage to a {@code FloatBuffer} of heights.
      *
-     * @param image the image to use (not null, unaffected)
+     * @param image the image to use (not {@code null}, unaffected)
      * @param maxHeight the vertical scaling factor
      * @return a new direct buffer containing values in the range [0,
      * maxHeight], one value for each pixel in the image
@@ -538,8 +539,8 @@ final public class Utils {
     /**
      * Copy the specified JOML vector to a new Jolt-JNI vector.
      *
-     * @param joml the JOML vector to copy (not null, unaffected)
-     * @return a new Jolt-JNI vector (not null)
+     * @param joml the JOML vector to copy (not {@code null}, unaffected)
+     * @return a new Jolt-JNI vector
      */
     public static Vec3 toJoltVector(Vector3fc joml) {
         Vec3 result = new Vec3(joml.x(), joml.y(), joml.z());
@@ -547,12 +548,12 @@ final public class Utils {
     }
 
     /**
-     * Copy the specified JOML vector to a Jolt vector.
+     * Copy the specified JOML vector to a Jolt-JNI vector.
      *
-     * @param joml the JOML vector to copy (not null, unaffected)
-     * @param storeResult storage for the result (modified if not null)
-     * @return a new Jolt vector (either {@code storeResult} or a new vector,
-     * not null)
+     * @param joml the JOML vector to copy (not {@code null}, unaffected)
+     * @param storeResult storage for the result (modified if not {@code null})
+     * @return the Jolt-JNI vector (either {@code storeResult} or a new vector,
+     * not {@code null})
      */
     public static Vec3 toJoltVector(Vector3fc joml, Vec3 storeResult) {
         Vec3 result = (storeResult == null) ? new Vec3() : storeResult;
@@ -561,9 +562,10 @@ final public class Utils {
     }
 
     /**
-     * Copy the specified Jolt quaternion to a new JOML quaternion.
+     * Copy the specified Jolt-JNI quaternion to a new JOML quaternion.
      *
-     * @param jolt the Jolt quaternion to copy (not null, unaffected)
+     * @param jolt the Jolt-JNI quaternion to copy (not {@code null},
+     * unaffected)
      * @return a new JOML quaternion
      */
     public static Quaternionf toJomlQuaternion(Quat jolt) {
@@ -573,39 +575,40 @@ final public class Utils {
     }
 
     /**
-     * Copy the specified Jolt location vector to a new JOML vector.
+     * Copy the specified Jolt-JNI location vector to a new JOML vector.
      *
-     * @param jolt the Jolt vector to copy (not null, unaffected)
-     * @return a new JOML vector (not null)
+     * @param jolt the Jolt-JNI vector to copy (not {@code null}, unaffected)
+     * @return a new JOML vector
      */
     public static Vector3f toJomlVector(RVec3Arg jolt) {
         return new Vector3f(jolt.x(), jolt.y(), jolt.z());
     }
 
     /**
-     * Copy the specified Jolt vector to a new JOML vector.
+     * Copy the specified Jolt-JNI vector to a new JOML vector.
      *
-     * @param jolt the Jolt vector to copy (not null, unaffected)
-     * @return a new JOML vector (not null)
+     * @param jolt the Jolt-JNI vector to copy (not {@code null}, unaffected)
+     * @return a new JOML vector
      */
     public static Vector3f toJomlVector(Vec3Arg jolt) {
         return new Vector3f(jolt.getX(), jolt.getY(), jolt.getZ());
     }
 
     /**
-     * Copy the specified Jolt vector to a JOML vector.
+     * Copy the specified Jolt-JNI vector to a JOML vector.
      *
-     * @param jolt the Jolt vector to copy (not null, unaffected)
-     * @param storeResult storage for the result (modified if not null)
-     * @return a JOML vector (either {@code storeResult} or a new vector, not
-     * null)
+     * @param jolt the Jolt-JNI vector to copy (not {@code null}, unaffected)
+     * @param storeResult storage for the result (modified if not {@code null})
+     * @return the JOML vector (either {@code storeResult} or a new vector, not
+     * {@code null})
      */
     public static Vector3f toJomlVector(Vec3Arg jolt, Vector3f storeResult) {
         return new Vector3f(jolt.getX(), jolt.getY(), jolt.getZ());
     }
 
     /**
-     * Convert an sRGB color string to a color in the linear colorspace.
+     * Convert the specified sRGB color string to a color in the linear
+     * colorspace.
      *
      * @param hexString the input color (hexadecimal string with red channel in
      * the most-significant byte, alpha channel in the least significant byte)
@@ -660,7 +663,7 @@ final public class Utils {
      * -PI to PI and is stored in the 3rd (Z) vector component.
      * </ul>
      *
-     * @param vec the vector to convert (not null, modified)
+     * @param vec the vector to convert (not {@code null}, modified)
      */
     public static void toSpherical(Vec3 vec) {
         double xx = vec.getX();
