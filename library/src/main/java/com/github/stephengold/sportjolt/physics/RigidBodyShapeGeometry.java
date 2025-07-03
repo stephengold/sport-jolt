@@ -104,6 +104,18 @@ public class RigidBodyShapeGeometry extends Geometry {
         BaseApplication.makeVisible(this);
     }
     // *************************************************************************
+    // new methods exposed
+
+    /**
+     * Return the body ID.
+     *
+     * @return the id
+     */
+    public int getBodyId() {
+        int result = rigidBody.getId();
+        return result;
+    }
+    // *************************************************************************
     // Geometry methods
 
     /**
