@@ -11,14 +11,21 @@
     <!-- Check for headers:                       -->
     <!-- See https://checkstyle.org/checks/header -->
     <module name="Header">
+        <property name="fileExtensions" value="java"/>
         <property name="headerFile" value="${config_loc}/java-header"/>
         <property name="ignoreLines" value="2"/>
-        <property name="fileExtensions" value="java"/>
     </module>
 
     <!-- Check that a package-info.java file exists for each package:  -->
     <!-- See https://checkstyle.org/checks/javadoc/javadocpackage.html -->
     <module name="JavadocPackage"/>
+
+    <module name="RegexpSingleline">
+        <property name="format" value="\s+$"/>
+        <property name="maximum" value="0"/>
+        <property name="message" value="Line has trailing whitespace."/>
+        <property name="minimum" value="0"/>
+    </module>
 
     <!-- Checks for size violations:             -->
     <!-- See https://checkstyle.org/checks/sizes -->
@@ -36,12 +43,6 @@
     <module name="FileTabCharacter">
         <property name="eachLine" value="true"/>
     </module>
-    <module name="RegexpSingleline">
-        <property name="format" value="\s+$"/>
-        <property name="minimum" value="0"/>
-        <property name="maximum" value="0"/>
-        <property name="message" value="Line has trailing whitespace."/>
-    </module>
 
     <module name="TreeWalker">
         <!-- Checks for annotations:                      -->
@@ -51,9 +52,9 @@
             <property name="tokens" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF, RECORD_DEF, COMPACT_CTOR_DEF"/>
         </module>
         <module name="AnnotationLocation">
+            <property name="allowSamelineMultipleAnnotations" value="true"/>
             <property name="id" value="AnnotationLocationVariables"/>
             <property name="tokens" value="VARIABLE_DEF"/>
-            <property name="allowSamelineMultipleAnnotations" value="true"/>
         </module>
 
         <!-- Checks for blocks:                       -->
@@ -71,10 +72,6 @@
         <module name="NeedBraces">
             <property name="tokens" value="LITERAL_DO, LITERAL_ELSE, LITERAL_FOR, LITERAL_IF, LITERAL_WHILE"/>
         </module>
-        <module name="RegexpSinglelineJava">
-            <property name="format" value="\{[ ]+\}"/>
-            <property name="message" value="Empty blocks should have no spaces. Empty blocks may only be represented as '{}' when not part of a multi-block statement (4.1.3)"/>
-        </module>
         <module name="RightCurly">
             <property name="id" value="RightCurlyAlone"/>
             <property name="option" value="alone"/>
@@ -90,6 +87,14 @@
             <property name="tokens" value="LITERAL_TRY, LITERAL_CATCH, LITERAL_FINALLY, LITERAL_IF, LITERAL_ELSE, LITERAL_DO"/>
         </module>
 
+        <!-- Checks for class design:                 -->
+        <!-- See https://checkstyle.org/checks/design -->
+        <module name="DesignForExtension"/>
+        <module name="FinalClass"/>
+        <module name="HideUtilityClassConstructor"/>
+        <module name="InterfaceIsType"/>
+        <module name="OneTopLevelClass"/>
+
         <!-- Checks for common coding problems:       -->
         <!-- See https://checkstyle.org/checks/coding -->
         <module name="ConstructorsDeclarationGrouping"/>
@@ -101,9 +106,9 @@
             <property name="tokens" value="LITERAL_NATIVE, POST_DEC, POST_INC, STATIC_IMPORT"/>
         </module>
         <module name="IllegalTokenText">
-            <property name="tokens" value="STRING_LITERAL, CHAR_LITERAL"/>
             <property name="format" value="\\u00(09|0(a|A)|0(c|C)|0(d|D)|22|27|5(C|c))|\\(0(10|11|12|14|15|42|47)|134)"/>
             <property name="message" value="Use special escape sequence instead of octal value or Unicode escaped value."/>
+            <property name="tokens" value="STRING_LITERAL, CHAR_LITERAL"/>
         </module>
         <module name="MissingSwitchDefault"/>
         <module name="MultipleVariableDeclarations"/>
@@ -113,21 +118,13 @@
             <property name="allowedDistance" value="5"/>
         </module>
 
-        <!-- Checks for class design:                 -->
-        <!-- See https://checkstyle.org/checks/design -->
-        <module name="DesignForExtension"/>
-        <module name="FinalClass"/>
-        <module name="HideUtilityClassConstructor"/>
-        <module name="InterfaceIsType"/>
-        <module name="OneTopLevelClass"/>
-
         <!-- Checks for imports:                       -->
         <!-- See https://checkstyle.org/checks/imports -->
         <module name="AvoidStarImport"/>
         <module name="CustomImportOrder">
-            <property name="sortImportsInGroupAlphabetically" value="true"/>
-            <property name="separateLineBetweenGroups" value="true"/>
             <property name="customImportOrderRules" value="STATIC###THIRD_PARTY_PACKAGE"/>
+            <property name="separateLineBetweenGroups" value="true"/>
+            <property name="sortImportsInGroupAlphabetically" value="true"/>
             <property name="tokens" value="IMPORT, STATIC_IMPORT, PACKAGE_DEF"/>
         </module>
         <module name="IllegalImport"/> <!-- defaults to sun.* packages -->
@@ -157,15 +154,15 @@
         </module>
         <module name="JavadocVariable"/>
         <module name="MissingJavadocMethod">
-            <property name="scope" value="private"/>
-            <property name="minLineCount" value="-1"/>
             <property name="allowedAnnotations" value=""/>
+            <property name="minLineCount" value="-1"/>
+            <property name="scope" value="private"/>
             <property name="tokens" value="METHOD_DEF, CTOR_DEF, ANNOTATION_FIELD_DEF, COMPACT_CTOR_DEF"/>
         </module>
         <module name="MissingJavadocType">
+            <property name="excludeScope" value="nothing"/>
             <property name="scope" value="protected"/>
             <property name="tokens" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, RECORD_DEF, ANNOTATION_DEF"/>
-            <property name="excludeScope" value="nothing"/>
         </module>
         <module name="NonEmptyAtclauseDescription"/>
         <module name="RequireEmptyLineBeforeBlockTagGroup"/>
@@ -179,20 +176,20 @@
         <!-- See https://checkstyle.org/checks/misc -->
         <module name="ArrayTypeStyle"/>
         <module name="AvoidEscapedUnicodeCharacters">
-            <property name="allowEscapesForControlCharacters" value="true"/>
             <property name="allowByTailComment" value="true"/>
+            <property name="allowEscapesForControlCharacters" value="true"/>
             <property name="allowNonPrintableEscapes" value="true"/>
         </module>
         <module name="CommentsIndentation">
             <property name="tokens" value="SINGLE_LINE_COMMENT, BLOCK_COMMENT_BEGIN"/>
         </module>
         <module name="Indentation">
+            <property name="arrayInitIndent" value="4"/>
             <property name="basicOffset" value="4"/>
             <property name="braceAdjustment" value="0"/>
             <property name="caseIndent" value="4"/>
-            <property name="throwsIndent" value="4"/>
             <property name="lineWrappingIndentation" value="4"/>
-            <property name="arrayInitIndent" value="4"/>
+            <property name="throwsIndent" value="4"/>
         </module>
         <module name="OuterTypeFilename"/>
         <module name="UpperEll"/>
@@ -204,8 +201,8 @@
         <!-- Checks for naming conventions:           -->
         <!-- See https://checkstyle.org/checks/naming -->
         <module name="AbbreviationAsWordInName">
-            <property name="ignoreFinal" value="false"/>
             <property name="allowedAbbreviationLength" value="1"/>
+            <property name="ignoreFinal" value="false"/>
             <property name="tokens" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, ANNOTATION_DEF, ANNOTATION_FIELD_DEF, PARAMETER_DEF, VARIABLE_DEF, METHOD_DEF, PATTERN_VARIABLE_DEF, RECORD_DEF, RECORD_COMPONENT_DEF"/>
         </module>
         <module name="CatchParameterName">
@@ -267,6 +264,11 @@
             <message key="name.invalidPattern" value="Type name ''{0}'' must match pattern ''{1}''."/>
         </module>
 
+        <module name="RegexpSinglelineJava">
+            <property name="format" value="\{[ ]+\}"/>
+            <property name="message" value="Empty blocks should have no spaces. Empty blocks may only be represented as '{}' when not part of a multi-block statement (4.1.3)"/>
+        </module>
+
         <!-- Checks for size violations:             -->
         <!-- See https://checkstyle.org/checks/sizes -->
         <module name="MethodLength">
@@ -281,14 +283,14 @@
         <module name="EmptyForInitializerPad"/>
         <module name="EmptyForIteratorPad"/>
         <module name="EmptyLineSeparator">
-            <property name="tokens" value="IMPORT, STATIC_IMPORT, CLASS_DEF, INTERFACE_DEF, ENUM_DEF, STATIC_INIT, INSTANCE_INIT, METHOD_DEF, CTOR_DEF, VARIABLE_DEF, RECORD_DEF, COMPACT_CTOR_DEF"/>
             <property name="allowNoEmptyLineBetweenFields" value="true"/>
+            <property name="tokens" value="IMPORT, STATIC_IMPORT, CLASS_DEF, INTERFACE_DEF, ENUM_DEF, STATIC_INIT, INSTANCE_INIT, METHOD_DEF, CTOR_DEF, VARIABLE_DEF, RECORD_DEF, COMPACT_CTOR_DEF"/>
         </module>
         <module name="GenericWhitespace">
             <message key="ws.followed" value="GenericWhitespace ''{0}'' is followed by whitespace."/>
-            <message key="ws.preceded" value="GenericWhitespace ''{0}'' is preceded with whitespace."/>
             <message key="ws.illegalFollow" value="GenericWhitespace ''{0}'' should followed by whitespace."/>
             <message key="ws.notPreceded" value="GenericWhitespace ''{0}'' is not preceded with whitespace."/>
+            <message key="ws.preceded" value="GenericWhitespace ''{0}'' is preceded with whitespace."/>
         </module>
         <module name="MethodParamPad">
             <property name="tokens" value="CTOR_DEF, LITERAL_NEW, METHOD_CALL, METHOD_DEF, CTOR_CALL, SUPER_CTOR_CALL, ENUM_CONSTANT_DEF, RECORD_DEF, RECORD_PATTERN_DEF"/>
@@ -298,8 +300,8 @@
         </module>
         <module name="NoWhitespaceAfter"/>
         <module name="NoWhitespaceBefore">
-            <property name="tokens" value="COMMA, SEMI, POST_INC, POST_DEC, DOT, LABELED_STAT, METHOD_REF"/>
             <property name="allowLineBreaks" value="true"/>
+            <property name="tokens" value="COMMA, SEMI, POST_INC, POST_DEC, DOT, LABELED_STAT, METHOD_REF"/>
         </module>
         <module name="NoWhitespaceBeforeCaseDefaultColon"/>
         <module name="OperatorWrap">
@@ -312,29 +314,29 @@
         <module name="SeparatorWrap">
             <!-- ARRAY_DECLARATOR is EOL until https://github.com/google/styleguide/issues/258 -->
             <property name="id" value="SeparatorWrapArrayDeclarator"/>
-            <property name="tokens" value="ARRAY_DECLARATOR"/>
             <property name="option" value="EOL"/>
+            <property name="tokens" value="ARRAY_DECLARATOR"/>
         </module>
         <module name="SeparatorWrap">
             <property name="id" value="SeparatorWrapComma"/>
-            <property name="tokens" value="COMMA"/>
             <property name="option" value="EOL"/>
+            <property name="tokens" value="COMMA"/>
         </module>
         <module name="SeparatorWrap">
             <property name="id" value="SeparatorWrapDot"/>
-            <property name="tokens" value="DOT"/>
             <property name="option" value="nl"/>
+            <property name="tokens" value="DOT"/>
         </module>
         <module name="SeparatorWrap">
             <!-- ELLIPSIS is EOL until https://github.com/google/styleguide/issues/259 -->
             <property name="id" value="SeparatorWrapEllipsis"/>
-            <property name="tokens" value="ELLIPSIS"/>
             <property name="option" value="EOL"/>
+            <property name="tokens" value="ELLIPSIS"/>
         </module>
         <module name="SeparatorWrap">
             <property name="id" value="SeparatorWrapMethodRef"/>
-            <property name="tokens" value="METHOD_REF"/>
             <property name="option" value="nl"/>
+            <property name="tokens" value="METHOD_REF"/>
         </module>
         <module name="TypecastParenPad"/>
         <module name="WhitespaceAfter">
@@ -343,9 +345,9 @@
         <module name="WhitespaceAround">
             <property name="allowEmptyConstructors" value="true"/>
             <property name="allowEmptyLambdas" value="true"/>
+            <property name="allowEmptyLoops" value="true"/>
             <property name="allowEmptyMethods" value="true"/>
             <property name="allowEmptyTypes" value="true"/>
-            <property name="allowEmptyLoops" value="true"/>
             <property name="ignoreEnhancedForColon" value="false"/>
             <property name="tokens" value="ASSIGN, BAND, BAND_ASSIGN, BOR, BOR_ASSIGN, BSR, BSR_ASSIGN, BXOR, BXOR_ASSIGN, COLON, DIV, DIV_ASSIGN, DO_WHILE, EQUAL, GE, GT, LAMBDA, LAND, LCURLY, LE, LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_FOR, LITERAL_IF, LITERAL_RETURN, LITERAL_SWITCH, LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_WHILE, LOR, LT, MINUS, MINUS_ASSIGN, MOD, MOD_ASSIGN, NOT_EQUAL, PLUS, PLUS_ASSIGN, QUESTION, RCURLY, SL, SLIST, SL_ASSIGN, SR, SR_ASSIGN, STAR, STAR_ASSIGN, LITERAL_ASSERT, TYPE_EXTENSION_AND, LITERAL_WHEN"/>
             <message key="ws.notFollowed" value="WhitespaceAround: ''{0}'' is not followed by whitespace. Empty blocks may only be represented as '{}' when not part of a multi-block statement (4.1.3)"/>
