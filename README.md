@@ -159,6 +159,12 @@ You can install the artifacts to your local Maven repository:
 
 Three demonstration applications (in Java) are included:
 
++ MarbleGame (a clone of the RollingTheMonkey game)
+  + using Bash or Fish or PowerShell or Zsh: `./gradlew :java-apps:MarbleGame`
+  + using Windows Command Prompt: `.\gradlew :java-apps:MarbleGame`
+  + Press R to restart the game.
+  + Press W/A/S/D or arrow keys to move the marble.
+
 + NewtonsCradle (a "Newton's cradle" toy)
   + using Bash or Fish or PowerShell or Zsh: `./gradlew :java-apps:NewtonsCradle`
   + using Windows Command Prompt: `.\gradlew :java-apps:NewtonsCradle`
