@@ -81,6 +81,17 @@ public class BoxMesh extends Mesh {
     /**
      * Instantiate an axis-aligned box.
      *
+     * @param xRadius half the desired extent on the X axis
+     * @param yRadius half the desired extent on the Y axis
+     * @param zRadius half the desired extent on the Z axis
+     */
+    public BoxMesh(float xRadius, float yRadius, float zRadius) {
+        this(xRadius, yRadius, zRadius, -xRadius, -yRadius, -zRadius);
+    }
+
+    /**
+     * Instantiate an axis-aligned box.
+     *
      * @param x1 X coordinate of the first vertex (in mesh coordinates)
      * @param y1 Y coordinate of the first vertex (in mesh coordinates)
      * @param z1 Z coordinate of the first vertex (in mesh coordinates)
