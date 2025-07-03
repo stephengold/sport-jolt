@@ -293,6 +293,19 @@ abstract public class BaseApplication {
     /**
      * Alter the background color of the window.
      *
+     * @param red the red component of the desired color (default=0)
+     * @param green the green component of the desired color (default=0)
+     * @param blue the blue component of the desired color (default=0)
+     * @param opacity the opacity component of the desired color (default=0)
+     */
+    public static void setBackgroundColor(
+            float red, float green, float blue, float opacity) {
+        Internals.setBackgroundColor(red, green, blue, opacity);
+    }
+
+    /**
+     * Alter the background color of the window.
+     *
      * @param desiredColor the desired color (not null, unaffected,
      * default=black)
      */
@@ -312,6 +325,19 @@ abstract public class BaseApplication {
      * @param blue the blue component of the desired color (default=1)
      */
     public static void setLightColor(float red, float green, float blue) {
+        LightColor.set(red, green, blue);
+    }
+
+    /**
+     * Alter the color and intensity of lights.
+     *
+     * @param desiredColor the desired color (not null, unaffected,
+     * default=white)
+     */
+    public static void setLightColor(Vector4fc desiredColor) {
+        float red = desiredColor.x();
+        float green = desiredColor.y();
+        float blue = desiredColor.z();
         LightColor.set(red, green, blue);
     }
 
