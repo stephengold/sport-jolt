@@ -30,6 +30,7 @@ package com.github.stephengold.sportjolt;
 
 import com.github.stephengold.joltjni.Jolt;
 import com.github.stephengold.joltjni.Quat;
+import com.github.stephengold.joltjni.RVec3;
 import com.github.stephengold.joltjni.Vec3;
 import com.github.stephengold.joltjni.readonly.RVec3Arg;
 import com.github.stephengold.joltjni.readonly.Vec3Arg;
@@ -42,6 +43,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 import javax.imageio.ImageIO;
 import org.joml.Quaternionf;
+import org.joml.Quaternionfc;
 import org.joml.Vector3f;
 import org.joml.Vector3fc;
 import org.joml.Vector4f;
@@ -509,6 +511,31 @@ final public class Utils {
     }
 
     /**
+     * Copy the specified JOML quaternion to a new Jolt-JNI quaternion.
+     *
+     * @param joml the JOML quaternion to copy (not {@code null}, unaffected)
+     * @return a new Jolt-JNI quaternion
+     */
+    public static Quat toJoltQuaternion(Quaternionfc joml) {
+        Quat result = new Quat(joml.x(), joml.y(), joml.z(), joml.w());
+        return result;
+    }
+
+    /**
+     * Copy the specified JOML quaternion to a Jolt-JNI quaternion.
+     *
+     * @param joml the JOML quaternion to copy (not {@code null}, unaffected)
+     * @param storeResult storage for the result (modified if not {@code null})
+     * @return the Jolt-JNI quaternion (either {@code storeResult} or a new
+     * quaternion, not {@code null})
+     */
+    public static Quat toJoltQuaternion(Quaternionfc joml, Quat storeResult) {
+        Quat result = (storeResult == null) ? new Quat() : storeResult;
+        result.set(joml.x(), joml.y(), joml.z(), joml.w());
+        return result;
+    }
+
+    /**
      * Copy the specified JOML vector to a new Jolt-JNI vector.
      *
      * @param joml the JOML vector to copy (not null, unaffected)
@@ -602,6 +629,17 @@ final public class Utils {
         float a = (srgbColor & 0xFF) / 255f;
 
         return new Vector4f(r, g, b, a);
+    }
+
+    /**
+     * Copy the specified JOML vector to a new Jolt-JNI location vector.
+     *
+     * @param joml the JOML vector to copy (not {@code null}, unaffected)
+     * @return a new Jolt-JNI vector
+     */
+    public static RVec3 toLocationVector(Vector3fc joml) {
+        RVec3 result = new RVec3(joml.x(), joml.y(), joml.z());
+        return result;
     }
 
     /**
