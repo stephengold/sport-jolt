@@ -29,6 +29,7 @@
 package com.github.stephengold.sportjolt.javaapp;
 
 import com.github.stephengold.sportjolt.BaseApplication;
+import com.github.stephengold.sportjolt.javaapp.demo.MarbleGame;
 import com.github.stephengold.sportjolt.javaapp.demo.NewtonsCradle;
 import com.github.stephengold.sportjolt.javaapp.demo.Pachinko;
 import com.github.stephengold.sportjolt.javaapp.demo.ThousandCubes;
@@ -76,6 +77,7 @@ final class AppChooser extends JFrame {
                 new ClipspaceTest(),
                 new DynamicMeshTest(),
                 new IcosphereTest(),
+                new MarbleGame(),
                 new MouseTest(),
                 new MouseTest2(),
                 new NewtonsCradle(),
