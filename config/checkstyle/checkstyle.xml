@@ -213,11 +213,11 @@
             <message key="name.invalidPattern" value="Catch parameter name ''{0}'' must match pattern ''{1}''."/>
         </module>
         <module name="ClassTypeParameterName">
-            <property name="format" value="^[A-Z]$"/>
+            <property name="format" value="^$"/>
             <message key="name.invalidPattern" value="Class type name ''{0}'' must match pattern ''{1}''."/>
         </module>
         <module name="InterfaceTypeParameterName">
-            <property name="format" value="^[A-Z]$"/>
+            <property name="format" value="^$"/>
             <message key="name.invalidPattern" value="Interface type name ''{0}'' must match pattern ''{1}''."/>
         </module>
         <module name="LambdaParameterName">
@@ -238,7 +238,7 @@
             <message key="name.invalidPattern" value="Method name ''{0}'' must match pattern ''{1}''."/>
         </module>
         <module name="MethodTypeParameterName">
-            <property name="format" value="(^[A-Z]$)"/>
+            <property name="format" value="^$"/>
             <message key="name.invalidPattern" value="Method type name ''{0}'' must match pattern ''{1}''."/>
         </module>
         <module name="PackageName">
@@ -250,15 +250,15 @@
             <message key="name.invalidPattern" value="Parameter name ''{0}'' must match pattern ''{1}''."/>
         </module>
         <module name="PatternVariableName">
-            <property name="format" value="^[a-z]{1,9}$"/>
+            <property name="format" value="^$"/>
             <message key="name.invalidPattern" value="Pattern variable name ''{0}'' must match pattern ''{1}''."/>
         </module>
         <module name="RecordComponentName">
-            <property name="format" value="^[a-z]{1,9}$"/>
+            <property name="format" value="^$"/>
             <message key="name.invalidPattern" value="Record component name ''{0}'' must match pattern ''{1}''."/>
         </module>
         <module name="RecordTypeParameterName">
-            <property name="format" value="(^[A-Z]$)"/>
+            <property name="format" value="^$"/>
             <message key="name.invalidPattern" value="Record type name ''{0}'' must match pattern ''{1}''."/>
         </module>
         <module name="StaticVariableName"/>
