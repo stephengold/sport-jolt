@@ -297,7 +297,11 @@ abstract public class BaseApplication {
      * default=black)
      */
     public static void setBackgroundColor(Vector4fc desiredColor) {
-        Internals.setBackgroundColor(desiredColor);
+        float red = desiredColor.x();
+        float green = desiredColor.y();
+        float blue = desiredColor.z();
+        float opacity = desiredColor.w();
+        Internals.setBackgroundColor(red, green, blue, opacity);
     }
 
     /**
