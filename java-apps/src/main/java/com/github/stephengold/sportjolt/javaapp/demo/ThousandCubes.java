@@ -176,6 +176,7 @@ public class ThousandCubes extends BasePhysicsApp {
 
         int numBpLayers = 2; // use 2 broadphase layers for efficiency
         PhysicsSystem result = createSystem(maxBodies, numBpLayers);
+
         return result;
     }
 
