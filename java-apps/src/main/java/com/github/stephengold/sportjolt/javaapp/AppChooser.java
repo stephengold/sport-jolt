@@ -47,7 +47,6 @@ import com.github.stephengold.sportjolt.javaapp.test.TextureTest;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -70,26 +69,24 @@ final class AppChooser extends JFrame {
      */
     public static void main(String[] arguments) {
         Logger.getLogger("").setLevel(Level.WARNING);
-        List<BaseApplication> apps = new ArrayList<>(15);
 
-        apps.add(new AssimpTest());
-        apps.add(new CheckerboardTest());
-        apps.add(new ClipspaceTest());
-        apps.add(new DynamicMeshTest());
-        apps.add(new IcosphereTest());
-
-        apps.add(new MouseTest());
-        apps.add(new MouseTest2());
-        apps.add(new NewtonsCradle());
-        apps.add(new OctasphereTest());
-        apps.add(new Pachinko());
-
-        apps.add(new RainbowTest());
-        apps.add(new ShapeImages());
-        apps.add(new SpriteTest());
-        apps.add(new TextureTest());
-        apps.add(new ThousandCubes());
-
+        List<BaseApplication> apps = List.of(
+                new AssimpTest(),
+                new CheckerboardTest(),
+                new ClipspaceTest(),
+                new DynamicMeshTest(),
+                new IcosphereTest(),
+                new MouseTest(),
+                new MouseTest2(),
+                new NewtonsCradle(),
+                new OctasphereTest(),
+                new Pachinko(),
+                new RainbowTest(),
+                new ShapeImages(),
+                new SpriteTest(),
+                new TextureTest(),
+                new ThousandCubes()
+        );
         new AppChooser(apps);
     }
     // *************************************************************************
