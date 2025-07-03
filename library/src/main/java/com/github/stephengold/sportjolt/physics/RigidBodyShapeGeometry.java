@@ -115,6 +115,16 @@ public class RigidBodyShapeGeometry extends Geometry {
         int result = rigidBody.getId();
         return result;
     }
+
+    /**
+     * Return the virtual address of the body.
+     *
+     * @return the address (not zero)
+     */
+    public long getBodyVa() {
+        long result = rigidBody.targetVa();
+        return result;
+    }
     // *************************************************************************
     // Geometry methods
 
