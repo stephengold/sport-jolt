@@ -123,7 +123,7 @@ public class BoxMesh extends Mesh {
      * @param halfExtent The extent used to generate the axis-aligned box.
      */
     public BoxMesh(float halfExtent) {
-        this(new Vec3(halfExtent, halfExtent, halfExtent));
+        this(halfExtent, halfExtent, halfExtent);
     }
 
     /**
