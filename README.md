@@ -205,7 +205,7 @@ Package names begin with `com.github.stephengold.sportjolt`.
 
 The source code and pre-built libraries are compatible with JDK 11.
 
-Rotation signs, polygon windings, and 3-D coordinate axes
+3-D rotations, polygon windings, and coordinate axes
 are right-handed/counter-clockwise unless otherwise noted.
 
 Angles are quantified in *radians* unless otherwise noted.
