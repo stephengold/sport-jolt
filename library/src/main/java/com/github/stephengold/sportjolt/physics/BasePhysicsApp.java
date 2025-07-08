@@ -41,6 +41,7 @@ import com.github.stephengold.joltjni.PhysicsSystem;
 import com.github.stephengold.joltjni.TempAllocator;
 import com.github.stephengold.joltjni.TempAllocatorMalloc;
 import com.github.stephengold.joltjni.VehicleConstraint;
+import com.github.stephengold.joltjni.enumerate.EPhysicsUpdateError;
 import com.github.stephengold.joltjni.enumerate.EShapeSubType;
 import com.github.stephengold.joltjni.readonly.ConstBody;
 import com.github.stephengold.joltjni.readonly.ConstCharacter;
@@ -369,8 +370,9 @@ public abstract class BasePhysicsApp extends BaseApplication {
 
             // Single-step the physics system:
             int collisionSteps = 1;
-            physicsSystem.update(
+            int errors = physicsSystem.update(
                     timePerStep, collisionSteps, tempAllocator, jobSystem);
+            assert errors == EPhysicsUpdateError.None : errors;
             totalSimulatedTime += collisionSteps * timePerStep;
 
             // Notify any step listeners:
