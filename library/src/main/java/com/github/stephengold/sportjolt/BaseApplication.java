@@ -659,13 +659,15 @@ abstract public class BaseApplication {
                     + width + ", height=" + height);
         }
 
-        // Center the window.
         GLFWVidMode videoMode
                 = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
-        GLFW.glfwSetWindowPos(windowHandle,
-                (videoMode.width() - width) / 2,
-                (videoMode.height() - height) / 2
-        );
+        if (videoMode != null) {
+            // Center the window:
+            GLFW.glfwSetWindowPos(windowHandle,
+                    (videoMode.width() - width) / 2,
+                    (videoMode.height() - height) / 2
+            );
+        }
 
         // Request callback when the frame buffer is resized:
         GLFW.glfwSetFramebufferSizeCallback(
