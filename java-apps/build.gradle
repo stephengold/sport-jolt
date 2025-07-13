@@ -40,6 +40,10 @@ tasks.register('ThousandCubes', JavaExec) {
     description = 'Runs the ThousandCubes demo app.'
     mainClass = 'com.github.stephengold.sportjolt.javaapp.demo.ThousandCubes'
 }
+tasks.register('Windlass', JavaExec) {
+    description = 'Runs the Windlass demo app.'
+    mainClass = 'com.github.stephengold.sportjolt.javaapp.demo.Windlass'
+}
 
 //   generate images for use in the tutorial:
 tasks.register('ShapeImages', JavaExec) {

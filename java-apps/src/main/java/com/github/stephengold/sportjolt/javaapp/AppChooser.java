@@ -33,6 +33,7 @@ import com.github.stephengold.sportjolt.javaapp.demo.MarbleGame;
 import com.github.stephengold.sportjolt.javaapp.demo.NewtonsCradle;
 import com.github.stephengold.sportjolt.javaapp.demo.Pachinko;
 import com.github.stephengold.sportjolt.javaapp.demo.ThousandCubes;
+import com.github.stephengold.sportjolt.javaapp.demo.Windlass;
 import com.github.stephengold.sportjolt.javaapp.image.ShapeImages;
 import com.github.stephengold.sportjolt.javaapp.test.AssimpTest;
 import com.github.stephengold.sportjolt.javaapp.test.CheckerboardTest;
@@ -87,7 +88,8 @@ final class AppChooser extends JFrame {
                 new ShapeImages(),
                 new SpriteTest(),
                 new TextureTest(),
-                new ThousandCubes()
+                new ThousandCubes(),
+                new Windlass()
         );
         new AppChooser(apps);
     }

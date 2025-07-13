@@ -157,7 +157,7 @@ You can install the artifacts to your local Maven repository:
 
 ### Demos
 
-Three demonstration applications (in Java) are included:
+Five demonstration applications (in Java) are included:
 
 + MarbleGame (a clone of the RollingTheMonkey game)
   + using Bash or Fish or PowerShell or Zsh: `./gradlew :java-apps:MarbleGame`
@@ -185,6 +185,15 @@ Three demonstration applications (in Java) are included:
   + using Windows Command Prompt:
     `.\gradlew -Passertions=false -Pbtf=ReleaseSp :java-apps:ThousandCubes`
   + Press E to shoot.
+  + Press Pause or "." to pause or resume the physics.
+  + Press W/A/S/D/Q/Z to move the camera.
+
++ Windlass (a cable coiled around a horizontal barrel)
+  + using Bash or Fish or PowerShell or Zsh:
+    `./gradlew :java-apps:Windlass`
+  + using Windows Command Prompt:
+    `.\gradlew :java-apps:Windlass`
+  + Press Up/Down to rotate the barrel
   + Press Pause or "." to pause or resume the physics.
   + Press W/A/S/D/Q/Z to move the camera.
 

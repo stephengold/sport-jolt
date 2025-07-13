@@ -34,3 +34,7 @@ tasks.register('ThousandCubes') {
     dependsOn ':java-apps:ThousandCubes'
     description = 'Runs the ThousandCubes demo app.'
 }
+tasks.register('Windlass', JavaExec) {
+    dependsOn ':java-apps:Windlass'
+    description = 'Runs the Windlass demo app.'
+}
