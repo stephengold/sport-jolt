@@ -193,7 +193,7 @@ public class Windlass extends BasePhysicsApp implements PhysicsTickListener {
     protected void initialize() {
         super.initialize();
 
-        setVsync(false);
+        setVsync(true);
         configureCamera();
         configureInput();
         setBackgroundColor(Constants.SKY_BLUE);
