@@ -162,13 +162,13 @@ public class ThousandCubes extends BasePhysicsApp {
     @Override
     protected PhysicsSystem createSystem() {
         if (Utils.areAssertionsEnabled()) {
-            System.out.println("Warning: assertions are enabled.");
+            System.out.println("Warning:  assertions are enabled.");
         }
         if (Jolt.buildType().equals("Debug")) {
-            System.out.println("Warning: using a Debug native library.");
+            System.out.println("Warning:  using a Debug native library");
         }
         if (Jolt.isDoublePrecision()) {
-            System.out.println("Warning: using a Dp native library.");
+            System.out.println("Warning:  using a Dp native library");
         }
 
         int numBoxes = numColumns * numLayers * numRows;
