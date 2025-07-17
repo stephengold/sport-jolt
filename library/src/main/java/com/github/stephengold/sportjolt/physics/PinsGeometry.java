@@ -63,7 +63,6 @@ public class PinsGeometry extends Geometry {
      * @param softBody the body to visualize (not null, alias created)
      */
     public PinsGeometry(ConstBody softBody) {
-        super();
         Validate.nonNull(softBody, "soft body");
 
         assert softBody.getBodyType() == EBodyType.SoftBody;

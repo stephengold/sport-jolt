@@ -83,8 +83,6 @@ public class CharacterVirtualShapeGeometry extends Geometry {
      */
     CharacterVirtualShapeGeometry(
             ConstCharacterVirtual character, MeshingStrategy meshingStrategy) {
-        super();
-
         Validate.nonNull(character, "character");
         Validate.nonNull(meshingStrategy, "meshing strategy");
 

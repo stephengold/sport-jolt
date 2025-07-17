@@ -93,7 +93,6 @@ public class LocalAxisGeometry extends Geometry {
      */
     public LocalAxisGeometry(
             ConstJoltPhysicsObject jpo, int axisIndex, float length) {
-        super();
         Validate.axisIndex(axisIndex, "axisIndex");
         Validate.nonNegative(length, "length");
         assert jpo == null || jpo instanceof ConstBody

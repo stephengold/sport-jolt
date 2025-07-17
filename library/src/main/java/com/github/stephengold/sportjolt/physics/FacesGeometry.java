@@ -59,8 +59,6 @@ public class FacesGeometry extends Geometry {
      * @param softBody the soft body to visualize (not null, alias created)
      */
     public FacesGeometry(ConstBody softBody) {
-        super();
-
         Validate.nonNull(softBody, "soft body");
         assert softBody.getBodyType() == EBodyType.SoftBody;
 

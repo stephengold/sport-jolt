@@ -62,7 +62,6 @@ public class ComGeometry extends Geometry {
      * @param body the body to visualize (not null, alias created)
      */
     public ComGeometry(ConstBody body) {
-        super();
         Validate.nonNull(body, "body");
 
         this.body = body;

@@ -63,7 +63,6 @@ public class AabbGeometry extends Geometry {
      * @param jpo the physics object (not null, alias created)
      */
     public AabbGeometry(JoltPhysicsObject jpo) {
-        super();
         Validate.nonNull(jpo, "physics object");
         if (jpo instanceof ConstBody || jpo instanceof ConstCharacter
                 || jpo instanceof ConstCharacterVirtual

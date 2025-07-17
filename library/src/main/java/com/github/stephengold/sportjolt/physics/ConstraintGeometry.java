@@ -78,7 +78,6 @@ public class ConstraintGeometry extends Geometry {
      * @param end which end to visualize (0, 1, or 2)
      */
     public ConstraintGeometry(TwoBodyConstraint constraint, int end) {
-        super();
         Validate.nonNull(constraint, "constraint");
         Validate.inRange(end, "end", 0, 2);
 
