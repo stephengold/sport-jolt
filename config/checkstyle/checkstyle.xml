@@ -100,11 +100,20 @@
 
         <!-- Checks for common coding problems:       -->
         <!-- See https://checkstyle.org/checks/coding -->
+        <module name="AvoidDoubleBraceInitialization"/>
+        <module name="AvoidNoArgumentSuperConstructorCall"/>
         <module name="ConstructorsDeclarationGrouping"/>
+        <module name="CovariantEquals"/>
+        <module name="DefaultComesLast"/>
         <module name="EmptyStatement"/>
         <module name="EqualsHashCode"/>
+        <module name="ExplicitInitialization"/>
         <module name="FallThrough"/>
+        <module name="HiddenField">
+            <property name="tokens" value="VARIABLE_DEF"/>
+        </module>
         <module name="IllegalInstantiation"/>
+        <module name="IllegalThrows"/>
         <module name="IllegalToken">
             <property name="tokens" value="LITERAL_NATIVE, POST_DEC, POST_INC, STATIC_IMPORT"/>
         </module>
@@ -113,6 +122,7 @@
             <property name="message" value="Use special escape sequence instead of octal value or Unicode escaped value."/>
             <property name="tokens" value="STRING_LITERAL, CHAR_LITERAL"/>
         </module>
+        <module name="IllegalType"/>
         <module name="MissingSwitchDefault"/>
         <module name="MultipleVariableDeclarations"/>
         <module name="NoFinalizer"/>
@@ -124,6 +134,7 @@
         <!-- Checks for imports:                       -->
         <!-- See https://checkstyle.org/checks/imports -->
         <module name="AvoidStarImport"/>
+        <module name="AvoidStaticImport"/>
         <module name="CustomImportOrder">
             <property name="customImportOrderRules" value="STATIC###THIRD_PARTY_PACKAGE"/>
             <property name="separateLineBetweenGroups" value="true"/>
@@ -194,6 +205,7 @@
             <property name="lineWrappingIndentation" value="4"/>
             <property name="throwsIndent" value="4"/>
         </module>
+        <module name="NoCodeInFile"/>
         <module name="OuterTypeFilename"/>
         <module name="UpperEll"/>
 
