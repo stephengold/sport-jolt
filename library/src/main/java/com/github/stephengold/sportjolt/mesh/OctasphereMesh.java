@@ -111,7 +111,7 @@ public class OctasphereMesh extends Mesh {
     /**
      * next vertex index to be assigned
      */
-    private int nextVertexIndex = 0;
+    private int nextVertexIndex;
     /**
      * map vertex indices to U coordinates for vertices with Y=0
      */

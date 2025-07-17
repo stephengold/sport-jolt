@@ -91,7 +91,7 @@ public class IcosphereMesh extends Mesh {
     /**
      * next vertex index to be assigned
      */
-    private int nextVertexIndex = 0;
+    private int nextVertexIndex;
     /**
      * map vertex indices to location vectors in mesh coordinates, all with
      * length=1

@@ -72,11 +72,11 @@ final class Internals {
      * true to enable debugging output and optional runtime checks, or false to
      * disable them
      */
-    private static boolean enableDebugging = false;
+    private static boolean enableDebugging;
     /**
      * true after {@code start()} has been invoked
      */
-    private static boolean hasStarted = false;
+    private static boolean hasStarted;
     /**
      * print OpenGL debugging information (typically to the console) or null if
      * not created
