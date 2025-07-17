@@ -9,7 +9,7 @@
     <property name="fileExtensions" value="java, properties, xml"/>
     <property name="severity" value="error"/>
 
-    <!-- Check for headers:                       -->
+    <!-- Check for header:                        -->
     <!-- See https://checkstyle.org/checks/header -->
     <module name="Header">
         <property name="fileExtensions" value="java"/>
@@ -21,8 +21,8 @@
     <!-- See https://checkstyle.org/checks/javadoc/javadocpackage.html -->
     <module name="JavadocPackage"/>
 
-    <!-- Check for trailing whitespace:                                 -->
-    <!-- See https://checkstyle.org/checks/regexp/regexpsingleline.html -->
+    <!-- Regexp checks:                           -->
+    <!-- See https://checkstyle.org/checks/regexp -->
     <module name="RegexpSingleline">
         <property name="format" value="\s$"/>
         <property name="maximum" value="0"/>
