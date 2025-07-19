@@ -316,12 +316,21 @@ public abstract class BasePhysicsApp extends BaseApplication {
                         layerMap, numBpLayers, ovoFilter, numObjLayers);
 
         int numBodyMutexes = 0; // 0 means "use the default value"
-
+        /*
+         * Current heuristics:
+         *
+         * maxBodies=2 -> maxBodyPairs=3, maxContacts=56
+         * maxBodies=3 -> maxBodyPairs=3, maxContacts=63
+         * maxBodies=10 -> maxBodyPairs=45, maxContacts=112
+         * maxBodies=100 -> maxBodyPairs=1200, maxContacts=742
+         * maxBodies=1000 -> maxBodyPairs=3900, maxContacts=7042
+         */
         long maxBodiesLong = maxBodies;
         long possiblePairs = maxBodiesLong * (maxBodiesLong - 1) / 2;
-        int maxBodyPairs = (int) Math.min(possiblePairs, 60_000);
+        int maxBodyPairs = (int) Math.min(possiblePairs, 3 * maxBodies + 900);
         maxBodyPairs = Math.max(3, maxBodyPairs);
-        int maxContacts = 6 * (maxBodies + 6);
+
+        int maxContacts = 7 * (maxBodies + 6);
         PhysicsSystem result = new PhysicsSystem();
         result.init(maxBodies, numBodyMutexes, maxBodyPairs, maxContacts,
                 layerMap, ovbFilter, ovoFilter);
