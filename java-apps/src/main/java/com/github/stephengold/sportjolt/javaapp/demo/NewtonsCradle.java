@@ -192,7 +192,7 @@ public class NewtonsCradle extends BasePhysicsApp {
 
     /**
      * Add a dynamic ball to the system, suspended between 2 single-ended
-     * constraints.
+     * distance constraints.
      *
      * @param xOffset the desired location along the system's X axis
      * @return a new instance

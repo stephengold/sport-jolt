@@ -285,7 +285,9 @@ public abstract class BasePhysicsApp extends BaseApplication {
     }
 
     /**
-     * Create a generic PhysicsSystem with the specified parameters.
+     * Create a generic {@code PhysicsSystem} with the specified parameters.
+     * Heuristics are used to configure reasonable limits for mutexes, pairs,
+     * and contacts.
      *
      * @param maxBodies the maximum number of bodies (&ge;1)
      * @param numBpLayers the number of broadphase layers (1 or 2)
