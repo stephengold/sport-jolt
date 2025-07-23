@@ -85,12 +85,12 @@ final class Internals {
     /**
      * currently active global uniforms
      */
-    private static final Collection<GlobalUniform> activeGlobalUniforms
+    final private static Collection<GlobalUniform> activeGlobalUniforms
             = new HashSet<>(16);
     /**
      * shader programs that are currently in use
      */
-    private static final Collection<ShaderProgram> programsInUse
+    final private static Collection<ShaderProgram> programsInUse
             = new HashSet<>(16);
     /**
      * height of the displayed frame buffer (in pixels)
