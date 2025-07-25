@@ -38,7 +38,6 @@
         <property name="max" value="1200"/>
     </module>
     <module name="LineLength">
-        <property name="fileExtensions" value="java"/>
         <property name="ignorePattern" value="https://"/>
     </module>
 
