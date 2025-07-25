@@ -241,7 +241,7 @@ public abstract class BasePhysicsApp extends BaseApplication {
      * @param summary a summary of the shape (not null)
      * @return an immutable Mesh (not null)
      */
-    static Mesh meshForShape(ConstShape shape, ShapeSummary summary) {
+    public static Mesh meshForShape(ConstShape shape, ShapeSummary summary) {
         Mesh result;
 
         if (meshCache.containsKey(summary)) {
