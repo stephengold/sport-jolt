@@ -1,5 +1,21 @@
 # release log for the Sport-Jolt Library
 
+## Version 0.9.6 released on TBD
+
++ Added constructors and methods:
+  + `BaseApplication.setBackgroundColor(float, float, float, float)`
+  + `BaseApplication.setLightColor(Vector4fc)`
+  + `BoxMesh(float, float, float)`
+  + `RigidBodyShapeGeometry.getBodyId()`
+  + `RigidBodyShapeGeometry.getBodyVa()`
+  + `ShapeSummary(ConstShape, String)`
+  + `Utils.toJoltQuaternion(Quaternionfc)`
+  + `Utils.toJoltQuaternion(Quaternionfc, Quat)`
+
++ Publicized the `BasePhysicsApp.meshForShape()` method.
++ Tuned the `PhysicsSystem` sizing heuristics.
++ Updated the Jolt-JNI library to v2.1.0 .
+
 ## Version 0.9.5 released on 30 June 2025
 
 Updated the Jolt-JNI library to v2.0.1 and the OSHI library to v6.8.2 .
