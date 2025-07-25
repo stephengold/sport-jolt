@@ -39,7 +39,7 @@ import java.util.Objects;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-class ShapeSummary {
+public class ShapeSummary {
     // *************************************************************************
     // fields
 
@@ -89,6 +89,16 @@ class ShapeSummary {
         } else {
             this.childSummaryList = null;
         }
+    }
+
+    /**
+     * Instantiate a new summary.
+     *
+     * @param shape the shape to summarize (not null, unaffected)
+     * @param strategy how to generate meshes (not null)
+     */
+    public ShapeSummary(ConstShape shape, String strategy) {
+        this(shape, new MeshingStrategy(strategy));
     }
     // *************************************************************************
     // new methods exposed
