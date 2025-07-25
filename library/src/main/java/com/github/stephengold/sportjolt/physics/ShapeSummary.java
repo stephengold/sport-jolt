@@ -53,13 +53,13 @@ class ShapeSummary {
      */
     final private long revisionCount;
     /**
-     * reference to the shape (prevents reuse of the virtual address)
-     */
-    final private ShapeRefC shapeRef;
-    /**
      * strategy for mesh generation
      */
     final private MeshingStrategy meshingStrategy;
+    /**
+     * reference to the shape (prevents reuse of the virtual address)
+     */
+    final private ShapeRefC shapeRef;
     // *************************************************************************
     // constructors
 
