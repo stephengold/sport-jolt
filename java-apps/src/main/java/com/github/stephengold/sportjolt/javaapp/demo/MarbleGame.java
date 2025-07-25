@@ -38,7 +38,6 @@ import com.github.stephengold.joltjni.Quat;
 import com.github.stephengold.joltjni.SphereShapeSettings;
 import com.github.stephengold.joltjni.enumerate.EActivation;
 import com.github.stephengold.joltjni.enumerate.EMotionType;
-import com.github.stephengold.joltjni.enumerate.ValidateResult;
 import com.github.stephengold.joltjni.readonly.ConstBody;
 import com.github.stephengold.joltjni.readonly.ConstBodyCreationSettings;
 import com.github.stephengold.joltjni.readonly.ConstShapeSettings;
@@ -147,17 +146,6 @@ public class MarbleGame extends BasePhysicsApp {
 
         result.setContactListener(new CustomContactListener() {
             /**
-             * TODO don't override
-             */
-            @Override
-            public int onContactValidate(long body1Va, long body2Va,
-                    double offsetX, double offsetY, double offsetZ,
-                    long collisionResultVa) {
-                return ValidateResult.AcceptAllContactsForThisBodyPair
-                        .ordinal();
-            }
-
-            /**
              * Callback invoked (by native code) each time a new contact point
              * is detected.
              *
@@ -175,23 +163,7 @@ public class MarbleGame extends BasePhysicsApp {
                     long manifoldVa, long settingsVa) {
                 analyzeContact(body1Va, body2Va);
             }
-
-            /**
-             * TODO don't override
-             */
-            @Override
-            public void onContactPersisted(long body1Va, long body2Va,
-                    long manifoldVa, long settingsVa) {
-            }
-
-            /**
-             * TODO don't override
-             */
-            @Override
-            public void onContactRemoved(long subShapePairVa) {
-            }
-        }
-        );
+        });
 
         return result;
     }
