@@ -1,6 +1,6 @@
 # release log for the Sport-Jolt Library
 
-## Version 0.9.6 released on TBD
+## Version 0.9.6 released on 25 July 2025
 
 + Added constructors and methods:
   + `BaseApplication.setBackgroundColor(float, float, float, float)`

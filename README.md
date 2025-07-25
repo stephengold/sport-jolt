@@ -58,10 +58,10 @@ Add to the project’s "build.gradle" or "build.gradle.kts" file:
     }
     dependencies {
         // JVM library:
-        implementation("com.github.stephengold:sport-jolt:0.9.5")
+        implementation("com.github.stephengold:sport-jolt:0.9.6")
 
-        // Libbulletjme native libraries:
-        runtimeOnly("com.github.stephengold:jolt-jni-Linux64:2.0.1:DebugSp")
+        // Jolt-JNI native libraries:
+        runtimeOnly("com.github.stephengold:jolt-jni-Linux64:2.1.0:DebugSp")
           // Jolt-JNI native libraries for other platforms could be added.
 
         // LWJGL native libraries:
@@ -142,7 +142,7 @@ By default, physics objects are not visualized.
   + using [Git]:
     + `git clone https://github.com/stephengold/sport-jolt.git`
     + `cd sport-jolt`
-    + `git checkout -b latest 0.9.5`
+    + `git checkout -b latest 0.9.6`
 4. (optional) Edit the "gradle.properties" file to configure the build.
 5. Run the [Gradle] wrapper:
   + using Bash or Fish or PowerShell or Zsh: `./gradlew build`
