@@ -215,7 +215,7 @@ public class MarbleGame extends BasePhysicsApp {
         reorientCamera();
     }
     // *************************************************************************
-    // new methods exposed
+    // private methods
 
     /**
      * Add the yellow cube bodies to the physics system.

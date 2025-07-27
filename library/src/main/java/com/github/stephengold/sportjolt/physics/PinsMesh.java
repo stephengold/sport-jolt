@@ -75,7 +75,7 @@ class PinsMesh extends Mesh {
     // new methods exposed
 
     /**
-     * Update this Mesh to match the soft body.
+     * Update this mesh to match the soft body.
      *
      * @return {@code true} if successful, otherwise {@code false}
      */

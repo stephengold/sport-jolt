@@ -155,7 +155,7 @@ public class ThousandCubes extends BasePhysicsApp {
     // BasePhysicsApp methods
 
     /**
-     * Create the PhysicsSystem. Invoked once during initialization.
+     * Create the physics system. Invoked once during initialization.
      *
      * @return a new object
      */
@@ -195,7 +195,7 @@ public class ThousandCubes extends BasePhysicsApp {
     }
 
     /**
-     * Populate the PhysicsSystem with bodies. Invoked once during
+     * Populate the physics system with bodies. Invoked once during
      * initialization.
      */
     @Override
