@@ -115,6 +115,8 @@ By default, physics objects are not visualized.
   instantiate an `EdgesGeometry` for it.
 + To visualize the pins of a soft body,
   instantiate a `PinsGeometry` for it.
++ To visualize all vertices of a soft body,
+  instantiate a `VerticesGeometry` for it.
 
 [Jump to the table of contents](#toc)
 
