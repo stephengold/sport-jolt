@@ -125,83 +125,18 @@ By default, physics objects are not visualized.
 
 ## How to build and run Sport Jolt from source
 
-### Initial build
+[How to build and run the demos from source](https://stephengold.github.io/jolt-jni-docs/jolt-jni-en/English/demos.html#_how_to_build_and_run_the_demos_from_source)
 
-1. Install a [Java Development Kit (JDK)][adoptium],
-   if you don't already have one.
-2. Point the `JAVA_HOME` environment variable to your JDK installation:
-   (In other words, set it to the path of a directory/folder
-   containing a "bin" that contains a Java executable.
-   That path might look something like
-   "C:\Program Files\Eclipse Adoptium\jdk-17.0.3.7-hotspot"
-   or "/usr/lib/jvm/java-17-openjdk-amd64/" or
-   "/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home" .)
-  + using Bash or Zsh: `export JAVA_HOME="` *path to installation* `"`
-  + using [Fish]: `set -g JAVA_HOME "` *path to installation* `"`
-  + using Windows Command Prompt: `set JAVA_HOME="` *path to installation* `"`
-  + using PowerShell: `$env:JAVA_HOME = '` *path to installation* `'`
-3. Download and extract the Sport-Jolt source code from GitHub:
-  + using [Git]:
-    + `git clone https://github.com/stephengold/sport-jolt.git`
-    + `cd sport-jolt`
-    + `git checkout -b latest 0.9.6`
-4. (optional) Edit the "gradle.properties" file to configure the build.
-5. Run the [Gradle] wrapper:
-  + using Bash or Fish or PowerShell or Zsh: `./gradlew build`
-  + using Windows Command Prompt: `.\gradlew build`
-
+Building demos automatically includes building the library.
 After a successful build,
-[Maven] artifacts will be found in "library/build/libs".
+library artifacts will be found in "library/build/libs".
 
-You can install the artifacts to your local Maven repository:
+Once you’ve successfully built the library,
+you can install it to your local Maven repository:
 + using Bash or Fish or PowerShell or Zsh: `./gradlew install`
 + using Windows Command Prompt: `.\gradlew install`
 
-### Demos
-
-Five demonstration applications (in Java) are included:
-
-+ MarbleGame (a clone of the RollingTheMonkey game)
-  + using Bash or Fish or PowerShell or Zsh: `./gradlew :java-apps:MarbleGame`
-  + using Windows Command Prompt: `.\gradlew :java-apps:MarbleGame`
-  + Press R to restart the game.
-  + Press W/A/S/D or arrow keys to move the marble.
-
-+ NewtonsCradle (a "Newton's cradle" toy)
-  + using Bash or Fish or PowerShell or Zsh: `./gradlew :java-apps:NewtonsCradle`
-  + using Windows Command Prompt: `.\gradlew :java-apps:NewtonsCradle`
-  + Press Pause or "." to start or pause the physics.
-  + Press 1/2/3/4/5 to reinitialize with a different number of balls.
-  + Press W/A/S/D/Q/Z to move the camera.
-
-+ Pachinko (2-D simulation of a simple Pachinko machine)
-  + using Bash or Fish or PowerShell or Zsh: `./gradlew :java-apps:Pachinko`
-  + using Windows Command Prompt: `.\gradlew :java-apps:Pachinko`
-  + Press Pause or "." to pause or resume the physics.
-  + Press 4/5/6/7/8/9 to restart the simulation with a different pin layout.
-
-+ ThousandCubes
-  (drop 1000 cubes onto a horizontal surface and shoot balls at them)
-  + using Bash or Fish or PowerShell or Zsh:
-    `./gradlew -Passertions=false -Pbtf=ReleaseSp :java-apps:ThousandCubes`
-  + using Windows Command Prompt:
-    `.\gradlew -Passertions=false -Pbtf=ReleaseSp :java-apps:ThousandCubes`
-  + Press E to shoot.
-  + Press Pause or "." to pause or resume the physics.
-  + Press W/A/S/D/Q/Z to move the camera.
-
-+ Windlass (a cable coiled around a horizontal barrel)
-  + using Bash or Fish or PowerShell or Zsh:
-    `./gradlew :java-apps:Windlass`
-  + using Windows Command Prompt:
-    `.\gradlew :java-apps:Windlass`
-  + Press Up/Down to rotate the barrel
-  + Press Pause or "." to pause or resume the physics.
-  + Press W/A/S/D/Q/Z to move the camera.
-
-### Cleanup
-
-You can restore the project to a pristine state:
+At any time, you can restore the project to a pristine state:
 + using Bash or Fish or PowerShell or Zsh: `./gradlew clean`
 + using Windows Command Prompt: `.\gradlew clean`
 
