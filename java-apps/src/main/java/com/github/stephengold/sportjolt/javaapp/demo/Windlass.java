@@ -211,7 +211,7 @@ public class Windlass extends BasePhysicsApp implements PhysicsTickListener {
          * Determine the segment length, which is also the distance between
          * successive pivots.
          */
-        float deltaPhi = 2f * Jolt.JPH_PI / numSegmentsPerCoil;
+        float deltaPhi = Constants.twoPi / numSegmentsPerCoil;
         float z0 = attachPoint.z();
         float deltaX = 2.1f * cableRadius / numSegmentsPerCoil;
         float deltaY = 2f * z0 * Jolt.tan(deltaPhi / 2f);
@@ -220,7 +220,7 @@ public class Windlass extends BasePhysicsApp implements PhysicsTickListener {
         // The segment shape is a Z-axis capsule.
         assert segmentLength > 2f * cableRadius : "alternate segments collide!";
         Shape yCapsule = new CapsuleShape(segmentLength / 2f, cableRadius);
-        QuatArg y2z = Quat.sEulerAngles(Jolt.JPH_PI / 2f, 0f, 0f);
+        QuatArg y2z = Quat.sEulerAngles(Constants.halfPi, 0f, 0f);
         segmentShape = new RotatedTranslatedShape(new Vec3(), y2z, yCapsule);
         localPivot.set(0f, 0f, segmentLength / 2f);
         /*
@@ -240,7 +240,7 @@ public class Windlass extends BasePhysicsApp implements PhysicsTickListener {
         QuatArg rotatePhi = Quat.sEulerAngles(deltaPhi, 0f, 0f);
 
         // Attach successive segments in a spiral coiling around the barrel:
-        float phi = Jolt.JPH_PI / 2f;
+        float phi = Constants.halfPi;
         Body endSegment = segment;
         RVec3 center = new RVec3(attachPoint);
         for (int segmentI = 0; segmentI < numCoiledSegments; ++segmentI) {
@@ -258,7 +258,7 @@ public class Windlass extends BasePhysicsApp implements PhysicsTickListener {
             endSegment = newSegment;
         }
 
-        orientation = Quat.sEulerAngles(Jolt.JPH_PI / 2f, 0f, 0f);
+        orientation = Quat.sEulerAngles(Constants.halfPi, 0f, 0f);
 
         // Attach successive segments in a vertical drop chain:
         for (int segmentI = 0; segmentI < numPendantSegments; ++segmentI) {
@@ -331,7 +331,7 @@ public class Windlass extends BasePhysicsApp implements PhysicsTickListener {
      * coordinates)
      */
     private RVec3 addBarrel(float cableRadius) {
-        QuatArg y2x = Quat.sEulerAngles(0f, 0f, -Jolt.JPH_PI / 2f);
+        QuatArg y2x = Quat.sEulerAngles(0f, 0f, -Constants.halfPi);
 
         float drumLength = 12f * cableRadius;
         float drumRadius = 0.6f * drumLength;

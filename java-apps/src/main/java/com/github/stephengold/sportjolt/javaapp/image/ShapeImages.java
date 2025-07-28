@@ -66,6 +66,7 @@ import com.github.stephengold.joltjni.readonly.ConstPlane;
 import com.github.stephengold.joltjni.readonly.ConstShape;
 import com.github.stephengold.joltjni.readonly.QuatArg;
 import com.github.stephengold.joltjni.readonly.Vec3Arg;
+import com.github.stephengold.sportjolt.Constants;
 import com.github.stephengold.sportjolt.Utils;
 import com.github.stephengold.sportjolt.Validate;
 import com.github.stephengold.sportjolt.Vertex;
@@ -304,7 +305,7 @@ public class ShapeImages extends BasePhysicsApp {
         float majorRadius = 3f;
         float minorRadius = 0.5f;
         int numCapsules = 20;
-        float arcLength = 2f * Jolt.JPH_PI / numCapsules;
+        float arcLength = Constants.twoPi / numCapsules;
         float capsuleLength = majorRadius * arcLength;
         ShapeSettings capsuleSettings
                 = new CapsuleShapeSettings(capsuleLength / 2f, minorRadius);
