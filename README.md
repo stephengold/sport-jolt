@@ -27,7 +27,7 @@ Complete source code is provided under
 ## About Sport Jolt
 
 Sport Jolt is a Simple Physics-ORienTed graphics engine written in Java 11.
-In addition to [Jolt JNI],
+In addition to [Jolt JNI][joltjni],
 it uses [LWJGL], [Assimp], [GLFW], [JOML], [jSnapLoader], and [OpenGL].
 It has been tested on [Linux], macOS, and Windows.
 
