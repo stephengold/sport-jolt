@@ -461,7 +461,6 @@ public class MarbleGame extends BasePhysicsApp {
      */
     private void configureLighting() {
         setLightDirection(0.7683498f, 0.3292928f, 0.54882133f);
-        setLightColor(Constants.WHITE);
     }
 
     /**
