@@ -117,6 +117,8 @@ By default, physics objects are not visualized.
   instantiate a `PinsGeometry` for it.
 + To visualize all vertices of a soft body,
   instantiate a `VerticesGeometry` for it.
++ To visualize the Cosserat rods of a soft body,
+  instantiate an `RodsGeometry` for it.
 
 [Jump to the table of contents](#toc)
 

@@ -24,6 +24,10 @@ tasks.register('AppChooser', JavaExec) {
 }
 
 //   physics demos in Java:
+tasks.register('Botany') {
+    description = 'Runs the Botany demo app.'
+    mainClass = 'com.github.stephengold.sportjolt.javaapp.demo.Botany'
+}
 tasks.register('MarbleGame', JavaExec) {
     description = 'Runs the MarbleGame app.'
     mainClass = 'com.github.stephengold.sportjolt.javaapp.demo.MarbleGame'
