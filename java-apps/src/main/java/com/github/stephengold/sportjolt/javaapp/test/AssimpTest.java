@@ -35,7 +35,6 @@ import com.github.stephengold.sportjolt.TextureKey;
 import com.github.stephengold.sportjolt.Topology;
 import com.github.stephengold.sportjolt.Vertex;
 import com.github.stephengold.sportjolt.importers.AssimpUtils;
-import com.github.stephengold.sportjolt.input.CameraInputProcessor;
 import com.github.stephengold.sportjolt.input.RotateMode;
 import java.util.ArrayList;
 import java.util.List;
@@ -135,8 +134,8 @@ public class AssimpTest extends BaseApplication {
         Vector3fc target = new Vector3f(0f, 0f, 0f);
         getCamera().reposition(eye, target);
 
-        CameraInputProcessor cip = getCameraInputProcessor();
-        cip.setMoveSpeed(2f);
-        cip.setRotationMode(RotateMode.DragLMB);
+        getCameraInputProcessor()
+                .setMoveSpeed(2f)
+                .setRotationMode(RotateMode.DragLMB);
     }
 }

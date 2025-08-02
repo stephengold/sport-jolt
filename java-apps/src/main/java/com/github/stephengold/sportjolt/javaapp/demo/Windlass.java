@@ -60,7 +60,6 @@ import com.github.stephengold.joltjni.readonly.RVec3Arg;
 import com.github.stephengold.joltjni.readonly.Vec3Arg;
 import com.github.stephengold.joltjni.std.Std;
 import com.github.stephengold.sportjolt.Constants;
-import com.github.stephengold.sportjolt.input.CameraInputProcessor;
 import com.github.stephengold.sportjolt.input.InputProcessor;
 import com.github.stephengold.sportjolt.input.RotateMode;
 import com.github.stephengold.sportjolt.physics.BasePhysicsApp;
@@ -499,9 +498,9 @@ public class Windlass extends BasePhysicsApp implements PhysicsTickListener {
      * Configure the camera and CIP during initialization.
      */
     private static void configureCamera() {
-        CameraInputProcessor cip = getCameraInputProcessor();
-        cip.setMoveSpeed(20f);
-        cip.setRotationMode(RotateMode.DragLMB);
+        getCameraInputProcessor()
+                .setMoveSpeed(20f)
+                .setRotationMode(RotateMode.DragLMB);
 
         cam.setAzimuth(-1.78f)
                 .setLocation(30f, 25f, 135f)

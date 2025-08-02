@@ -47,7 +47,6 @@ import com.github.stephengold.joltjni.readonly.ConstShape;
 import com.github.stephengold.joltjni.readonly.QuatArg;
 import com.github.stephengold.sportjolt.Constants;
 import com.github.stephengold.sportjolt.Validate;
-import com.github.stephengold.sportjolt.input.CameraInputProcessor;
 import com.github.stephengold.sportjolt.input.InputProcessor;
 import com.github.stephengold.sportjolt.input.RotateMode;
 import com.github.stephengold.sportjolt.physics.BasePhysicsApp;
@@ -258,9 +257,9 @@ public class Pachinko extends BasePhysicsApp implements PhysicsTickListener {
      * Configure the camera and CIP during initialization.
      */
     private static void configureCamera() {
-        CameraInputProcessor cip = getCameraInputProcessor();
-        cip.setRotationMode(RotateMode.DragLMB);
-        cip.setMoveSpeed(30f);
+        getCameraInputProcessor()
+                .setMoveSpeed(30f)
+                .setRotationMode(RotateMode.DragLMB);
 
         cam.setLocation(0f, -23f, 83f);
     }

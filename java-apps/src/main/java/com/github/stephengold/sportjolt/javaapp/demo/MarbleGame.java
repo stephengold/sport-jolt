@@ -48,7 +48,6 @@ import com.github.stephengold.joltjni.std.DefaultRandomEngine;
 import com.github.stephengold.joltjni.std.RandomNumberEngine;
 import com.github.stephengold.sportjolt.Constants;
 import com.github.stephengold.sportjolt.Utils;
-import com.github.stephengold.sportjolt.input.CameraInputProcessor;
 import com.github.stephengold.sportjolt.input.InputProcessor;
 import com.github.stephengold.sportjolt.input.RotateMode;
 import com.github.stephengold.sportjolt.physics.BasePhysicsApp;
@@ -428,9 +427,9 @@ public class MarbleGame extends BasePhysicsApp {
     private static void configureCamera() {
         cam.setLocation(0f, 12f, 21f);
 
-        CameraInputProcessor cip = getCameraInputProcessor();
-        cip.setMoveSpeed(0f);
-        cip.setRotationMode(RotateMode.None);
+        getCameraInputProcessor()
+                .setMoveSpeed(0f)
+                .setRotationMode(RotateMode.None);
     }
 
     /**

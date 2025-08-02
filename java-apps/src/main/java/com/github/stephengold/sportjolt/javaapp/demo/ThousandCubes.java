@@ -43,6 +43,7 @@ import com.github.stephengold.joltjni.enumerate.EActivation;
 import com.github.stephengold.joltjni.enumerate.EMotionQuality;
 import com.github.stephengold.joltjni.enumerate.EMotionType;
 import com.github.stephengold.joltjni.enumerate.EOverrideMassProperties;
+import com.github.stephengold.joltjni.readonly.ConstBody;
 import com.github.stephengold.joltjni.readonly.ConstPlane;
 import com.github.stephengold.joltjni.readonly.ConstShape;
 import com.github.stephengold.joltjni.readonly.RVec3Arg;
@@ -345,7 +346,7 @@ public class ThousandCubes extends BasePhysicsApp {
         // Create a box:
         boxBcs.setPosition(x, y, z);
         BodyInterface bi = physicsSystem.getBodyInterface();
-        Body box = bi.createBody(boxBcs);
+        ConstBody box = bi.createBody(boxBcs);
 
         int bodyId = box.getId();
         boxIds.set(boxIndex, bodyId);

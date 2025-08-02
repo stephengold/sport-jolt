@@ -71,7 +71,6 @@ import com.github.stephengold.sportjolt.Utils;
 import com.github.stephengold.sportjolt.Validate;
 import com.github.stephengold.sportjolt.Vertex;
 import com.github.stephengold.sportjolt.importers.AssimpUtils;
-import com.github.stephengold.sportjolt.input.CameraInputProcessor;
 import com.github.stephengold.sportjolt.input.InputProcessor;
 import com.github.stephengold.sportjolt.input.RotateMode;
 import com.github.stephengold.sportjolt.mesh.OctasphereMesh;
@@ -689,9 +688,9 @@ public class ShapeImages extends BasePhysicsApp {
      * Configure the camera and CIP during initialization.
      */
     private static void configureCamera() {
-        CameraInputProcessor cip = getCameraInputProcessor();
-        cip.setRotationMode(RotateMode.DragLMB);
-        cip.setMoveSpeed(3f);
+        getCameraInputProcessor()
+                .setMoveSpeed(3f)
+                .setRotationMode(RotateMode.DragLMB);
 
         cam.setLocation(4.6f, 2f, 5.2f)
                 .setAzimuth(-2.35f)

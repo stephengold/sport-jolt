@@ -42,7 +42,6 @@ import com.github.stephengold.joltjni.readonly.ConstShape;
 import com.github.stephengold.joltjni.readonly.Vec3Arg;
 import com.github.stephengold.sportjolt.Constants;
 import com.github.stephengold.sportjolt.Validate;
-import com.github.stephengold.sportjolt.input.CameraInputProcessor;
 import com.github.stephengold.sportjolt.input.InputProcessor;
 import com.github.stephengold.sportjolt.input.RotateMode;
 import com.github.stephengold.sportjolt.physics.BasePhysicsApp;
@@ -235,10 +234,9 @@ public class NewtonsCradle extends BasePhysicsApp {
      * Configure the Camera and CIP during initialization.
      */
     private static void configureCamera() {
-        CameraInputProcessor cip = getCameraInputProcessor();
-        cip.setMoveSpeed(30f);
-        cip.setRotationMode(RotateMode.DragLMB);
-
+        getCameraInputProcessor()
+                .setMoveSpeed(30f)
+                .setRotationMode(RotateMode.DragLMB);
         cam.setAzimuth(-2f)
                 .setLocation(72f, 35f, 140f)
                 .setUpAngle(-0.2f);
