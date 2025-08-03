@@ -22,6 +22,10 @@ tasks.register('AssimpTest') {
     dependsOn ':java-apps:AssimpTest'
     description = 'Runs the Assimp test app.'
 }
+tasks.register('Botany') {
+    dependsOn ':java-apps:Botany'
+    description = 'Runs the Botany demo app.'
+}
 tasks.register('MarbleGame') {
     dependsOn ':java-apps:MarbleGame'
     description = 'Runs the MarbleGame app.'

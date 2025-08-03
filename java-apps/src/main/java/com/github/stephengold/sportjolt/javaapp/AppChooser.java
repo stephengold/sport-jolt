@@ -29,6 +29,7 @@
 package com.github.stephengold.sportjolt.javaapp;
 
 import com.github.stephengold.sportjolt.BaseApplication;
+import com.github.stephengold.sportjolt.javaapp.demo.Botany;
 import com.github.stephengold.sportjolt.javaapp.demo.MarbleGame;
 import com.github.stephengold.sportjolt.javaapp.demo.NewtonsCradle;
 import com.github.stephengold.sportjolt.javaapp.demo.Pachinko;
@@ -74,6 +75,7 @@ final class AppChooser extends JFrame {
 
         List<BaseApplication> apps = List.of(
                 new AssimpTest(),
+                new Botany(),
                 new CheckerboardTest(),
                 new ClipspaceTest(),
                 new DynamicMeshTest(),
