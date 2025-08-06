@@ -154,7 +154,7 @@ public class Windlass extends BasePhysicsApp implements PhysicsTickListener {
     /**
      * Main entry point for the Windlass application.
      *
-     * @param arguments array of command-line arguments (not null)
+     * @param arguments array of command-line arguments (ignored)
      */
     public static void main(String[] arguments) {
         Windlass application = new Windlass();
@@ -164,7 +164,7 @@ public class Windlass extends BasePhysicsApp implements PhysicsTickListener {
     // BasePhysicsApp methods
 
     /**
-     * Create the PhysicsSystem. Invoked once during initialization.
+     * Create the physics system. Invoked once during initialization.
      *
      * @return a new object
      */

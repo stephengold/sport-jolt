@@ -100,7 +100,7 @@ public class CharacterShapeGeometry extends Geometry {
     // Geometry methods
 
     /**
-     * Alter the color and disable automatic updating of it.
+     * Alter the base color and disable automatic updating of it.
      *
      * @param newColor the desired color (not null)
      * @return the (modified) current instance (for chaining)

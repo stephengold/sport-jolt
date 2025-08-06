@@ -350,8 +350,8 @@ public class Geometry {
      * Alter the base color.
      *
      * @param r the desired red component (in the Linear colorspace)
-     * @param g the desired red component (in the Linear colorspace)
-     * @param b the desired red component (in the Linear colorspace)
+     * @param g the desired green component (in the Linear colorspace)
+     * @param b the desired blue component (in the Linear colorspace)
      * @return the (modified) current geometry (for chaining)
      */
     public Geometry setColor(float r, float g, float b) {
