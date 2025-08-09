@@ -259,6 +259,150 @@ public abstract class BasePhysicsApp extends BaseApplication {
 
         return result;
     }
+
+    /**
+     * Visualize the local axes of the specified physics object.
+     *
+     * @param jpo the object to visualize (or null for world axes)
+     * @param axisLength how much of each axis to visualize (in world units,
+     * &ge;0)
+     * @return an array of new, visible geometries
+     */
+    public static Geometry[] visualizeAxes(
+            ConstJoltPhysicsObject jpo, float axisLength) {
+        Validate.nonNegative(axisLength, "axis length");
+
+        int numAxes = 3;
+        Geometry[] result = new Geometry[numAxes];
+
+        for (int ai = 0; ai < numAxes; ++ai) {
+            result[ai] = new LocalAxisGeometry(jpo, ai, axisLength)
+                    .setDepthTest(false);
+        }
+
+        return result;
+    }
+
+    /**
+     * Visualize the collision shape of the specified physics object.
+     *
+     * @param jpo the physics object to visualize (not null)
+     * @return a new, visible Geometry
+     */
+    public static Geometry visualizeShape(ConstJoltPhysicsObject jpo) {
+        float uvScale = 1f;
+        Geometry result = visualizeShape(jpo, uvScale);
+
+        return result;
+    }
+
+    /**
+     * Visualize the shape of the specified physics object.
+     *
+     * @param jpo the physics object to visualize (not null)
+     * @param uvScale the UV scale factor to use (default=1)
+     * @return a new, visible Geometry
+     */
+    public static Geometry visualizeShape(
+            ConstJoltPhysicsObject jpo, float uvScale) {
+        ConstShape shape = getShape(jpo);
+
+        MeshingStrategy meshingStrategy;
+        String programName;
+        TextureKey textureKey;
+
+        EShapeSubType subType = shape.getSubType();
+        if (subType == EShapeSubType.Plane
+                || subType == EShapeSubType.HeightField) {
+            int positionStrategy = 0;
+            meshingStrategy = new MeshingStrategy(
+                    positionStrategy, NormalsOption.Facet, UvsOption.Linear,
+                    new Vector4f(uvScale, 0f, 0f, 0f),
+                    new Vector4f(0f, 0f, uvScale, 0f)
+            );
+            programName = "Phong/Distant/Texture";
+            boolean mipmaps = true;
+            float maxAniso = 16f;
+            textureKey = new TextureKey("procedural:///checkerboard?size=128",
+                    Filter.Linear, Filter.NearestMipmapLinear,
+                    WrapFunction.Repeat, WrapFunction.Repeat, mipmaps,
+                    FlipAxes.noFlip, maxAniso);
+
+        } else if (subType == EShapeSubType.Sphere) {
+            int positionStrategy = -3;
+            meshingStrategy = new MeshingStrategy(
+                    positionStrategy, NormalsOption.Sphere, UvsOption.Spherical,
+                    new Vector4f(uvScale, 0f, 0f, 0f),
+                    new Vector4f(0f, uvScale, 0f, 0f)
+            );
+            programName = "Phong/Distant/Texture";
+            textureKey = new TextureKey(
+                    "procedural:///checkerboard?size=2&color0=999999ff",
+                    Filter.Nearest, Filter.Nearest);
+
+        } else { // shape isn't a heightfield, plane, or sphere:
+            programName = "Phong/Distant/Monochrome";
+            textureKey = null;
+
+            if (subType == EShapeSubType.Capsule
+                    || subType == EShapeSubType.TaperedCapsule) {
+                meshingStrategy = new MeshingStrategy("low/Smooth");
+            } else {
+                meshingStrategy = new MeshingStrategy("low/Facet");
+            }
+        }
+
+        Geometry geometry;
+        if (jpo instanceof ConstBody) {
+            ConstBody body = (ConstBody) jpo;
+            if (body.isSoftBody()) {
+                geometry = new FacesGeometry(body);
+            } else {
+                geometry = new RigidBodyShapeGeometry(body, meshingStrategy);
+            }
+
+        } else if (jpo instanceof ConstCharacter) {
+            ConstCharacter character = (ConstCharacter) jpo;
+            geometry = new CharacterShapeGeometry(character, meshingStrategy);
+
+        } else if (jpo instanceof ConstCharacterVirtual) {
+            ConstCharacterVirtual character = (ConstCharacterVirtual) jpo;
+            geometry = new CharacterVirtualShapeGeometry(
+                    character, meshingStrategy);
+
+        } else if (jpo instanceof VehicleConstraint) {
+            VehicleConstraint constraint = (VehicleConstraint) jpo;
+            ConstBody body = constraint.getVehicleBody();
+            geometry = new RigidBodyShapeGeometry(body, meshingStrategy);
+
+        } else {
+            throw new IllegalArgumentException(jpo.toString());
+        }
+
+        geometry.setProgram(programName);
+        geometry.setSpecularColor(Constants.GRAY);
+        if (textureKey != null) {
+            geometry.setTexture(textureKey);
+        }
+
+        return geometry;
+    }
+
+    /**
+     * Visualize the wheels of the specified vehicle.
+     *
+     * @param vehicle the vehicle to visualize (not null)
+     * @return an array of new, visible geometries
+     */
+    public static Geometry[] visualizeWheels(VehicleConstraint vehicle) {
+        int numWheels = vehicle.countWheels();
+        Geometry[] result = new Geometry[numWheels];
+        for (int wheelIndex = 0; wheelIndex < numWheels; ++wheelIndex) {
+            result[wheelIndex] = new WheelGeometry(vehicle, wheelIndex);
+        }
+
+        return result;
+    }
     // *************************************************************************
     // protected methods
 
@@ -400,150 +544,6 @@ public abstract class BasePhysicsApp extends BaseApplication {
                 listeners.physicsTick(physicsSystem, timePerStep);
             }
         }
-    }
-
-    /**
-     * Visualize the local axes of the specified physics object.
-     *
-     * @param jpo the object to visualize (or null for world axes)
-     * @param axisLength how much of each axis to visualize (in world units,
-     * &ge;0)
-     * @return an array of new, visible geometries
-     */
-    protected static Geometry[] visualizeAxes(
-            ConstJoltPhysicsObject jpo, float axisLength) {
-        Validate.nonNegative(axisLength, "axis length");
-
-        int numAxes = 3;
-        Geometry[] result = new Geometry[numAxes];
-
-        for (int ai = 0; ai < numAxes; ++ai) {
-            result[ai] = new LocalAxisGeometry(jpo, ai, axisLength)
-                    .setDepthTest(false);
-        }
-
-        return result;
-    }
-
-    /**
-     * Visualize the collision shape of the specified physics object.
-     *
-     * @param jpo the physics object to visualize (not null)
-     * @return a new, visible Geometry
-     */
-    protected static Geometry visualizeShape(ConstJoltPhysicsObject jpo) {
-        float uvScale = 1f;
-        Geometry result = visualizeShape(jpo, uvScale);
-
-        return result;
-    }
-
-    /**
-     * Visualize the shape of the specified physics object.
-     *
-     * @param jpo the physics object to visualize (not null)
-     * @param uvScale the UV scale factor to use (default=1)
-     * @return a new, visible Geometry
-     */
-    protected static Geometry visualizeShape(
-            ConstJoltPhysicsObject jpo, float uvScale) {
-        ConstShape shape = getShape(jpo);
-
-        MeshingStrategy meshingStrategy;
-        String programName;
-        TextureKey textureKey;
-
-        EShapeSubType subType = shape.getSubType();
-        if (subType == EShapeSubType.Plane
-                || subType == EShapeSubType.HeightField) {
-            int positionStrategy = 0;
-            meshingStrategy = new MeshingStrategy(
-                    positionStrategy, NormalsOption.Facet, UvsOption.Linear,
-                    new Vector4f(uvScale, 0f, 0f, 0f),
-                    new Vector4f(0f, 0f, uvScale, 0f)
-            );
-            programName = "Phong/Distant/Texture";
-            boolean mipmaps = true;
-            float maxAniso = 16f;
-            textureKey = new TextureKey("procedural:///checkerboard?size=128",
-                    Filter.Linear, Filter.NearestMipmapLinear,
-                    WrapFunction.Repeat, WrapFunction.Repeat, mipmaps,
-                    FlipAxes.noFlip, maxAniso);
-
-        } else if (subType == EShapeSubType.Sphere) {
-            int positionStrategy = -3;
-            meshingStrategy = new MeshingStrategy(
-                    positionStrategy, NormalsOption.Sphere, UvsOption.Spherical,
-                    new Vector4f(uvScale, 0f, 0f, 0f),
-                    new Vector4f(0f, uvScale, 0f, 0f)
-            );
-            programName = "Phong/Distant/Texture";
-            textureKey = new TextureKey(
-                    "procedural:///checkerboard?size=2&color0=999999ff",
-                    Filter.Nearest, Filter.Nearest);
-
-        } else { // shape isn't a heightfield, plane, or sphere:
-            programName = "Phong/Distant/Monochrome";
-            textureKey = null;
-
-            if (subType == EShapeSubType.Capsule
-                    || subType == EShapeSubType.TaperedCapsule) {
-                meshingStrategy = new MeshingStrategy("low/Smooth");
-            } else {
-                meshingStrategy = new MeshingStrategy("low/Facet");
-            }
-        }
-
-        Geometry geometry;
-        if (jpo instanceof ConstBody) {
-            ConstBody body = (ConstBody) jpo;
-            if (body.isSoftBody()) {
-                geometry = new FacesGeometry(body);
-            } else {
-                geometry = new RigidBodyShapeGeometry(body, meshingStrategy);
-            }
-
-        } else if (jpo instanceof ConstCharacter) {
-            ConstCharacter character = (ConstCharacter) jpo;
-            geometry = new CharacterShapeGeometry(character, meshingStrategy);
-
-        } else if (jpo instanceof ConstCharacterVirtual) {
-            ConstCharacterVirtual character = (ConstCharacterVirtual) jpo;
-            geometry = new CharacterVirtualShapeGeometry(
-                    character, meshingStrategy);
-
-        } else if (jpo instanceof VehicleConstraint) {
-            VehicleConstraint constraint = (VehicleConstraint) jpo;
-            ConstBody body = constraint.getVehicleBody();
-            geometry = new RigidBodyShapeGeometry(body, meshingStrategy);
-
-        } else {
-            throw new IllegalArgumentException(jpo.toString());
-        }
-
-        geometry.setProgram(programName);
-        geometry.setSpecularColor(Constants.GRAY);
-        if (textureKey != null) {
-            geometry.setTexture(textureKey);
-        }
-
-        return geometry;
-    }
-
-    /**
-     * Visualize the wheels of the specified vehicle.
-     *
-     * @param vehicle the vehicle to visualize (not null)
-     * @return an array of new, visible geometries
-     */
-    protected static Geometry[] visualizeWheels(VehicleConstraint vehicle) {
-        int numWheels = vehicle.countWheels();
-        Geometry[] result = new Geometry[numWheels];
-        for (int wheelIndex = 0; wheelIndex < numWheels; ++wheelIndex) {
-            result[wheelIndex] = new WheelGeometry(vehicle, wheelIndex);
-        }
-
-        return result;
     }
     // *************************************************************************
     // BaseApplication methods
