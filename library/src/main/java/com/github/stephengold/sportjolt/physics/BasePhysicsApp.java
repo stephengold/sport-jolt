@@ -341,6 +341,15 @@ public abstract class BasePhysicsApp extends BaseApplication {
     }
 
     /**
+     * Access the physics system.
+     *
+     * @return the pre-existing instance
+     */
+    protected PhysicsSystem getPhysicsSystem() {
+        return physicsSystem;
+    }
+
+    /**
      * Access the temporary memory allocator.
      *
      * @return the pre-existing instance
