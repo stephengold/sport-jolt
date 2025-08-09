@@ -46,3 +46,11 @@ tasks.register('Windlass') {
     dependsOn ':java-apps:Windlass'
     description = 'Runs the Windlass demo app.'
 }
+tasks.register('install') {
+    dependsOn ':library:install'
+    description = 'Installs the Maven artifacts to the local repository.'
+}
+tasks.register('release') {
+    dependsOn ':library:release'
+    description = 'Stages the Maven artifacts to the Central Publisher Portal.'
+}
