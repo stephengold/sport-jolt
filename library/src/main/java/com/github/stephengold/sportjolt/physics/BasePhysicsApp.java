@@ -210,7 +210,7 @@ public abstract class BasePhysicsApp extends BaseApplication {
             loader.loadLibrary(LoadingCriterion.CLEAN_EXTRACTION);
         } catch (Exception exception) {
             throw new IllegalStateException(
-                    "Failed to load a Jolt-JNI native library!");
+                    "Failed to load a Jolt-JNI native library!", exception);
         }
 
         printLibraryInfo(System.out);
