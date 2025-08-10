@@ -867,8 +867,8 @@ public class ShapeImages extends BasePhysicsApp {
              * so provide arbitrary values:
              */
             MassProperties mpo = bcs.getMassPropertiesOverride();
-            mpo.setInertia(Mat44.sIdentity());
-            mpo.setMass(1f);
+            mpo.setInertia(Mat44.sIdentity())
+                    .setMass(1f);
 
             boolean makeStatic = shape.mustBeStatic();
             if (makeStatic) {

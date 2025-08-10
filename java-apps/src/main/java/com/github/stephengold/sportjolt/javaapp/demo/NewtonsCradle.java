@@ -33,7 +33,6 @@ import com.github.stephengold.joltjni.BodyCreationSettings;
 import com.github.stephengold.joltjni.BodyInterface;
 import com.github.stephengold.joltjni.DistanceConstraintSettings;
 import com.github.stephengold.joltjni.PhysicsSystem;
-import com.github.stephengold.joltjni.RVec3;
 import com.github.stephengold.joltjni.SphereShape;
 import com.github.stephengold.joltjni.TwoBodyConstraint;
 import com.github.stephengold.joltjni.Vec3;
@@ -214,15 +213,15 @@ public class NewtonsCradle extends BasePhysicsApp {
         float yOffset = wireLength * Constants.rootHalf;
 
         // Create and add the constraint on the +Z side:
-        dcs.setPoint1(new RVec3(xOffset, 0f, 0f));
-        dcs.setPoint2(new RVec3(xOffset, yOffset, +yOffset));
+        dcs.setPoint1(xOffset, 0f, 0f);
+        dcs.setPoint2(xOffset, yOffset, +yOffset);
         TwoBodyConstraint joint1 = dcs.create(result, Body.sFixedToWorld());
         physicsSystem.addConstraint(joint1);
         new ConstraintGeometry(joint1, 0);
 
         // Create and add the constraint on the -Z side:
-        dcs.setPoint1(new RVec3(xOffset, 0f, 0f));
-        dcs.setPoint2(new RVec3(xOffset, yOffset, -yOffset));
+        dcs.setPoint1(xOffset, 0f, 0f);
+        dcs.setPoint2(xOffset, yOffset, -yOffset);
         TwoBodyConstraint joint2 = dcs.create(result, Body.sFixedToWorld());
         physicsSystem.addConstraint(joint2);
         new ConstraintGeometry(joint2, 0);

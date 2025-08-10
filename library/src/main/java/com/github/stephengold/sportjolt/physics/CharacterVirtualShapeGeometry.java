@@ -144,7 +144,7 @@ public class CharacterVirtualShapeGeometry extends Geometry {
      */
     private void updateColor() {
         if (automaticColor) {
-            if (character.getPtr().isSupported()) {
+            if (character.isSupported()) {
                 super.setColor(Constants.BROWN);
             } else {
                 super.setColor(Constants.PINK);
@@ -156,7 +156,7 @@ public class CharacterVirtualShapeGeometry extends Geometry {
      * Update the Mesh.
      */
     private void updateMesh() {
-        ConstShape shape = character.getPtr().getShape();
+        ConstShape shape = character.getShape();
         if (!summary.matches(shape)) {
             MeshingStrategy strategy = summary.meshingStrategy();
             this.summary = new ShapeSummary(shape, strategy);
@@ -169,8 +169,7 @@ public class CharacterVirtualShapeGeometry extends Geometry {
      * Update the mesh-to-world transform.
      */
     private void updateTransform() {
-        ConstCharacterVirtual ccv = character.getPtr();
-        ccv.getPositionAndRotation(lastLocation, lastOrientation);
+        character.getPositionAndRotation(lastLocation, lastOrientation);
         setLocation(lastLocation);
         setOrientation(lastOrientation);
         setScale(1f);
