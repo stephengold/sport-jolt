@@ -106,7 +106,7 @@ public class CharacterShapeGeometry extends Geometry {
      * @return the (modified) current instance (for chaining)
      */
     @Override
-    public Geometry setColor(Vector4fc newColor) {
+    public CharacterShapeGeometry setColor(Vector4fc newColor) {
         this.automaticColor = false;
         super.setColor(newColor);
 
