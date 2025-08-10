@@ -99,10 +99,27 @@ public class CharacterVirtualShapeGeometry extends Geometry {
     // Geometry methods
 
     /**
-     * Alter the color and disable automatic updating of it.
+     * Alter the base color and disable automatic updating of it.
      *
-     * @param newColor the desired color (not null)
-     * @return the (modified) current instance (for chaining)
+     * @param r the desired red component (in the Linear colorspace)
+     * @param g the desired green component (in the Linear colorspace)
+     * @param b the desired blue component (in the Linear colorspace)
+     * @return the (modified) current geometry (for chaining)
+     */
+    @Override
+    public CharacterVirtualShapeGeometry setColor(float r, float g, float b) {
+        this.automaticColor = false;
+        super.setColor(r, g, b);
+
+        return this;
+    }
+
+    /**
+     * Alter the base color and disable automatic updating of it.
+     *
+     * @param newColor the desired color (in the Linear colorspace, not null,
+     * unaffected)
+     * @return the (modified) current geometry (for chaining)
      */
     @Override
     public CharacterVirtualShapeGeometry setColor(Vector4fc newColor) {
