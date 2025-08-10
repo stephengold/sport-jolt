@@ -58,10 +58,11 @@ import com.github.stephengold.sportjolt.input.RotateMode;
 import com.github.stephengold.sportjolt.mesh.CrosshairsMesh;
 import com.github.stephengold.sportjolt.mesh.LoopMesh;
 import com.github.stephengold.sportjolt.physics.BasePhysicsApp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import org.joml.Vector3f;
 import org.joml.Vector3fc;
-import org.joml.Vector4f;
 import org.lwjgl.glfw.GLFW;
 
 /**
@@ -244,24 +245,23 @@ public class ThousandCubes extends BasePhysicsApp {
 
         // Create many boxes, arranged in a rectangular grid:
         int numBoxes = numColumns * numLayers * numRows;
-        BodyIdArray boxIds = new BodyIdArray(numBoxes);
-        int boxIndex = 0;
+        List<Integer> boxIds = new ArrayList<>(numBoxes);
         for (int i = 0; i < numRows; ++i) {
             for (int j = 0; j < numLayers; ++j) {
                 for (int k = 0; k < numColumns; ++k) {
                     float x = 2f * i;
                     float y = 2f * j;
                     float z = 2f * k;
-                    assert boxIndex <= numBoxes;
-                    addBox(x, y, z, boxIds, boxIndex);
-                    ++boxIndex;
+                    addBox(x, y, z, boxIds);
                 }
             }
         }
 
         // Add the boxes to the physics system in a single batch:
-        long handle = bi.addBodiesPrepare(boxIds, numBoxes);
-        bi.addBodiesFinalize(boxIds, numBoxes, handle, EActivation.Activate);
+        assert boxIds.size() == numRows * numLayers * numColumns;
+        BodyIdArray idArray = new BodyIdArray(boxIds);
+        long handle = bi.addBodiesPrepare(idArray);
+        bi.addBodiesFinalize(idArray, handle, EActivation.Activate);
     }
 
     /**
@@ -338,25 +338,23 @@ public class ThousandCubes extends BasePhysicsApp {
      * @param x the desired X coordinate (in system coordinates)
      * @param y the desired Y coordinate (in system coordinates)
      * @param z the desired Z coordinate (in system coordinates)
-     * @param boxIds the array to add to (not null, modified)
-     * @param boxIndex the index of the box in the array (&ge;0)
+     * @param boxIds the list to add to (not null, modified)
      */
     private void addBox(
-            float x, float y, float z, BodyIdArray boxIds, int boxIndex) {
+            float x, float y, float z, List<Integer> boxIds) {
         // Create a box:
         boxBcs.setPosition(x, y, z);
         BodyInterface bi = physicsSystem.getBodyInterface();
         ConstBody box = bi.createBody(boxBcs);
 
         int bodyId = box.getId();
-        boxIds.set(boxIndex, bodyId);
+        boxIds.add(bodyId);
 
         // Visualize the box in a random color:
         float red = Std.pow(random.nextFloat(), 2.2f);
         float green = Std.pow(random.nextFloat(), 2.2f);
         float blue = Std.pow(random.nextFloat(), 2.2f);
-        float alpha = 1f;
-        visualizeShape(box).setColor(new Vector4f(red, green, blue, alpha));
+        visualizeShape(box).setColor(red, green, blue);
     }
 
     /**
@@ -382,7 +380,8 @@ public class ThousandCubes extends BasePhysicsApp {
      * Configure the Camera and CIP during initialization.
      */
     private static void configureCamera() {
-        getCameraInputProcessor().setRotationMode(RotateMode.Immediate);
+        getCameraInputProcessor()
+                .setRotationMode(RotateMode.Immediate);
         cam.setAzimuth(-2.7f)
                 .setLocation(60f, 15f, 28f)
                 .setUpAngle(-0.25f);
