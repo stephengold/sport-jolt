@@ -130,6 +130,16 @@ public class Botany extends BasePhysicsApp {
      */
     @Override
     protected PhysicsSystem createSystem() {
+        if (Utils.areAssertionsEnabled()) {
+            System.out.println("Warning:  assertions are enabled.");
+        }
+        if (Jolt.buildType().equals("Debug")) {
+            System.out.println("Warning:  using a Debug native library");
+        }
+        if (Jolt.isDoublePrecision()) {
+            System.out.println("Warning:  using a Dp native library");
+        }
+
         int maxBodies = 200; // for balls, mostly
         int numBpLayers = 2; // use 2 broadphase layers for efficiency
         PhysicsSystem result = createSystem(maxBodies, numBpLayers);
