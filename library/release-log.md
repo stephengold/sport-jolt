@@ -1,5 +1,20 @@
 # release log for the Sport-Jolt Library
 
+## Version 0.9.7 released on 10 August 2025
+
++ Added classes:
+  + `RodsGeometry`
+  + `RodsMesh`
+  + `VerticesGeometry`
+  + `VerticesMesh`
+
++ Made more setters chainable.
++ Added alternative signtures for `setColor()` methods.
++ Added the `BasePhysicsApp.getPhysicsSystem()` method
++ More specific return types.
++ Publicized 4 protected visualization methods in `BasePhysicsApp`.
++ Updated the Jolt-JNI library to v2.2.0 .
+
 ## Version 0.9.6 released on 25 July 2025
 
 + Added constructors and methods:
