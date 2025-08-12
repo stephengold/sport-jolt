@@ -378,6 +378,15 @@ abstract public class BaseApplication {
      */
     public void start() {
         String appName = getClass().getSimpleName();
+        start(appName);
+    }
+
+    /**
+     * Start the application (simplified interface).
+     *
+     * @param appName the name of the application (not null)
+     */
+    public void start(String appName) {
         start(appName, 0, 0, 0);
     }
 
