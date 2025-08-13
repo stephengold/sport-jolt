@@ -387,7 +387,7 @@ abstract public class BaseApplication {
      * @param appName the name of the application (not null)
      */
     public void start(String appName) {
-        start(appName, 0, 0, 0);
+        start(appName, 0, 0, 0, false, true);
     }
 
     /**
@@ -397,9 +397,14 @@ abstract public class BaseApplication {
      * @param appMajor the major version number of the application
      * @param appMinor the minor version number of the application
      * @param appPatch the patch version number of the application
+     * @param traceAllocations {@code true} to trace C++ heap allocations in
+     * Debug native libraries, {@code false} to disable tracing (default=false)
+     * @param startCleaner {@code true} to start a cleaner that automatically
+     * reclaims Jolt-JNI native objects, {@code false} to leave the app
+     * responsible for reclaiming them
      */
-    public void start(
-            String appName, int appMajor, int appMinor, int appPatch) {
+    public void start(String appName, int appMajor, int appMinor, int appPatch,
+            boolean traceAllocations, boolean startCleaner) {
         Internals.start();
 
         // Generate the initial text for the window's title bar:
@@ -411,7 +416,7 @@ abstract public class BaseApplication {
 
         try {
             // Initialize this class:
-            initializeBase();
+            initializeBase(traceAllocations, startCleaner);
 
             // Initialize the subclass.
             initialize();
@@ -593,8 +598,15 @@ abstract public class BaseApplication {
 
     /**
      * Initialize this class.
+     *
+     * @param traceAllocations {@code true} to trace C++ heap allocations in
+     * Debug native libraries, {@code false} to disable tracing (default=false)
+     * @param startCleaner {@code true} to start a cleaner that automatically
+     * reclaims Jolt-JNI native objects, {@code false} to leave the app
+     * responsible for reclaiming them
      */
-    private void initializeBase() {
+    private void initializeBase(
+            boolean traceAllocations, boolean startCleaner) {
         initializeGlfw();
 
         // Create and initialize the InputManager.
@@ -633,7 +645,7 @@ abstract public class BaseApplication {
             }
         });
 
-        BasePhysicsApp.initializeJoltJni();
+        BasePhysicsApp.initializeJoltJni(traceAllocations, startCleaner);
     }
 
     /**

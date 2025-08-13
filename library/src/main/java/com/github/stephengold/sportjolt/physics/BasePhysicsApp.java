@@ -166,8 +166,15 @@ public abstract class BasePhysicsApp extends BaseApplication {
     /**
      * Load and initialize the Jolt-JNI native library. Intended for internal
      * use of the Sport-Jolt library.
+     *
+     * @param traceAllocations {@code true} to trace C++ heap allocations in
+     * Debug native libraries, {@code false} to disable tracing (default=false)
+     * @param startCleaner {@code true} to start a cleaner that automatically
+     * reclaims Jolt-JNI native objects, {@code false} to leave the app
+     * responsible for reclaiming them
      */
-    public static void initializeJoltJni() {
+    public static void initializeJoltJni(
+            boolean traceAllocations, boolean startCleaner) {
         PlatformPredicate linuxWithFma = new PlatformPredicate(
                 PlatformPredicate.LINUX_X86_64,
                 "avx", "avx2", "bmi1", "f16c", "fma", "sse4_1", "sse4_2");
@@ -222,8 +229,12 @@ public abstract class BasePhysicsApp extends BaseApplication {
             System.err.flush();
         }
 
-        //Jolt.setTraceAllocations(true); // to log Jolt-JNI heap allocations
-        JoltPhysicsObject.startCleaner(); // to reclaim native memory
+        if (Jolt.buildType().equals("Debug")) {
+            Jolt.setTraceAllocations(traceAllocations); // default=false
+        }
+        if (startCleaner) {
+            JoltPhysicsObject.startCleaner(); // to reclaim native memory
+        }
 
         Jolt.registerDefaultAllocator();
         Jolt.installDefaultAssertCallback();
