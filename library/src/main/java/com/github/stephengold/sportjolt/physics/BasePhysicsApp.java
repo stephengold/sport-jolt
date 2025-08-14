@@ -28,6 +28,8 @@
  */
 package com.github.stephengold.sportjolt.physics;
 
+import com.github.stephengold.joltjni.BodyLockInterface;
+import com.github.stephengold.joltjni.BodyLockRead;
 import com.github.stephengold.joltjni.BroadPhaseLayerInterface;
 import com.github.stephengold.joltjni.BroadPhaseLayerInterfaceTable;
 import com.github.stephengold.joltjni.JobSystem;
@@ -292,6 +294,24 @@ public abstract class BasePhysicsApp extends BaseApplication {
         }
 
         return result;
+    }
+
+    /**
+     * Visualize the shape of the specified body, with locking.
+     *
+     * @param bodyId the ID of the body to visualize
+     * @return a new, visible Geometry
+     */
+    public Geometry visualizeBodyShape(int bodyId) {
+        BodyLockInterface bli = physicsSystem.getBodyLockInterface();
+        BodyLockRead lock = new BodyLockRead(bli, bodyId);
+        assert lock.succeeded();
+
+        ConstBody body = lock.getBody();
+        Geometry geometry = visualizeShape(body);
+
+        lock.releaseLock();
+        return geometry;
     }
 
     /**
