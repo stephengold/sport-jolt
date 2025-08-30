@@ -28,7 +28,6 @@
  */
 package com.github.stephengold.sportjolt.physics;
 
-import com.github.stephengold.joltjni.BodyLockInterface;
 import com.github.stephengold.joltjni.BodyLockRead;
 import com.github.stephengold.joltjni.BroadPhaseLayerInterface;
 import com.github.stephengold.joltjni.BroadPhaseLayerInterfaceTable;
@@ -46,6 +45,7 @@ import com.github.stephengold.joltjni.VehicleConstraint;
 import com.github.stephengold.joltjni.enumerate.EPhysicsUpdateError;
 import com.github.stephengold.joltjni.enumerate.EShapeSubType;
 import com.github.stephengold.joltjni.readonly.ConstBody;
+import com.github.stephengold.joltjni.readonly.ConstBodyLockInterface;
 import com.github.stephengold.joltjni.readonly.ConstCharacter;
 import com.github.stephengold.joltjni.readonly.ConstCharacterVirtual;
 import com.github.stephengold.joltjni.readonly.ConstJoltPhysicsObject;
@@ -101,7 +101,7 @@ public abstract class BasePhysicsApp extends BaseApplication {
     /**
      * expected version string of the Jolt-JNI native library
      */
-    final private static String expectedVersion = "2.2.0";
+    final private static String expectedVersion = "3.0.0";
     // *************************************************************************
     // fields
 
@@ -303,7 +303,7 @@ public abstract class BasePhysicsApp extends BaseApplication {
      * @return a new, visible Geometry
      */
     public Geometry visualizeBodyShape(int bodyId) {
-        BodyLockInterface bli = physicsSystem.getBodyLockInterface();
+        ConstBodyLockInterface bli = physicsSystem.getBodyLockInterface();
         BodyLockRead lock = new BodyLockRead(bli, bodyId);
         assert lock.succeeded();
 

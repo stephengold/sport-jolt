@@ -30,8 +30,8 @@ package com.github.stephengold.sportjolt.physics;
 
 import com.github.stephengold.joltjni.CompoundShape;
 import com.github.stephengold.joltjni.DecoratedShape;
-import com.github.stephengold.joltjni.SubShape;
 import com.github.stephengold.joltjni.readonly.ConstShape;
+import com.github.stephengold.joltjni.readonly.ConstSubShape;
 import java.util.Arrays;
 
 /**
@@ -63,7 +63,7 @@ class ChildSummaryList {
         this.summaries = new ShapeSummary[numChildren];
 
         for (int childIndex = 0; childIndex < numChildren; ++childIndex) {
-            SubShape subShape = compoundShape.getSubShape(childIndex);
+            ConstSubShape subShape = compoundShape.getSubShape(childIndex);
             ConstShape childShape = subShape.getShape();
             summaries[childIndex] = new ShapeSummary(childShape, strategy);
         }
@@ -103,7 +103,7 @@ class ChildSummaryList {
      * @return {@code true} for a match, otherwise {@code false}
      */
     boolean matchesChild(int childIndex, CompoundShape compound) {
-        SubShape subShape = compound.getSubShape(childIndex);
+        ConstSubShape subShape = compound.getSubShape(childIndex);
         ConstShape childShape = subShape.getShape();
         boolean result = summaries[childIndex].matches(childShape);
         return result;
