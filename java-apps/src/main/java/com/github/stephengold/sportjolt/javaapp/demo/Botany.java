@@ -39,7 +39,7 @@ import com.github.stephengold.joltjni.Quat;
 import com.github.stephengold.joltjni.RodBendTwist;
 import com.github.stephengold.joltjni.RodStretchShear;
 import com.github.stephengold.joltjni.ShapeRefC;
-import com.github.stephengold.joltjni.ShapeSettings;
+import com.github.stephengold.joltjni.ShapeSettingsRef;
 import com.github.stephengold.joltjni.SoftBodyCreationSettings;
 import com.github.stephengold.joltjni.SoftBodySharedSettings;
 import com.github.stephengold.joltjni.SphereShape;
@@ -86,7 +86,7 @@ public class Botany extends BasePhysicsApp {
     /**
      * shape of the terrain
      */
-    private static HeightFieldShape groundShape;
+    private static ShapeRefC groundShapeRef;
     /**
      * generate single-precision values between 0 and 2 pi
      */
@@ -293,6 +293,8 @@ public class Botany extends BasePhysicsApp {
                 - fractionDistribution.nextFloat(random);
         Vec3Arg location = new Vec3(x + dx, 0., z + dz);
         Vec3 storeLocation = new Vec3();
+        HeightFieldShape groundShape
+                = (HeightFieldShape) groundShapeRef.getPtr();
         groundShape.projectOntoSurface(location, storeLocation, new int[1]);
 
         SoftBodyCreationSettings sbcs = new SoftBodyCreationSettings()
@@ -327,15 +329,14 @@ public class Botany extends BasePhysicsApp {
         Vec3Arg scale = new Vec3(1f, 1f, 1f);
         int sampleCount = 512;
         assert numFloats == sampleCount * sampleCount : numFloats;
-        ShapeSettings ss = new HeightFieldShapeSettings(
-                heightBuffer, offset, scale, sampleCount);
+        ShapeSettingsRef ssRef = new HeightFieldShapeSettings(
+                heightBuffer, offset, scale, sampleCount).toRef();
 
-        ShapeRefC shapeRef = ss.create().get();
-        groundShape = (HeightFieldShape) shapeRef.getPtr();
+        groundShapeRef = ssRef.create().get();
         BodyCreationSettings bcs = new BodyCreationSettings()
                 .setMotionType(EMotionType.Static)
                 .setObjectLayer(objLayerNonMoving)
-                .setShape(groundShape);
+                .setShape(groundShapeRef);
 
         BodyInterface bi = physicsSystem.getBodyInterface();
         ConstBody body = bi.createBody(bcs);
