@@ -1,5 +1,14 @@
 # release log for the Sport-Jolt Library
 
+## Version 0.9.8 released on 30 August 2025
+
++ Added methods:
+  + `BaseApplication.start(String)`
+  + `BasePhysicsApp.visualizeBodyShape()`
+  + `BasePhysicsApp.visualizeRods()`
++ Added the capability to configure logging and/or a cleaner during startup.
++ Updated the Jolt-JNI library to v3.0.0 .
+
 ## Version 0.9.7 released on 10 August 2025
 
 + Added classes:
