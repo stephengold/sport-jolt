@@ -62,7 +62,6 @@ import com.github.stephengold.sportjolt.Utils;
 import com.github.stephengold.sportjolt.input.InputProcessor;
 import com.github.stephengold.sportjolt.input.RotateMode;
 import com.github.stephengold.sportjolt.physics.BasePhysicsApp;
-import com.github.stephengold.sportjolt.physics.RodsGeometry;
 import java.awt.image.BufferedImage;
 import java.nio.FloatBuffer;
 import org.lwjgl.glfw.GLFW;
@@ -183,8 +182,8 @@ public class Botany extends BasePhysicsApp {
      */
     @Override
     protected void populateSystem() {
-        ConstBody ground = addTerrain();
-        visualizeShape(ground)
+        int groundBodyId = addTerrain();
+        visualizeBodyShape(groundBodyId)
                 .setSpecularColor(Constants.BLACK);
 
         // Add trees and tussocks in a perturbed grid:
@@ -197,15 +196,15 @@ public class Botany extends BasePhysicsApp {
                 if (p > 0.8f) { // Place a tree:
                     ConstSoftBodySharedSettings settings = generateTree();
                     float damping = 0.1f;
-                    ConstBody tree = addSoftBody(settings, x, z, damping);
-                    new RodsGeometry(tree)
+                    int treeBodyId = addSoftBody(settings, x, z, damping);
+                    visualizeRods(treeBodyId)
                             .setColor(0.1f, 0.4f, 0f);
 
                 } else if (p < 0.3f) { // Place a tussock:
                     ConstSoftBodySharedSettings settings = generateTussock();
                     float damping = 9f;
-                    ConstBody tussock = addSoftBody(settings, x, z, damping);
-                    new RodsGeometry(tussock)
+                    int tussockBodyId = addSoftBody(settings, x, z, damping);
+                    visualizeRods(tussockBodyId)
                             .setColor(0.5f, 1f, 0.2f);
                 }
             }
@@ -282,9 +281,9 @@ public class Botany extends BasePhysicsApp {
      * @param x the approximate desired X coordinate for the root vertex
      * @param z the approximate desired Z coordinate for the root vertex
      * @param damping the desired damping constant
-     * @return the new body
+     * @return the ID of the new body
      */
-    private ConstBody addSoftBody(ConstSoftBodySharedSettings settings,
+    private int addSoftBody(ConstSoftBodySharedSettings settings,
             float x, float z, float damping) {
 
         // Perturb the desired location and project it onto the heighfield:
@@ -301,8 +300,9 @@ public class Botany extends BasePhysicsApp {
                 .setPosition(storeLocation.toRVec3())
                 .setSettings(settings);
         BodyInterface bi = physicsSystem.getBodyInterface();
-        ConstBody result = bi.createSoftBody(sbcs);
-        bi.addBody(result, EActivation.Activate);
+        ConstBody body = bi.createSoftBody(sbcs);
+        bi.addBody(body, EActivation.Activate);
+        int result = body.getId();
 
         return result;
     }
@@ -310,9 +310,9 @@ public class Botany extends BasePhysicsApp {
     /**
      * Add a static heightfield rigid body to the system.
      *
-     * @return the new body (not null)
+     * @return the ID of the new body
      */
-    private ConstBody addTerrain() {
+    private int addTerrain() {
         // Generate an array of heights from a PNG image on the classpath:
         String resourceName = "/Textures/Terrain/height/basin.png";
         BufferedImage image = Utils.loadResourceAsImage(resourceName);
@@ -338,7 +338,8 @@ public class Botany extends BasePhysicsApp {
                 .setShape(groundShape);
 
         BodyInterface bi = physicsSystem.getBodyInterface();
-        ConstBody result = bi.createBody(bcs);
+        ConstBody body = bi.createBody(bcs);
+        int result = body.getId();
         bi.addBody(result, EActivation.DontActivate);
 
         return result;
