@@ -315,6 +315,24 @@ public abstract class BasePhysicsApp extends BaseApplication {
     }
 
     /**
+     * Visualize all Cosserat rods in the specified soft body, with locking.
+     *
+     * @param bodyId the ID of the soft body to visualize
+     * @return a new, visible Geometry
+     */
+    public Geometry visualizeRods(int bodyId) {
+        ConstBodyLockInterface bli = physicsSystem.getBodyLockInterface();
+        BodyLockRead lock = new BodyLockRead(bli, bodyId);
+        assert lock.succeeded();
+
+        ConstBody body = lock.getBody();
+        Geometry geometry = new RodsGeometry(body);
+
+        lock.releaseLock();
+        return geometry;
+    }
+
+    /**
      * Visualize the collision shape of the specified physics object.
      *
      * @param jpo the physics object to visualize (not null)
