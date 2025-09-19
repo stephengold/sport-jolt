@@ -107,6 +107,18 @@ public class ConstraintGeometry extends Geometry {
 
         BaseApplication.makeVisible(this);
     }
+
+    /**
+     * Instantiate a Geometry to visualize the specified end of the specified
+     * constraint and make the Geometry visible.
+     *
+     * @param constraintRef a counted reference to the constraint (not null,
+     * alias created)
+     * @param end which end to visualize (0, 1, or 2)
+     */
+    public ConstraintGeometry(TwoBodyConstraintRef constraintRef, int end) {
+        this(constraintRef.getPtr(), end);
+    }
     // *************************************************************************
     // Geometry methods
 
