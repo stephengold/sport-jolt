@@ -22,6 +22,8 @@ dependencies {
     api(libs.jolt.jni.windows64)
     api(libs.joml)
     api(libs.jsnaploader)
+    api(libs.log4j.impl)
+    api(libs.oshi.core)
 
     api platform(libs.lwjgl.bom)
     api(libs.lwjgl.assimp) // to import 3-D assets

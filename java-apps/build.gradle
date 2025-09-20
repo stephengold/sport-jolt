@@ -123,9 +123,6 @@ tasks.withType(JavaExec).configureEach { // Java runtime options:
 }
 
 dependencies {
-    implementation(libs.log4j.impl)
-    implementation(libs.oshi.core)
-
     if (includeLinux) {
         runtimeOnly(variantOf(libs.jolt.jni.linux64){classifier(btf)})
         runtimeOnly(variantOf(libs.jolt.jni.linux64fma){classifier(btf)})
