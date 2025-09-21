@@ -323,7 +323,7 @@ class MeshingStrategy {
      * description.
      *
      * @param description list of items separated by slashes (not null)
-     * @return option code (&ge;-6, &le;2)
+     * @return option code (&ge;-6, &le;0)
      */
     private static int parsePositions(String description) {
         String[] items = description.split(delimiter);

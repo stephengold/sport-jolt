@@ -51,7 +51,7 @@ import java.nio.DoubleBuffer;
 /**
  * Visualize a {@code TwoBodyConstraint} using a colored arrow, either from
  * pivot1 to pivot2 (if end=0) or else from the specified end's center of mass
- * to its pivot.
+ * to its pivot (if end is 1 or 2).
  *
  * @author Stephen Gold sgold@sonic.net
  */
