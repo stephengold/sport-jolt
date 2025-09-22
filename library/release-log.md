@@ -1,5 +1,14 @@
 # release log for the Sport-Jolt Library
 
+## Version 0.9.11 released on TBD
+
++ Implemented new meshing strategies that use support functions.
++ Improved the default meshing strategies for capsules, cylinders,
+  tapered capsules, and tapered cylinders.
++ Added Log4j and OSHI to the library's transitive dependencies.
++ Added another public constructor for the `ConstraintGeometry` class.
++ Updated the Jolt-JNI library to v3.3.0 .
+
 ## Version 0.9.10 released on 8 September 2025
 
 Updated the Jolt-JNI library to v3.1.0 .
