@@ -124,8 +124,7 @@ class MeshingStrategy {
      */
     Mesh applyTo(ConstShape shape) {
         Mesh result;
-
-        if (positions < 0) { // generate vertex positions using OctasphereMesh
+        if (positions < 0) { // use a scaled OctasphereMesh
             int numRefinementSteps = -positions;
             result = new OctasphereMesh(numRefinementSteps);
             float maxRadius = shape.getInnerRadius();
@@ -133,7 +132,7 @@ class MeshingStrategy {
             /*
              * Only sphere normals make sense, so ignore the NormalsOption.
              * Octasphere provides excellent UVs, so ignore the UvsOption.
-             * Linear transformations (if any) apply directly to the UVs.
+             * Coefficients (if any) apply directly to the UVs.
              */
             result.transformUvs(uCoefficients, vCoefficients);
 
@@ -206,7 +205,7 @@ class MeshingStrategy {
     }
 
     /**
-     * Generate the hash code for this summary.
+     * Generate the hash code for this strategy.
      *
      * @return a 32-bit value for use in hashing
      */
@@ -229,7 +228,7 @@ class MeshingStrategy {
     }
 
     /**
-     * Represent this object as a String.
+     * Represent this strategy as a String.
      *
      * @return a descriptive string of text (not null, not empty)
      */
