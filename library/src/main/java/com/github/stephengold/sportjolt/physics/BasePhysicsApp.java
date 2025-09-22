@@ -393,11 +393,15 @@ public abstract class BasePhysicsApp extends BaseApplication {
             programName = "Phong/Distant/Monochrome";
             textureKey = null;
 
-            if (subType == EShapeSubType.Capsule
-                    || subType == EShapeSubType.TaperedCapsule) {
-                meshingStrategy = new MeshingStrategy("low/Smooth");
-            } else {
-                meshingStrategy = new MeshingStrategy("low/Facet");
+            switch (subType) {
+                case Capsule:
+                case Cylinder:
+                case TaperedCapsule:
+                case TaperedCylinder:
+                    meshingStrategy = new MeshingStrategy("convex3");
+                    break;
+                default:
+                    meshingStrategy = new MeshingStrategy("low/Facet");
             }
         }
 
