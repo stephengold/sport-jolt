@@ -28,6 +28,7 @@
  */
 package com.github.stephengold.sportjolt.physics;
 
+import com.github.stephengold.joltjni.readonly.ConstConvexShape;
 import com.github.stephengold.joltjni.readonly.ConstShape;
 import com.github.stephengold.sportjolt.Mesh;
 import com.github.stephengold.sportjolt.MyString;
@@ -55,7 +56,7 @@ class MeshingStrategy {
     // fields
 
     /**
-     * strategy for generating vertex positions
+     * strategy for generating vertex positions (&ge;-6, &le;6)
      */
     final private int positions;
     /**
@@ -94,7 +95,7 @@ class MeshingStrategy {
     /**
      * Instantiate a strategy from components.
      *
-     * @param positions strategy for generating vertex positions (&ge;-6, &le;2)
+     * @param positions strategy for generating vertex positions (&ge;-6, &le;6)
      * @param normals strategy for generating normals (not {@code null})
      * @param uvs strategy for generating texture coordinates (not {@code null})
      * @param uCoefficients coefficients for generating the first (U) texture
@@ -104,7 +105,7 @@ class MeshingStrategy {
      */
     MeshingStrategy(int positions, NormalsOption normals, UvsOption uvs,
             Vector4fc uCoefficients, Vector4fc vCoefficients) {
-        assert positions >= -6 && positions <= 2 : positions;
+        assert positions >= -6 && positions <= 6 : positions;
         assert normals != null;
         assert uvs != null;
 
@@ -137,7 +138,13 @@ class MeshingStrategy {
              */
             result.transformUvs(uCoefficients, vCoefficients);
 
-        } else { // generate vertex positions using Jolt Physics
+        } else if (positions > 0) { // generate mesh using a support function:
+            ConstConvexShape convexShape = (ConstConvexShape) shape;
+            result = new ConvexShapeMesh(convexShape, positions);
+            // NormalsOption, UvsOption, and coefficients are ignored.
+            // TODO merge duplicate vertices and delete degenerate triangles
+
+        } else { // positions==0, generate positions using copyDebugTriangles()
             result = new ShapeMesh(shape, positions);
 
             result.generateNormals(normals);
@@ -159,10 +166,10 @@ class MeshingStrategy {
     /**
      * Return the strategy for generating vertex positions.
      *
-     * @return option code (&ge;-6, &le;0)
+     * @return option code (&ge;-6, &le;6)
      */
     int positions() {
-        assert positions >= -6 && positions <= 0 : positions;
+        assert positions >= -6 && positions <= 6 : positions;
         return positions;
     }
     // *************************************************************************
@@ -252,10 +259,22 @@ class MeshingStrategy {
                 pString = "low";
                 break;
             case 1:
-                pString = "high";
+                pString = "convex1";
                 break;
             case 2:
-                pString = "high2";
+                pString = "convex2";
+                break;
+            case 3:
+                pString = "convex3";
+                break;
+            case 4:
+                pString = "convex4";
+                break;
+            case 5:
+                pString = "convex5";
+                break;
+            case 6:
+                pString = "convex6";
                 break;
             default:
                 throw new IllegalStateException("positions = " + positions);
@@ -291,7 +310,7 @@ class MeshingStrategy {
      * description.
      *
      * @param description list of items separated by slashes (not null)
-     * @return option code (&ge;-6, &le;0)
+     * @return option code (&ge;-6, &le;6)
      */
     private static int parsePositions(String description) {
         String[] items = description.split(delimiter);
@@ -359,10 +378,22 @@ class MeshingStrategy {
      * positions.
      *
      * @param pString the name to translate
-     * @return option code (&ge;-6, &le;0)
+     * @return option code (&ge;-6, &le;6)
      */
     private static int toPositions(String pString) {
         switch (pString) {
+            case "convex1":
+                return 1;
+            case "convex2":
+                return 2;
+            case "convex3":
+                return 3;
+            case "convex4":
+                return 4;
+            case "convex5":
+                return 5;
+            case "convex6":
+                return 6;
             case "low":
                 return 0;
             case "octasphere1":
