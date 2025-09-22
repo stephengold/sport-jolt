@@ -1,6 +1,6 @@
 # release log for the Sport-Jolt Library
 
-## Version 0.9.11 released on TBD
+## Version 0.9.11 released on 21 September 2025
 
 + Implemented new meshing strategies that use support functions.
 + Improved the default meshing strategies for capsules, cylinders,
