@@ -34,6 +34,7 @@ import com.github.stephengold.sportjolt.MyString;
 import com.github.stephengold.sportjolt.NormalsOption;
 import com.github.stephengold.sportjolt.UvsOption;
 import com.github.stephengold.sportjolt.mesh.OctasphereMesh;
+import java.util.Objects;
 import org.joml.Vector4f;
 import org.joml.Vector4fc;
 
@@ -58,19 +59,19 @@ class MeshingStrategy {
      */
     final private int positions;
     /**
-     * strategy for generating vertex normals, if any
+     * strategy for generating vertex normals (not {@code null})
      */
     final private NormalsOption normals;
     /**
-     * strategy for generating texture coordinates, if any
+     * strategy for generating texture coordinates (not {@code null})
      */
     final private UvsOption uvs;
     /**
-     * coefficients for generating the first (U) texture coordinate, if any
+     * coefficients for generating the first (U) texture coordinate
      */
     final private Vector4f uCoefficients = new Vector4f();
     /**
-     * coefficients for generating the 2nd (V) texture coordinate, if any
+     * coefficients for generating the 2nd (V) texture coordinate
      */
     final private Vector4f vCoefficients = new Vector4f();
     // *************************************************************************
@@ -94,12 +95,12 @@ class MeshingStrategy {
      * Instantiate a strategy from components.
      *
      * @param positions strategy for generating vertex positions (&ge;-6, &le;2)
-     * @param normals strategy for generating normals, if any (not null)
-     * @param uvs strategy for generating texture coordinates, if any (not null)
+     * @param normals strategy for generating normals (not {@code null})
+     * @param uvs strategy for generating texture coordinates (not {@code null})
      * @param uCoefficients coefficients for generating the first (U) texture
-     * coordinate, if any (not null, unaffected)
+     * coordinate, if any (not {@code null}, unaffected)
      * @param vCoefficients coefficients for generating the 2nd (V) texture
-     * coordinate, if any (not null, unaffected)
+     * coordinate, if any (not {@code null}, unaffected)
      */
     MeshingStrategy(int positions, NormalsOption normals, UvsOption uvs,
             Vector4fc uCoefficients, Vector4fc vCoefficients) {
@@ -182,17 +183,12 @@ class MeshingStrategy {
         } else if (otherObject != null
                 && otherObject.getClass() == getClass()) {
             MeshingStrategy otherStrategy = (MeshingStrategy) otherObject;
-            result = (positions == otherStrategy.positions);
-            Vector4fc otherU = otherStrategy.uCoefficients;
-            Vector4fc otherV = otherStrategy.vCoefficients;
-            if (result && positions >= 0) {
-                result = (normals == otherStrategy.normals)
-                        && (uvs == otherStrategy.uvs);
-                if (result && uvs != UvsOption.None) {
-                    result = uCoefficients.equals(otherU)
-                            && vCoefficients.equals(otherV);
-                }
-            } else if (result) { // positions < 0
+            result = (positions == otherStrategy.positions
+                    && normals == otherStrategy.normals
+                    && uvs == otherStrategy.uvs);
+            if (result) {
+                Vector4fc otherU = otherStrategy.uCoefficients;
+                Vector4fc otherV = otherStrategy.vCoefficients;
                 result = uCoefficients.equals(otherU)
                         && vCoefficients.equals(otherV);
             }
@@ -211,20 +207,9 @@ class MeshingStrategy {
      */
     @Override
     public int hashCode() {
-        int hash = positions;
-        if (positions >= 0) {
-            hash = 707 * hash + normals.ordinal();
-            hash = 707 * hash + uvs.ordinal();
-            if (uvs != UvsOption.None) {
-                hash = 707 * hash + uCoefficients.hashCode();
-                hash = 707 * hash + vCoefficients.hashCode();
-            }
-        } else {
-            hash = 707 * hash + uCoefficients.hashCode();
-            hash = 707 * hash + vCoefficients.hashCode();
-        }
-
-        return hash;
+        int result = Objects.hash(
+                positions, normals, uvs, uCoefficients, vCoefficients);
+        return result;
     }
 
     /**
@@ -234,30 +219,14 @@ class MeshingStrategy {
      */
     @Override
     public String toString() {
-        String result;
-
-        // Construct the string from right to left.
+        // Construct the string from right to left:
         String us = String.format("%f %f %f %f",
                 uCoefficients.x, uCoefficients.y, uCoefficients.z,
                 uCoefficients.w);
         String vs = String.format("%f %f %f %f",
                 vCoefficients.x, vCoefficients.y, vCoefficients.z,
                 vCoefficients.w);
-
-        if (positions >= 0) {
-            if (uvs == UvsOption.None) {
-                result = "";
-            } else {
-                result = delimiter + uvs + delimiter + us + delimiter + vs;
-            }
-
-            if (!result.isEmpty() || normals != NormalsOption.None) {
-                result = delimiter + normals + result;
-            }
-
-        } else {
-            result = delimiter + delimiter + delimiter + us + delimiter + vs;
-        }
+        String result = delimiter + uvs + delimiter + us + delimiter + vs;
 
         String pString;
         switch (positions) {
