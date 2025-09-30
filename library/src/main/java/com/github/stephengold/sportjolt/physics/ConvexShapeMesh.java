@@ -61,16 +61,6 @@ class ConvexShapeMesh extends OctasphereMesh {
 
         FloatBuffer normalsData = getNormalsData();
         FloatBuffer positionsData = getPositionsData();
-        int numTriangles = countVertices();
-        for (int i = 0; i < numTriangles; ++i) {
-            float nx = normalsData.get(3 * i);
-            float ny = normalsData.get(3 * i + 1);
-            float nz = normalsData.get(3 * i + 2);
-            Vec3 position = support.getSupport(nx, ny, nz);
-            positionsData.put(3 * i, position.getX());
-            positionsData.put(3 * i + 1, position.getY());
-            positionsData.put(3 * i + 2, position.getZ());
-        }
-        // TODO support.getSupportBulk(normalsData, positionsData);
+        support.getSupportBulk(normalsData, positionsData);
     }
 }
