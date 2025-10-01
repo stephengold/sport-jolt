@@ -29,9 +29,7 @@
 package com.github.stephengold.sportjolt.physics;
 
 import com.github.stephengold.joltjni.Jolt;
-import com.github.stephengold.joltjni.SoftBodyCreationSettings;
 import com.github.stephengold.joltjni.SoftBodyMotionProperties;
-import com.github.stephengold.joltjni.enumerate.EBodyType;
 import com.github.stephengold.joltjni.readonly.ConstBody;
 import com.github.stephengold.joltjni.readonly.ConstSoftBodySharedSettings;
 import com.github.stephengold.joltjni.readonly.RVec3Arg;
@@ -55,6 +53,10 @@ class RodsMesh extends Mesh {
      */
     final private ConstBody softBody;
     /**
+     * shared settings of the body
+     */
+    final ConstSoftBodySharedSettings sharedSettings;
+    /**
      * copy vertex indices for the rods
      */
     final private IntBuffer copyIndices;
@@ -68,20 +70,18 @@ class RodsMesh extends Mesh {
      * alias created)
      */
     RodsMesh(ConstBody softBody) {
-        super(Topology.LineList, softBody.getSoftBodyCreationSettings()
-                .getSettings().countVertices());
+        super(Topology.LineList,
+                BasePhysicsApp.getSharedSettings(softBody).countVertices());
 
-        assert softBody.getBodyType() == EBodyType.SoftBody;
         this.softBody = softBody;
+        this.sharedSettings = BasePhysicsApp.getSharedSettings(softBody);
 
         // Create the VertexBuffer for vertex positions.
         VertexBuffer positions = super.createPositions();
         positions.setDynamic();
 
         // Create the IndexBuffer for vertex indices.
-        SoftBodyCreationSettings cs = softBody.getSoftBodyCreationSettings();
-        ConstSoftBodySharedSettings ss = cs.getSettings();
-        int numRods = ss.countRodStretchShearConstraints();
+        int numRods = sharedSettings.countRodStretchShearConstraints();
         int numIndices = vpe * numRods;
         IndexBuffer indices = super.createIndices(numIndices);
         indices.setDynamic();
@@ -100,13 +100,11 @@ class RodsMesh extends Mesh {
      * @return {@code true} if successful, otherwise {@code false}
      */
     boolean update() {
-        SoftBodyCreationSettings sbcs = softBody.getSoftBodyCreationSettings();
-        ConstSoftBodySharedSettings sbss = sbcs.getSettings();
-        int numVertices = sbss.countVertices();
+        int numVertices = sharedSettings.countVertices();
         if (numVertices != countVertices()) {
             return false;
         }
-        int numRods = sbss.countRodStretchShearConstraints();
+        int numRods = sharedSettings.countRodStretchShearConstraints();
         if (numRods != countLines()) {
             return false;
         }
@@ -127,7 +125,7 @@ class RodsMesh extends Mesh {
 
         // Update the index buffer from rods. TODO avoid copying indices
         copyIndices.clear();
-        sbss.putRodIndices(copyIndices);
+        sharedSettings.putRodIndices(copyIndices);
         IndexBuffer indices = getIndexBuffer();
         assert indices.position() == 0;
         for (int i = 0; i < vpe * numRods; ++i) {

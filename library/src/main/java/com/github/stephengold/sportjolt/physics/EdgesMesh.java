@@ -29,9 +29,7 @@
 package com.github.stephengold.sportjolt.physics;
 
 import com.github.stephengold.joltjni.Jolt;
-import com.github.stephengold.joltjni.SoftBodyCreationSettings;
 import com.github.stephengold.joltjni.SoftBodyMotionProperties;
-import com.github.stephengold.joltjni.enumerate.EBodyType;
 import com.github.stephengold.joltjni.readonly.ConstBody;
 import com.github.stephengold.joltjni.readonly.ConstSoftBodySharedSettings;
 import com.github.stephengold.joltjni.readonly.RVec3Arg;
@@ -54,6 +52,10 @@ class EdgesMesh extends Mesh {
      */
     final private ConstBody softBody;
     /**
+     * shared settings of the body
+     */
+    final ConstSoftBodySharedSettings sharedSettings;
+    /**
      * copy vertex indices for the edges
      */
     final private IntBuffer copyIndices;
@@ -67,20 +69,18 @@ class EdgesMesh extends Mesh {
      * alias created)
      */
     EdgesMesh(ConstBody softBody) {
-        super(Topology.LineList, softBody.getSoftBodyCreationSettings()
-                .getSettings().countVertices());
+        super(Topology.LineList,
+                BasePhysicsApp.getSharedSettings(softBody).countVertices());
 
-        assert softBody.getBodyType() == EBodyType.SoftBody;
         this.softBody = softBody;
+        this.sharedSettings = BasePhysicsApp.getSharedSettings(softBody);
 
         // Create the VertexBuffer for vertex positions.
         VertexBuffer positions = super.createPositions();
         positions.setDynamic();
 
         // Create the IndexBuffer for vertex indices.
-        SoftBodyCreationSettings cs = softBody.getSoftBodyCreationSettings();
-        ConstSoftBodySharedSettings ss = cs.getSettings();
-        int numEdges = ss.countEdgeConstraints();
+        int numEdges = sharedSettings.countEdgeConstraints();
         int numIndices = vpe * numEdges;
         IndexBuffer indices = super.createIndices(numIndices);
         indices.setDynamic();
@@ -99,13 +99,11 @@ class EdgesMesh extends Mesh {
      * @return {@code true} if successful, otherwise {@code false}
      */
     boolean update() {
-        SoftBodyCreationSettings sbcs = softBody.getSoftBodyCreationSettings();
-        ConstSoftBodySharedSettings sbss = sbcs.getSettings();
-        int numVertices = sbss.countVertices();
+        int numVertices = sharedSettings.countVertices();
         if (numVertices != countVertices()) {
             return false;
         }
-        int numEdges = sbss.countEdgeConstraints();
+        int numEdges = sharedSettings.countEdgeConstraints();
         if (numEdges != countLines()) {
             return false;
         }
@@ -126,7 +124,7 @@ class EdgesMesh extends Mesh {
 
         // Update the index buffer from edges. TODO avoid copying indices
         copyIndices.clear();
-        sbss.putEdgeIndices(copyIndices);
+        sharedSettings.putEdgeIndices(copyIndices);
         IndexBuffer indices = getIndexBuffer();
         assert indices.position() == 0;
         for (int i = 0; i < vpe * numEdges; ++i) {

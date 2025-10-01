@@ -28,9 +28,7 @@
  */
 package com.github.stephengold.sportjolt.physics;
 
-import com.github.stephengold.joltjni.SoftBodyCreationSettings;
 import com.github.stephengold.joltjni.SoftBodyMotionProperties;
-import com.github.stephengold.joltjni.enumerate.EBodyType;
 import com.github.stephengold.joltjni.readonly.ConstBody;
 import com.github.stephengold.joltjni.readonly.ConstSoftBodySharedSettings;
 import com.github.stephengold.joltjni.readonly.RVec3Arg;
@@ -50,6 +48,10 @@ class PinsMesh extends Mesh {
      * soft body being visualized
      */
     final private ConstBody softBody;
+    /**
+     * shared settings of the body
+     */
+    final ConstSoftBodySharedSettings sharedSettings;
     // *************************************************************************
     // constructors
 
@@ -60,12 +62,14 @@ class PinsMesh extends Mesh {
      * unaffected)
      */
     PinsMesh(ConstBody softBody) {
-        super(Topology.PointList, softBody.getSoftBodyCreationSettings()
-                .getSettings().countPinnedVertices());
+        super(Topology.PointList,
+                BasePhysicsApp.getSharedSettings(softBody)
+                        .countPinnedVertices());
 
-        assert softBody.getBodyType() == EBodyType.SoftBody;
         this.softBody = softBody;
+        this.sharedSettings = BasePhysicsApp.getSharedSettings(softBody);
 
+        // Create the VertexBuffer for vertex positions.
         VertexBuffer positions = super.createPositions();
         positions.setDynamic();
 
@@ -80,9 +84,7 @@ class PinsMesh extends Mesh {
      * @return {@code true} if successful, otherwise {@code false}
      */
     boolean update() {
-        SoftBodyCreationSettings cs = softBody.getSoftBodyCreationSettings();
-        ConstSoftBodySharedSettings ss = cs.getSettings();
-        int numVertices = ss.countPinnedVertices();
+        int numVertices = sharedSettings.countPinnedVertices();
         if (numVertices != countVertices()) {
             return false;
         } else {

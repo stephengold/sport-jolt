@@ -29,9 +29,7 @@
 package com.github.stephengold.sportjolt.physics;
 
 import com.github.stephengold.joltjni.Jolt;
-import com.github.stephengold.joltjni.SoftBodyCreationSettings;
 import com.github.stephengold.joltjni.SoftBodyMotionProperties;
-import com.github.stephengold.joltjni.enumerate.EBodyType;
 import com.github.stephengold.joltjni.readonly.ConstBody;
 import com.github.stephengold.joltjni.readonly.ConstSoftBodySharedSettings;
 import com.github.stephengold.joltjni.readonly.RVec3Arg;
@@ -54,6 +52,10 @@ class FacesMesh extends Mesh {
      */
     final private ConstBody softBody;
     /**
+     * shared settings of the body
+     */
+    final ConstSoftBodySharedSettings sharedSettings;
+    /**
      * copy vertex indices for the faces
      */
     final private IntBuffer copyIndices;
@@ -67,11 +69,11 @@ class FacesMesh extends Mesh {
      * alias created)
      */
     FacesMesh(ConstBody softBody) {
-        super(Topology.TriangleList, softBody.getSoftBodyCreationSettings()
-                .getSettings().countVertices());
+        super(Topology.TriangleList,
+                BasePhysicsApp.getSharedSettings(softBody).countVertices());
 
-        assert softBody.getBodyType() == EBodyType.SoftBody;
         this.softBody = softBody;
+        this.sharedSettings = BasePhysicsApp.getSharedSettings(softBody);
 
         // Create the VertexBuffer for vertex positions.
         VertexBuffer positions = super.createPositions();
@@ -82,9 +84,7 @@ class FacesMesh extends Mesh {
         normals.setDynamic();
 
         // Create the IndexBuffer for vertex indices.
-        SoftBodyCreationSettings cs = softBody.getSoftBodyCreationSettings();
-        ConstSoftBodySharedSettings ss = cs.getSettings();
-        int numFaces = ss.countFaces();
+        int numFaces = sharedSettings.countFaces();
         int numIndices = vpt * numFaces;
         IndexBuffer indices = super.createIndices(numIndices);
         indices.setDynamic();
@@ -103,13 +103,11 @@ class FacesMesh extends Mesh {
      * @return {@code true} if successful, otherwise {@code false}
      */
     boolean update() {
-        SoftBodyCreationSettings sbcs = softBody.getSoftBodyCreationSettings();
-        ConstSoftBodySharedSettings sbss = sbcs.getSettings();
-        int numVertices = sbss.countVertices();
+        int numVertices = sharedSettings.countVertices();
         if (numVertices != countVertices()) {
             return false;
         }
-        int numFaces = sbss.countFaces();
+        int numFaces = sharedSettings.countFaces();
         if (numFaces != countTriangles()) {
             return false;
         }
@@ -129,7 +127,7 @@ class FacesMesh extends Mesh {
 
         // Update the index buffer from faces. TODO avoid copying indices
         copyIndices.clear();
-        sbss.putFaceIndices(copyIndices);
+        sharedSettings.putFaceIndices(copyIndices);
         IndexBuffer indices = getIndexBuffer();
         assert indices.position() == 0;
         for (int i = 0; i < vpt * numFaces; ++i) {
