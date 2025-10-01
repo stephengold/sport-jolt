@@ -42,6 +42,7 @@ import com.github.stephengold.joltjni.PhysicsSystem;
 import com.github.stephengold.joltjni.TempAllocator;
 import com.github.stephengold.joltjni.TempAllocatorMalloc;
 import com.github.stephengold.joltjni.VehicleConstraint;
+import com.github.stephengold.joltjni.enumerate.EBodyType;
 import com.github.stephengold.joltjni.enumerate.EPhysicsUpdateError;
 import com.github.stephengold.joltjni.enumerate.EShapeSubType;
 import com.github.stephengold.joltjni.readonly.ConstBody;
@@ -50,6 +51,8 @@ import com.github.stephengold.joltjni.readonly.ConstCharacter;
 import com.github.stephengold.joltjni.readonly.ConstCharacterVirtual;
 import com.github.stephengold.joltjni.readonly.ConstJoltPhysicsObject;
 import com.github.stephengold.joltjni.readonly.ConstShape;
+import com.github.stephengold.joltjni.readonly.ConstSoftBodyCreationSettings;
+import com.github.stephengold.joltjni.readonly.ConstSoftBodySharedSettings;
 import com.github.stephengold.sportjolt.BaseApplication;
 import com.github.stephengold.sportjolt.Constants;
 import com.github.stephengold.sportjolt.Filter;
@@ -164,6 +167,23 @@ public abstract class BasePhysicsApp extends BaseApplication {
     }
     // *************************************************************************
     // new methods exposed
+
+    /**
+     * Access the shared settings (topology) of the specified soft body.
+     *
+     * @param softBody the soft body to analyze (not null)
+     * @return the pre-existing object (not null)
+     */
+    static ConstSoftBodySharedSettings getSharedSettings(ConstBody softBody) {
+        assert softBody.getBodyType() == EBodyType.SoftBody;
+
+        ConstSoftBodyCreationSettings sbcs
+                = softBody.getSoftBodyCreationSettings();
+        ConstSoftBodySharedSettings result = sbcs.getSettings();
+        assert result != null;
+
+        return result;
+    }
 
     /**
      * Load and initialize the Jolt-JNI native library. Intended for internal
