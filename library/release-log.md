@@ -1,5 +1,10 @@
 # release log for the Sport-Jolt Library
 
+## Version 0.9.12 released on TBD
+
++ Reduce the amount of garbage generated.
++ Updated the Jolt-JNI library to v3.4.0 .
+
 ## Version 0.9.11 released on 21 September 2025
 
 + Implemented new meshing strategies that use support functions.
