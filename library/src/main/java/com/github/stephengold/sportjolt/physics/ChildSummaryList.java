@@ -106,6 +106,9 @@ class ChildSummaryList {
         ConstSubShape subShape = compound.getSubShape(childIndex);
         ConstShape childShape = subShape.getShape();
         boolean result = summaries[childIndex].matches(childShape);
+        childShape.close();
+        subShape.close();
+
         return result;
     }
 

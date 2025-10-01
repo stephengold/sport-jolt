@@ -215,6 +215,7 @@ public class RigidBodyShapeGeometry extends Geometry {
             Mesh mesh = BasePhysicsApp.meshForShape(shape, summary);
             super.setMesh(mesh);
         }
+        shape.close();
     }
 
     /**
