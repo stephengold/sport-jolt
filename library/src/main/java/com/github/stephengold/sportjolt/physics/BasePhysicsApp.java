@@ -622,7 +622,8 @@ public abstract class BasePhysicsApp extends BaseApplication {
     // BaseApplication methods
 
     /**
-     * Callback invoked after the main update loop terminates.
+     * Callback invoked after the main update loop terminates. Also useful when
+     * restarting a simulation.
      */
     @Override
     protected void cleanUp() {
@@ -661,7 +662,7 @@ public abstract class BasePhysicsApp extends BaseApplication {
     protected void render() {
         ++renderCount;
 
-        // Advance the physics, but not during the first render().
+        // Advance the physics, but not during the first invocation.
         long nanoTime = System.nanoTime();
         if (renderCount > 1) {
             long nanoseconds = nanoTime - lastPhysicsUpdate;

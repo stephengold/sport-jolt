@@ -208,7 +208,7 @@ public class RigidBodyShapeGeometry extends Geometry {
      * Update the Mesh.
      */
     private void updateMesh() {
-        ConstShape shape = rigidBody.getShape();
+        ConstShape shape = rigidBody.getShape(); // TODO
         if (!summary.matches(shape)) {
             MeshingStrategy strategy = summary.meshingStrategy();
             this.summary = new ShapeSummary(shape, strategy);
