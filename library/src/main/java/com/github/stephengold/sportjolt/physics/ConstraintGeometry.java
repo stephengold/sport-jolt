@@ -32,7 +32,6 @@ import com.github.stephengold.joltjni.Jolt;
 import com.github.stephengold.joltjni.PhysicsSystem;
 import com.github.stephengold.joltjni.Quat;
 import com.github.stephengold.joltjni.RVec3;
-import com.github.stephengold.joltjni.TwoBodyConstraint;
 import com.github.stephengold.joltjni.TwoBodyConstraintRef;
 import com.github.stephengold.joltjni.Vec3;
 import com.github.stephengold.joltjni.operator.Op;
@@ -60,13 +59,13 @@ public class ConstraintGeometry extends Geometry {
     // fields
 
     /**
+     * constraint to visualize
+     */
+    final private ConstTwoBodyConstraint constraint;
+    /**
      * end to visualize (0, 1, or 2)
      */
     final private int end;
-    /**
-     * constraint to visualize
-     */
-    final private TwoBodyConstraintRef constraint;
     // *************************************************************************
     // constructors
 
@@ -77,7 +76,7 @@ public class ConstraintGeometry extends Geometry {
      * @param constraint the constraint to visualize (not null, alias created)
      * @param end which end to visualize (0, 1, or 2)
      */
-    public ConstraintGeometry(TwoBodyConstraint constraint, int end) {
+    public ConstraintGeometry(ConstTwoBodyConstraint constraint, int end) {
         Validate.nonNull(constraint, "constraint");
         Validate.inRange(end, "end", 0, 2);
 
@@ -102,7 +101,7 @@ public class ConstraintGeometry extends Geometry {
         super.setMesh(mesh);
         super.setProgram("Unshaded/Monochrome");
 
-        this.constraint = constraint.toRef();
+        this.constraint = constraint;
         this.end = end;
 
         BaseApplication.makeVisible(this);
@@ -186,8 +185,7 @@ public class ConstraintGeometry extends Geometry {
      */
     @Override
     public boolean wasRemovedFrom(PhysicsSystem system) {
-        ConstTwoBodyConstraint tbc = constraint.getPtr();
-        boolean result = !system.containsConstraint(tbc);
+        boolean result = !system.containsConstraint(constraint);
 
         return result;
     }

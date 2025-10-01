@@ -28,7 +28,6 @@
  */
 package com.github.stephengold.sportjolt.physics;
 
-import com.github.stephengold.joltjni.CharacterVirtualRefC;
 import com.github.stephengold.joltjni.PhysicsSystem;
 import com.github.stephengold.joltjni.Quat;
 import com.github.stephengold.joltjni.RVec3;
@@ -58,7 +57,7 @@ public class CharacterVirtualShapeGeometry extends Geometry {
     /**
      * character to visualize
      */
-    final private CharacterVirtualRefC character;
+    final private ConstCharacterVirtual character;
     /**
      * most recent orientation of the physics object
      */
@@ -86,7 +85,7 @@ public class CharacterVirtualShapeGeometry extends Geometry {
         Validate.nonNull(character, "character");
         Validate.nonNull(meshingStrategy, "meshing strategy");
 
-        this.character = character.toRefC();
+        this.character = character;
 
         ConstShape shape = character.getShape();
         this.summary = new ShapeSummary(shape, meshingStrategy);

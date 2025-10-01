@@ -30,7 +30,6 @@ package com.github.stephengold.sportjolt.physics;
 
 import com.github.stephengold.joltjni.CompoundShape;
 import com.github.stephengold.joltjni.DecoratedShape;
-import com.github.stephengold.joltjni.ShapeRefC;
 import com.github.stephengold.joltjni.readonly.ConstShape;
 import java.util.Objects;
 
@@ -49,6 +48,10 @@ public class ShapeSummary {
      */
     final private ChildSummaryList childSummaryList;
     /**
+     * shape to visualize
+     */
+    final private ConstShape shape;
+    /**
      * revision count of the shape
      */
     final private long revisionCount;
@@ -56,10 +59,6 @@ public class ShapeSummary {
      * strategy for mesh generation
      */
     final private MeshingStrategy meshingStrategy;
-    /**
-     * reference to the shape (prevents reuse of the virtual address)
-     */
-    final private ShapeRefC shapeRef;
     // *************************************************************************
     // constructors
 
@@ -74,7 +73,7 @@ public class ShapeSummary {
 
         this.meshingStrategy = strategy;
         this.revisionCount = shape.getRevisionCount();
-        this.shapeRef = shape.toRefC();
+        this.shape = shape;
 
         if (shape instanceof CompoundShape) {
             CompoundShape compoundShape = (CompoundShape) shape;
@@ -110,7 +109,7 @@ public class ShapeSummary {
      * @return {@code true} for a match, otherwise {@code false}
      */
     boolean matches(ConstShape shape) {
-        long thisVa = shapeRef.targetVa();
+        long thisVa = shape.targetVa();
         long argVa = shape.targetVa();
         if (thisVa != argVa) {
             return false;
@@ -154,7 +153,7 @@ public class ShapeSummary {
      * @return the virtual address (not zero
      */
     long shapeVa() {
-        long result = shapeRef.targetVa();
+        long result = shape.targetVa();
         return result;
     }
     // *************************************************************************
@@ -175,7 +174,7 @@ public class ShapeSummary {
         } else if (otherObject != null
                 && otherObject.getClass() == getClass()) {
             ShapeSummary otherSummary = (ShapeSummary) otherObject;
-            result = (shapeRef.targetVa() == otherSummary.shapeVa())
+            result = (shape.targetVa() == otherSummary.shapeVa())
                     && meshingStrategy.equals(otherSummary.meshingStrategy())
                     && (revisionCount == otherSummary.revisionCount);
             if (result && childSummaryList != null) {
@@ -196,7 +195,7 @@ public class ShapeSummary {
      */
     @Override
     public int hashCode() {
-        long shapeVa = shapeRef.targetVa();
+        long shapeVa = shape.targetVa();
         int hash = Objects.hash(
                 childSummaryList, revisionCount, shapeVa, meshingStrategy);
         return hash;

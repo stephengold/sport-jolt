@@ -29,7 +29,6 @@
 package com.github.stephengold.sportjolt.physics;
 
 import com.github.stephengold.joltjni.BodyInterface;
-import com.github.stephengold.joltjni.CharacterRefC;
 import com.github.stephengold.joltjni.PhysicsSystem;
 import com.github.stephengold.joltjni.Quat;
 import com.github.stephengold.joltjni.RVec3;
@@ -59,7 +58,7 @@ public class CharacterShapeGeometry extends Geometry {
     /**
      * character to visualize
      */
-    final private CharacterRefC character;
+    final private ConstCharacter character;
     /**
      * most recent orientation of the physics object
      */
@@ -87,7 +86,7 @@ public class CharacterShapeGeometry extends Geometry {
         Validate.nonNull(character, "character");
         Validate.nonNull(meshingStrategy, "meshing strategy");
 
-        this.character = character.toRefC();
+        this.character = character;
 
         ConstShape shape = character.getShape();
         this.summary = new ShapeSummary(shape, meshingStrategy);
@@ -152,7 +151,7 @@ public class CharacterShapeGeometry extends Geometry {
     @Override
     public boolean wasRemovedFrom(PhysicsSystem system) {
         BodyInterface bi = system.getBodyInterface();
-        int bodyId = character.getPtr().getBodyId();
+        int bodyId = character.getBodyId();
         boolean result = !bi.isAdded(bodyId);
 
         return result;
