@@ -125,9 +125,7 @@ public class Mesh {
 
         this.topology = topology;
         this.vertexCount = vertices.size();
-        if (indices == null) {
-            this.indexBuffer = null;
-        } else {
+        if (indices != null) {
             this.indexBuffer = IndexBuffer.newInstance(indices);
         }
 
@@ -139,24 +137,18 @@ public class Mesh {
         boolean hasColor = representativeVertex.hasColor();
         if (hasColor) {
             this.colorBuffer = VertexBuffer.newColor(vertices);
-        } else {
-            this.colorBuffer = null;
         }
 
         // normal buffer:
         boolean hasNormal = representativeVertex.hasNormal();
         if (hasNormal) {
             this.normalBuffer = VertexBuffer.newNormal(vertices);
-        } else {
-            this.normalBuffer = null;
         }
 
         // texture-coordinates buffer:
         boolean hasTexCoords = representativeVertex.hasTexCoords();
         if (hasTexCoords) {
             this.texCoordsBuffer = VertexBuffer.newTexCoords(vertices);
-        } else {
-            this.texCoordsBuffer = null;
         }
 
         assert mutable;
