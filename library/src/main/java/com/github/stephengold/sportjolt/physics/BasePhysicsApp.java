@@ -418,7 +418,7 @@ public abstract class BasePhysicsApp extends BaseApplication {
                 case Cylinder:
                 case TaperedCapsule:
                 case TaperedCylinder:
-                    meshingStrategy = new MeshingStrategy("convex3");
+                    meshingStrategy = new MeshingStrategy("convex2");
                     break;
                 default:
                     meshingStrategy = new MeshingStrategy("low/Facet");
