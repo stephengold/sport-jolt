@@ -130,8 +130,8 @@ public class IcosphereMesh extends Mesh {
         Validate.inRange(numRefineSteps, "number of refinement steps", 0, 13);
 
         int numVertices = super.countVertices();
-        locations = new ArrayList<>(numVertices);
-        midpointCache = new HashMap<>(numVertices);
+        this.locations = new ArrayList<>(numVertices);
+        this.midpointCache = new HashMap<>(numVertices);
 
         // Add the 12 vertices of a regular icosahedron with radius=1.
         for (Vector3fc icoLocation : icoLocations) {
