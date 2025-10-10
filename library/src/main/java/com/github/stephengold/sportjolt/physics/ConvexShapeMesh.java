@@ -34,13 +34,13 @@ import com.github.stephengold.joltjni.Vec3;
 import com.github.stephengold.joltjni.enumerate.ESupportMode;
 import com.github.stephengold.joltjni.readonly.ConstConvexShape;
 import com.github.stephengold.joltjni.readonly.Vec3Arg;
-import com.github.stephengold.sportjolt.mesh.OctasphereMesh;
+import com.github.stephengold.sportjolt.mesh.IcosphereMesh;
 import java.nio.FloatBuffer;
 
 /**
  * A mesh to visualize a convex shape, generated using a support function.
  */
-class ConvexShapeMesh extends OctasphereMesh {
+class ConvexShapeMesh extends IcosphereMesh {
     // *************************************************************************
     // constructors
 
@@ -55,12 +55,21 @@ class ConvexShapeMesh extends OctasphereMesh {
     ConvexShapeMesh(ConstConvexShape shape, int meshResolution) {
         super(meshResolution, true);
 
+        // Copy the sphere positions to the normals buffer:
+        FloatBuffer positionsData = getPositionsData();
+        createNormals();
+        FloatBuffer normalsData = getNormalsData();
+        int numFloats = normalsData.capacity();
+        for (int i = 0; i < numFloats; ++i) {
+            float f = positionsData.get(i);
+            normalsData.put(i, f);
+        }
+
         Vec3Arg scale = new Vec3(1f, 1f, 1f);
         Support support = shape.getSupportFunction(
                 ESupportMode.IncludeConvexRadius, new SupportBuffer(), scale);
 
-        FloatBuffer normalsData = getNormalsData();
-        FloatBuffer positionsData = getPositionsData();
+        // Generate positions by apply the support function to the normals:
         support.getSupportBulk(normalsData, positionsData);
     }
 }
