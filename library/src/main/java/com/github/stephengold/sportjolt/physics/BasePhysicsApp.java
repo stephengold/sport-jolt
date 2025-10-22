@@ -294,6 +294,15 @@ public abstract class BasePhysicsApp extends BaseApplication {
     }
 
     /**
+     * Alter the time interval simulated by each step.
+     *
+     * @param interval in seconds
+     */
+    public void setTimePerStep(float interval) {
+        this.timePerStep = interval;
+    }
+
+    /**
      * Visualize the local axes of the specified physics object.
      *
      * @param jpo the object to visualize (or null for world axes)
