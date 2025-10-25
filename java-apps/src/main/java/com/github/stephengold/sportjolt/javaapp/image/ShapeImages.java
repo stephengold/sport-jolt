@@ -145,7 +145,7 @@ public class ShapeImages extends BasePhysicsApp {
      * @return a new object
      */
     @Override
-    protected PhysicsSystem createSystem() {
+    public PhysicsSystem createSystem() {
         int numBpLayers = 1; // use a single broadphase layer for simplicity
         int maxBodies = 4;
         PhysicsSystem result = createSystem(maxBodies, numBpLayers);

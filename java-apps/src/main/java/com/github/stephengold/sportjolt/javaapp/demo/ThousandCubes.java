@@ -162,7 +162,7 @@ public class ThousandCubes extends BasePhysicsApp {
      * @return a new object
      */
     @Override
-    protected PhysicsSystem createSystem() {
+    public PhysicsSystem createSystem() {
         if (Utils.areAssertionsEnabled()) {
             System.out.println("Warning:  assertions are enabled.");
         }

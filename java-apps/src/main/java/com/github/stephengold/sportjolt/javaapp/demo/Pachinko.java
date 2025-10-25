@@ -128,7 +128,7 @@ public class Pachinko extends BasePhysicsApp implements PhysicsTickListener {
      * @return a new object
      */
     @Override
-    protected PhysicsSystem createSystem() {
+    public PhysicsSystem createSystem() {
         int maxBodies = 500; // allow for 499 balls plus the playing field
         int numBpLayers = 2; // use 2 broadphase layers for efficiency
         PhysicsSystem result = createSystem(maxBodies, numBpLayers);

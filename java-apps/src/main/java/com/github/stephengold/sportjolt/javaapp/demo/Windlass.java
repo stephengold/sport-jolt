@@ -169,7 +169,7 @@ public class Windlass extends BasePhysicsApp implements PhysicsTickListener {
      * @return a new object
      */
     @Override
-    protected PhysicsSystem createSystem() {
+    public PhysicsSystem createSystem() {
         int numBpLayers = 1; // use a single broadphase layer for simplicity
         int maxBodies = numCoiledSegments + numPendantSegments + 3;
         PhysicsSystem result = createSystem(maxBodies, numBpLayers);

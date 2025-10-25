@@ -115,7 +115,7 @@ public class NewtonsCradle extends BasePhysicsApp {
      * @return a new object
      */
     @Override
-    protected PhysicsSystem createSystem() {
+    public PhysicsSystem createSystem() {
         int numBpLayers = 1; // use a single broadphase layer for simplicity
         int maxBodies = 5; // allow for 5 balls
         PhysicsSystem result = createSystem(maxBodies, numBpLayers);

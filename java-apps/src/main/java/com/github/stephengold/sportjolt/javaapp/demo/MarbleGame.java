@@ -138,7 +138,7 @@ public class MarbleGame extends BasePhysicsApp {
      * @return a new object
      */
     @Override
-    protected PhysicsSystem createSystem() {
+    public PhysicsSystem createSystem() {
         int maxBodies = numCubes + 6;
         int numBpLayers = 2; // use 2 broadphase layers for efficiency
         PhysicsSystem result = createSystem(maxBodies, numBpLayers);

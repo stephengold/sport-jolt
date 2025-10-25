@@ -502,7 +502,7 @@ abstract public class BasePhysicsApp extends BaseApplication {
      *
      * @return a new object
      */
-    protected PhysicsSystem createSystem() {
+    public PhysicsSystem createSystem() {
         int maxBodies = 100;
         int numBpLayers = 2;
         PhysicsSystem result = createSystem(maxBodies, numBpLayers);
@@ -519,7 +519,7 @@ abstract public class BasePhysicsApp extends BaseApplication {
      * @param numBpLayers the number of broadphase layers (1 or 2)
      * @return a new object
      */
-    protected PhysicsSystem createSystem(int maxBodies, int numBpLayers) {
+    public PhysicsSystem createSystem(int maxBodies, int numBpLayers) {
         Validate.positive(maxBodies, "maximum number of bodies");
         Validate.inRange(numBpLayers, "number of BP layers", 1, 2);
         /*
