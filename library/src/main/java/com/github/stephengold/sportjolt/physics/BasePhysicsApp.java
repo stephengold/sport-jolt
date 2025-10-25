@@ -80,7 +80,7 @@ import org.joml.Vector4f;
 /**
  * An application to visualize 3-D physics.
  */
-public abstract class BasePhysicsApp extends BaseApplication {
+abstract public class BasePhysicsApp extends BaseApplication {
     // *************************************************************************
     // constants
 
