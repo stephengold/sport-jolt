@@ -571,7 +571,7 @@ abstract public class BasePhysicsApp extends BaseApplication {
      *
      * @return the pre-existing instance
      */
-    protected PhysicsSystem getPhysicsSystem() {
+    public PhysicsSystem getPhysicsSystem() {
         return physicsSystem;
     }
 
@@ -580,7 +580,7 @@ abstract public class BasePhysicsApp extends BaseApplication {
      *
      * @return the pre-existing instance
      */
-    protected TempAllocator getTempAllocator() {
+    public TempAllocator getTempAllocator() {
         return tempAllocator;
     }
 
@@ -694,7 +694,7 @@ abstract public class BasePhysicsApp extends BaseApplication {
      *
      * @return the total time (in nanoseconds)
      */
-    protected static long totalPhysicsNanos() {
+    public static long totalPhysicsNanos() {
         return totalPhysicsNanos;
     }
 
@@ -703,7 +703,7 @@ abstract public class BasePhysicsApp extends BaseApplication {
      *
      * @return the total time (in simulated seconds)
      */
-    protected static double totalSimulatedTime() {
+    public static double totalSimulatedTime() {
         return totalSimulatedTime;
     }
     // *************************************************************************
