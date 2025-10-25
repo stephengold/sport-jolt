@@ -169,6 +169,84 @@ abstract public class BasePhysicsApp extends BaseApplication {
     // new methods exposed
 
     /**
+     * Create the PhysicsSystem during initialization. Meant to be overridden.
+     *
+     * @return a new object
+     */
+    public PhysicsSystem createSystem() {
+        int maxBodies = 100;
+        int numBpLayers = 2;
+        PhysicsSystem result = createSystem(maxBodies, numBpLayers);
+
+        return result;
+    }
+
+    /**
+     * Create a generic {@code PhysicsSystem} with the specified parameters.
+     * Heuristics are used to configure reasonable limits for mutexes, pairs,
+     * and contacts.
+     *
+     * @param maxBodies the maximum number of bodies (&ge;1)
+     * @param numBpLayers the number of broadphase layers (1 or 2)
+     * @return a new object
+     */
+    public PhysicsSystem createSystem(int maxBodies, int numBpLayers) {
+        Validate.positive(maxBodies, "maximum number of bodies");
+        Validate.inRange(numBpLayers, "number of BP layers", 1, 2);
+        /*
+         * The number of object layers in Sport-Jolt is fixed at 2:
+         * one for moving objects and one for non-moving ones.
+         *
+         * Configure an object-layer pair filter to ignore collisions
+         * between non-moving objects:
+         */
+        ObjectLayerPairFilterTable ovoFilter
+                = new ObjectLayerPairFilterTable(numObjLayers);
+        ovoFilter.enableCollision(objLayerMoving, objLayerMoving);
+        ovoFilter.enableCollision(objLayerMoving, objLayerNonMoving);
+
+        BroadPhaseLayerInterface layerMap = createLayerMap(numBpLayers);
+        /*
+         * Pre-compute the rules for colliding object layers
+         * with broadphase layers:
+         */
+        ObjectVsBroadPhaseLayerFilter ovbFilter
+                = new ObjectVsBroadPhaseLayerFilterTable(
+                        layerMap, numBpLayers, ovoFilter, numObjLayers);
+
+        int numBodyMutexes = 0; // 0 means "use the default value"
+        /*
+         * Current heuristics:
+         *
+         * maxBodies=2 -> maxBodyPairs=3, maxContacts=56
+         * maxBodies=3 -> maxBodyPairs=3, maxContacts=63
+         * maxBodies=10 -> maxBodyPairs=45, maxContacts=112
+         * maxBodies=100 -> maxBodyPairs=1200, maxContacts=742
+         * maxBodies=1000 -> maxBodyPairs=3900, maxContacts=7042
+         */
+        long maxBodiesLong = maxBodies;
+        long possiblePairs = maxBodiesLong * (maxBodiesLong - 1) / 2;
+        int maxBodyPairs = (int) Math.min(possiblePairs, 3 * maxBodies + 900);
+        maxBodyPairs = Math.max(3, maxBodyPairs);
+
+        int maxContacts = 7 * (maxBodies + 6);
+        PhysicsSystem result = new PhysicsSystem();
+        result.init(maxBodies, numBodyMutexes, maxBodyPairs, maxContacts,
+                layerMap, ovbFilter, ovoFilter);
+
+        return result;
+    }
+
+    /**
+     * Access the physics system.
+     *
+     * @return the pre-existing instance
+     */
+    public PhysicsSystem getPhysicsSystem() {
+        return physicsSystem;
+    }
+
+    /**
      * Access the shared settings (topology) of the specified soft body.
      *
      * @param softBody the soft body to analyze (not null)
@@ -183,6 +261,15 @@ abstract public class BasePhysicsApp extends BaseApplication {
         assert result != null;
 
         return result;
+    }
+
+    /**
+     * Access the temporary memory allocator.
+     *
+     * @return the pre-existing instance
+     */
+    public TempAllocator getTempAllocator() {
+        return tempAllocator;
     }
 
     /**
@@ -300,6 +387,25 @@ abstract public class BasePhysicsApp extends BaseApplication {
      */
     public void setTimePerStep(float interval) {
         this.timePerStep = interval;
+    }
+
+    /**
+     * Return the accumulated wall-clock time spent in physics simulation,
+     * including step listeners.
+     *
+     * @return the total time (in nanoseconds)
+     */
+    public static long totalPhysicsNanos() {
+        return totalPhysicsNanos;
+    }
+
+    /**
+     * Return the total time simulated.
+     *
+     * @return the total time (in simulated seconds)
+     */
+    public static double totalSimulatedTime() {
+        return totalSimulatedTime;
     }
 
     /**
@@ -498,93 +604,6 @@ abstract public class BasePhysicsApp extends BaseApplication {
     }
 
     /**
-     * Create the PhysicsSystem during initialization. Meant to be overridden.
-     *
-     * @return a new object
-     */
-    public PhysicsSystem createSystem() {
-        int maxBodies = 100;
-        int numBpLayers = 2;
-        PhysicsSystem result = createSystem(maxBodies, numBpLayers);
-
-        return result;
-    }
-
-    /**
-     * Create a generic {@code PhysicsSystem} with the specified parameters.
-     * Heuristics are used to configure reasonable limits for mutexes, pairs,
-     * and contacts.
-     *
-     * @param maxBodies the maximum number of bodies (&ge;1)
-     * @param numBpLayers the number of broadphase layers (1 or 2)
-     * @return a new object
-     */
-    public PhysicsSystem createSystem(int maxBodies, int numBpLayers) {
-        Validate.positive(maxBodies, "maximum number of bodies");
-        Validate.inRange(numBpLayers, "number of BP layers", 1, 2);
-        /*
-         * The number of object layers in Sport-Jolt is fixed at 2:
-         * one for moving objects and one for non-moving ones.
-         *
-         * Configure an object-layer pair filter to ignore collisions
-         * between non-moving objects:
-         */
-        ObjectLayerPairFilterTable ovoFilter
-                = new ObjectLayerPairFilterTable(numObjLayers);
-        ovoFilter.enableCollision(objLayerMoving, objLayerMoving);
-        ovoFilter.enableCollision(objLayerMoving, objLayerNonMoving);
-
-        BroadPhaseLayerInterface layerMap = createLayerMap(numBpLayers);
-        /*
-         * Pre-compute the rules for colliding object layers
-         * with broadphase layers:
-         */
-        ObjectVsBroadPhaseLayerFilter ovbFilter
-                = new ObjectVsBroadPhaseLayerFilterTable(
-                        layerMap, numBpLayers, ovoFilter, numObjLayers);
-
-        int numBodyMutexes = 0; // 0 means "use the default value"
-        /*
-         * Current heuristics:
-         *
-         * maxBodies=2 -> maxBodyPairs=3, maxContacts=56
-         * maxBodies=3 -> maxBodyPairs=3, maxContacts=63
-         * maxBodies=10 -> maxBodyPairs=45, maxContacts=112
-         * maxBodies=100 -> maxBodyPairs=1200, maxContacts=742
-         * maxBodies=1000 -> maxBodyPairs=3900, maxContacts=7042
-         */
-        long maxBodiesLong = maxBodies;
-        long possiblePairs = maxBodiesLong * (maxBodiesLong - 1) / 2;
-        int maxBodyPairs = (int) Math.min(possiblePairs, 3 * maxBodies + 900);
-        maxBodyPairs = Math.max(3, maxBodyPairs);
-
-        int maxContacts = 7 * (maxBodies + 6);
-        PhysicsSystem result = new PhysicsSystem();
-        result.init(maxBodies, numBodyMutexes, maxBodyPairs, maxContacts,
-                layerMap, ovbFilter, ovoFilter);
-
-        return result;
-    }
-
-    /**
-     * Access the physics system.
-     *
-     * @return the pre-existing instance
-     */
-    public PhysicsSystem getPhysicsSystem() {
-        return physicsSystem;
-    }
-
-    /**
-     * Access the temporary memory allocator.
-     *
-     * @return the pre-existing instance
-     */
-    public TempAllocator getTempAllocator() {
-        return tempAllocator;
-    }
-
-    /**
      * Populate the PhysicsSystem. Invoked once during initialization.
      */
     abstract protected void populateSystem();
@@ -686,25 +705,6 @@ abstract public class BasePhysicsApp extends BaseApplication {
 
         cleanUpGeometries();
         super.render();
-    }
-
-    /**
-     * Return the accumulated wall-clock time spent in physics simulation,
-     * including step listeners.
-     *
-     * @return the total time (in nanoseconds)
-     */
-    public static long totalPhysicsNanos() {
-        return totalPhysicsNanos;
-    }
-
-    /**
-     * Return the total time simulated.
-     *
-     * @return the total time (in simulated seconds)
-     */
-    public static double totalSimulatedTime() {
-        return totalSimulatedTime;
     }
     // *************************************************************************
     // private methods
