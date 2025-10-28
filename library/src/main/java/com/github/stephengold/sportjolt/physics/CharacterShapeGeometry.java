@@ -60,11 +60,11 @@ public class CharacterShapeGeometry extends Geometry {
      */
     final private ConstCharacter character;
     /**
-     * most recent orientation of the physics object
+     * most recent orientation of the character
      */
     final private Quat lastOrientation = new Quat();
     /**
-     * most recent location of the physics object
+     * most recent location of the character
      */
     final private RVec3 lastLocation = new RVec3();
     /**

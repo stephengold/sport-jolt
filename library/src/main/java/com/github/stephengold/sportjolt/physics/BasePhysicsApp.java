@@ -122,7 +122,7 @@ abstract public class BasePhysicsApp extends BaseApplication {
      */
     private float physicsLag;
     /**
-     * time step (in seconds, &gt;0)
+     * simulated-time step (in seconds, &gt;0)
      */
     protected float timePerStep = 1f / 60f;
     /**

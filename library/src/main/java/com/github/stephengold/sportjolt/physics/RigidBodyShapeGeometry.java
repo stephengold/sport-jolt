@@ -61,11 +61,11 @@ public class RigidBodyShapeGeometry extends Geometry {
      */
     final private ConstBody rigidBody;
     /**
-     * most recent orientation of the physics object
+     * most recent orientation of the body
      */
     final private Quat lastOrientation = new Quat();
     /**
-     * most recent location of the physics object
+     * most recent location of the body
      */
     final private RVec3 lastLocation = new RVec3();
     /**
