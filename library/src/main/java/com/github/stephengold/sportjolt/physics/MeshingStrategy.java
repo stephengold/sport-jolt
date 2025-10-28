@@ -28,6 +28,7 @@
  */
 package com.github.stephengold.sportjolt.physics;
 
+import com.github.stephengold.joltjni.ShapeRefC;
 import com.github.stephengold.joltjni.readonly.ConstConvexShape;
 import com.github.stephengold.joltjni.readonly.ConstShape;
 import com.github.stephengold.sportjolt.Mesh;
@@ -139,7 +140,10 @@ class MeshingStrategy {
             result.transformUvs(uCoefficients, vCoefficients);
 
         } else if (positions > 0) { // generate mesh using a support function:
-            ConstConvexShape convexShape = (ConstConvexShape) shape;
+            ConstConvexShape convexShape
+                    = (ConstConvexShape) (shape instanceof ConstConvexShape
+                            ? shape
+                            : ((ShapeRefC) shape).getPtr());
             result = new ConvexShapeMesh(convexShape, positions);
             // NormalsOption, UvsOption, and coefficients are ignored.
             // TODO merge duplicate vertices and delete degenerate triangles
