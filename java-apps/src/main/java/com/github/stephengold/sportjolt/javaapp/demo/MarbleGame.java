@@ -468,7 +468,7 @@ public class MarbleGame extends BasePhysicsApp {
     private void removeCollectedCubes() {
         BodyInterface bi = physicsSystem.getBodyInterface();
         for (long collectedVa : newlyCollectedCubes) {
-            Body collectedBody = new Body(collectedVa);
+            Body collectedBody = new Body(physicsSystem, collectedVa);
             int collectedBodyId = collectedBody.getId();
             bi.removeBody(collectedBodyId);
 
