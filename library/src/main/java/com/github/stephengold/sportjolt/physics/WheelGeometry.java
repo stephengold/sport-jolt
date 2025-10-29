@@ -29,13 +29,13 @@
 package com.github.stephengold.sportjolt.physics;
 
 import com.github.stephengold.joltjni.PhysicsSystem;
+import com.github.stephengold.joltjni.Quat;
+import com.github.stephengold.joltjni.RVec3;
 import com.github.stephengold.joltjni.Vec3;
 import com.github.stephengold.joltjni.VehicleConstraint;
 import com.github.stephengold.joltjni.Wheel;
 import com.github.stephengold.joltjni.readonly.ConstWheelSettings;
-import com.github.stephengold.joltjni.readonly.QuatArg;
-import com.github.stephengold.joltjni.readonly.RMat44Arg;
-import com.github.stephengold.joltjni.readonly.RVec3Arg;
+import com.github.stephengold.joltjni.readonly.Vec3Arg;
 import com.github.stephengold.sportjolt.BaseApplication;
 import com.github.stephengold.sportjolt.Geometry;
 import com.github.stephengold.sportjolt.Validate;
@@ -46,12 +46,31 @@ import com.github.stephengold.sportjolt.mesh.WheelMesh;
  */
 public class WheelGeometry extends Geometry {
     // *************************************************************************
+    // constants
+
+    /**
+     * "right" direction in the wheel's model space
+     */
+    final private static Vec3Arg right = Vec3.sAxisX();
+    /**
+     * "up" direction in the wheel's model space
+     */
+    final private static Vec3Arg up = Vec3.sAxisY();
+    // *************************************************************************
     // fields
 
     /**
      * index of the wheel to visualize (&ge;0)
      */
     final private int wheelIndex;
+    /**
+     * most recent orientation of the body
+     */
+    final private Quat lastOrientation = new Quat();
+    /**
+     * most recent location of the body
+     */
+    final private RVec3 lastLocation = new RVec3();
     /**
      * vehicle to visualize
      */
@@ -121,13 +140,10 @@ public class WheelGeometry extends Geometry {
      * Update the mesh-to-world transform.
      */
     private void updateTransform() {
-        RMat44Arg transform = vehicle.getWheelWorldTransform(
-                wheelIndex, Vec3.sAxisX(), Vec3.sAxisY());
-        RVec3Arg location = transform.getTranslation();
-        setLocation(location);
-
-        QuatArg orientation = transform.getQuaternion();
-        setOrientation(orientation);
+        vehicle.getWheelPositionAndRotation(
+                wheelIndex, right, up, lastLocation, lastOrientation);
+        setLocation(lastLocation);
+        setOrientation(lastOrientation);
 
         Wheel wheel = vehicle.getWheel(wheelIndex);
         ConstWheelSettings settings = wheel.getSettings();
