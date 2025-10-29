@@ -30,6 +30,8 @@ package com.github.stephengold.sportjolt.physics;
 
 import com.github.stephengold.joltjni.CompoundShape;
 import com.github.stephengold.joltjni.DecoratedShape;
+import com.github.stephengold.joltjni.ShapeRefC;
+import com.github.stephengold.joltjni.enumerate.EShapeSubType;
 import com.github.stephengold.joltjni.readonly.ConstShape;
 import java.util.Objects;
 
@@ -48,10 +50,6 @@ public class ShapeSummary {
      */
     final private ChildSummaryList childSummaryList;
     /**
-     * shape to visualize
-     */
-    final private ConstShape shape;
-    /**
      * revision count of the shape
      */
     final private long revisionCount;
@@ -59,6 +57,10 @@ public class ShapeSummary {
      * strategy for mesh generation
      */
     final private MeshingStrategy meshingStrategy;
+    /**
+     * shape to visualize
+     */
+    final private ShapeRefC shapeRef;
     // *************************************************************************
     // constructors
 
@@ -73,20 +75,29 @@ public class ShapeSummary {
 
         this.meshingStrategy = strategy;
         this.revisionCount = shape.getRevisionCount();
-        this.shape = shape;
+        this.shapeRef = shape instanceof ShapeRefC
+                ? (ShapeRefC) shape : shape.toRefC();
 
-        if (shape instanceof CompoundShape) {
-            CompoundShape compoundShape = (CompoundShape) shape;
-            this.childSummaryList
-                    = new ChildSummaryList(compoundShape, meshingStrategy);
+        EShapeSubType subType = shapeRef.getSubType();
+        switch (subType) {
+            case MutableCompound:
+            case StaticCompound:
+                CompoundShape compoundShape = (CompoundShape) shapeRef.getPtr();
+                this.childSummaryList
+                        = new ChildSummaryList(compoundShape, meshingStrategy);
+                break;
 
-        } else if (shape instanceof DecoratedShape) {
-            DecoratedShape decoratedShape = (DecoratedShape) shape;
-            this.childSummaryList
-                    = new ChildSummaryList(decoratedShape, meshingStrategy);
+            case OffsetCenterOfMass:
+            case RotatedTranslated:
+            case Scaled:
+                DecoratedShape decoratedShape
+                        = (DecoratedShape) shapeRef.getPtr();
+                this.childSummaryList
+                        = new ChildSummaryList(decoratedShape, meshingStrategy);
+                break;
 
-        } else {
-            this.childSummaryList = null;
+            default:
+                this.childSummaryList = null;
         }
     }
 
@@ -153,7 +164,7 @@ public class ShapeSummary {
      * @return the virtual address (not zero
      */
     long shapeVa() {
-        long result = shape.targetVa();
+        long result = shapeRef.targetVa();
         return result;
     }
     // *************************************************************************
@@ -174,7 +185,7 @@ public class ShapeSummary {
         } else if (otherObject != null
                 && otherObject.getClass() == getClass()) {
             ShapeSummary otherSummary = (ShapeSummary) otherObject;
-            result = (shape.targetVa() == otherSummary.shapeVa())
+            result = (shapeRef.targetVa() == otherSummary.shapeVa())
                     && meshingStrategy.equals(otherSummary.meshingStrategy())
                     && (revisionCount == otherSummary.revisionCount);
             if (result && childSummaryList != null) {
@@ -195,7 +206,7 @@ public class ShapeSummary {
      */
     @Override
     public int hashCode() {
-        long shapeVa = shape.targetVa();
+        long shapeVa = shapeRef.targetVa();
         int hash = Objects.hash(
                 childSummaryList, revisionCount, shapeVa, meshingStrategy);
         return hash;
