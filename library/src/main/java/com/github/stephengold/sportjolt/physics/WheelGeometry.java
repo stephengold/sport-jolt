@@ -60,6 +60,10 @@ public class WheelGeometry extends Geometry {
     // fields
 
     /**
+     * settings of the wheel
+     */
+    final private ConstWheelSettings settings;
+    /**
      * index of the wheel to visualize (&ge;0)
      */
     final private int wheelIndex;
@@ -72,7 +76,7 @@ public class WheelGeometry extends Geometry {
      */
     final private RVec3 lastLocation = new RVec3();
     /**
-     * vehicle to visualize
+     * vehicle to containing the wheel
      */
     final private VehicleConstraint vehicle;
     /**
@@ -95,6 +99,8 @@ public class WheelGeometry extends Geometry {
 
         this.vehicle = vehicle;
         this.wheelIndex = wheelIndex;
+        Wheel wheel = vehicle.getWheel(wheelIndex);
+        this.settings = wheel.getSettings();
 
         if (mesh == null) {
             mesh = new WheelMesh();
@@ -145,8 +151,6 @@ public class WheelGeometry extends Geometry {
         setLocation(lastLocation);
         setOrientation(lastOrientation);
 
-        Wheel wheel = vehicle.getWheel(wheelIndex);
-        ConstWheelSettings settings = wheel.getSettings();
         float radius = settings.getRadius();
         setScale(radius);
     }
