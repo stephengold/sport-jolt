@@ -31,8 +31,8 @@ package com.github.stephengold.sportjolt.physics;
 import com.github.stephengold.joltjni.PhysicsSystem;
 import com.github.stephengold.joltjni.Quat;
 import com.github.stephengold.joltjni.RVec3;
+import com.github.stephengold.joltjni.ShapeRefC;
 import com.github.stephengold.joltjni.readonly.ConstCharacterVirtual;
-import com.github.stephengold.joltjni.readonly.ConstShape;
 import com.github.stephengold.sportjolt.BaseApplication;
 import com.github.stephengold.sportjolt.Constants;
 import com.github.stephengold.sportjolt.Geometry;
@@ -67,6 +67,10 @@ public class CharacterVirtualShapeGeometry extends Geometry {
      */
     final private RVec3 lastLocation = new RVec3();
     /**
+     * most recent shape of the character
+     */
+    final private ShapeRefC lastShape = new ShapeRefC();
+    /**
      * auxiliary data used to generate the current mesh
      */
     private ShapeSummary summary;
@@ -87,9 +91,9 @@ public class CharacterVirtualShapeGeometry extends Geometry {
 
         this.character = character;
 
-        ConstShape shape = character.getShape();
-        this.summary = new ShapeSummary(shape, meshingStrategy);
-        Mesh mesh = BasePhysicsApp.meshForShape(shape, summary);
+        character.getShape(lastShape);
+        this.summary = new ShapeSummary(lastShape, meshingStrategy);
+        Mesh mesh = BasePhysicsApp.meshForShape(lastShape, summary);
         super.setMesh(mesh);
 
         BaseApplication.makeVisible(this);
@@ -172,11 +176,11 @@ public class CharacterVirtualShapeGeometry extends Geometry {
      * Update the Mesh.
      */
     private void updateMesh() {
-        ConstShape shape = character.getShape();
-        if (!summary.matches(shape)) {
+        character.getShape(lastShape);
+        if (!summary.matches(lastShape)) {
             MeshingStrategy strategy = summary.meshingStrategy();
-            this.summary = new ShapeSummary(shape, strategy);
-            Mesh mesh = BasePhysicsApp.meshForShape(shape, summary);
+            this.summary = new ShapeSummary(lastShape, strategy);
+            Mesh mesh = BasePhysicsApp.meshForShape(lastShape, summary);
             super.setMesh(mesh);
         }
     }

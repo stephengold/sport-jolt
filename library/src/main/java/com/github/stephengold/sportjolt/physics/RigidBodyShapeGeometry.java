@@ -32,11 +32,11 @@ import com.github.stephengold.joltjni.BodyInterface;
 import com.github.stephengold.joltjni.PhysicsSystem;
 import com.github.stephengold.joltjni.Quat;
 import com.github.stephengold.joltjni.RVec3;
+import com.github.stephengold.joltjni.ShapeRefC;
 import com.github.stephengold.joltjni.enumerate.EBodyType;
 import com.github.stephengold.joltjni.enumerate.EShapeSubType;
 import com.github.stephengold.joltjni.enumerate.EShapeType;
 import com.github.stephengold.joltjni.readonly.ConstBody;
-import com.github.stephengold.joltjni.readonly.ConstShape;
 import com.github.stephengold.sportjolt.BaseApplication;
 import com.github.stephengold.sportjolt.Constants;
 import com.github.stephengold.sportjolt.Geometry;
@@ -69,6 +69,10 @@ public class RigidBodyShapeGeometry extends Geometry {
      */
     final private RVec3 lastLocation = new RVec3();
     /**
+     * most recent shape of the body
+     */
+    final private ShapeRefC lastShape = new ShapeRefC();
+    /**
      * auxiliary data used to generate the current mesh
      */
     private ShapeSummary summary;
@@ -90,14 +94,14 @@ public class RigidBodyShapeGeometry extends Geometry {
 
         this.rigidBody = rigidBody;
 
-        ConstShape shape = rigidBody.getShape();
-        this.summary = new ShapeSummary(shape, meshingStrategy);
-        Mesh mesh = BasePhysicsApp.meshForShape(shape, summary);
+        rigidBody.getShape(lastShape);
+        this.summary = new ShapeSummary(lastShape, meshingStrategy);
+        Mesh mesh = BasePhysicsApp.meshForShape(lastShape, summary);
         super.setMesh(mesh);
 
         // Disable back-face culling for most convex shapes:
-        boolean isConvex = (shape.getType() == EShapeType.Convex);
-        boolean isTriangle = (shape.getSubType() == EShapeSubType.Triangle);
+        boolean isConvex = (lastShape.getType() == EShapeType.Convex);
+        boolean isTriangle = (lastShape.getSubType() == EShapeSubType.Triangle);
         boolean cullBackFaces = isConvex && !isTriangle;
         super.setBackCulling(cullBackFaces);
 
@@ -208,14 +212,13 @@ public class RigidBodyShapeGeometry extends Geometry {
      * Update the Mesh.
      */
     private void updateMesh() {
-        ConstShape shape = rigidBody.getShape(); // TODO
-        if (!summary.matches(shape)) {
+        rigidBody.getShape(lastShape);
+        if (!summary.matches(lastShape)) {
             MeshingStrategy strategy = summary.meshingStrategy();
-            this.summary = new ShapeSummary(shape, strategy);
-            Mesh mesh = BasePhysicsApp.meshForShape(shape, summary);
+            this.summary = new ShapeSummary(lastShape, strategy);
+            Mesh mesh = BasePhysicsApp.meshForShape(lastShape, summary);
             super.setMesh(mesh);
         }
-        shape.close();
     }
 
     /**
