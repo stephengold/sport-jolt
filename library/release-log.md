@@ -1,6 +1,6 @@
 # release log for the Sport-Jolt Library
 
-## Version 0.9.13 released on TBD
+## Version 0.9.13 released on 29 October 2025
 
 + Added the `FunctionalPhysicsApp` class.
 + Added the `BasePhysicsApp.setTimePerStep()` method.
