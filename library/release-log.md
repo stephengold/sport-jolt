@@ -1,5 +1,20 @@
 # release log for the Sport-Jolt Library
 
+## Version 0.9.13 released on TBD
+
++ Added the `FunctionalPhysicsApp` class.
++ Added the `BasePhysicsApp.setTimePerStep()` method.
++ Publicized 6 `BasePhysicsApp` methods:
+  + 2 `createSystem()` methods
+  + `getPhysicsSystem()`
+  + `getTempAllocator()`
+  + `totalPhysicsNanos()`
+  + `totalSimulatedTime()`
++ Further measures to reduce the amount of garbage generated.
++ Simplified the default debug meshes for convex shapes.
++ Updated the Jolt-JNI library to v3.5.0 .
++ Updated the OSHI library to v6.9.1 .
+
 ## Version 0.9.12 released on 30 September 2025
 
 + Reduce the amount of garbage generated.
