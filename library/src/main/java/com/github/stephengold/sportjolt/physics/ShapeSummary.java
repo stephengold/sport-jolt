@@ -58,7 +58,7 @@ public class ShapeSummary {
      */
     final private MeshingStrategy meshingStrategy;
     /**
-     * shape to visualize
+     * reference to the shape (prevents reuse of the virtual address)
      */
     final private ShapeRefC shapeRef;
     // *************************************************************************
@@ -120,7 +120,7 @@ public class ShapeSummary {
      * @return {@code true} for a match, otherwise {@code false}
      */
     boolean matches(ConstShape shape) {
-        long thisVa = shape.targetVa();
+        long thisVa = shapeRef.targetVa();
         long argVa = shape.targetVa();
         if (thisVa != argVa) {
             return false;
