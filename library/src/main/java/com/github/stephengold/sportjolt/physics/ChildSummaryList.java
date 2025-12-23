@@ -96,6 +96,18 @@ class ChildSummaryList {
     }
 
     /**
+     * Test whether the summary matches the specified decorated shape.
+     *
+     * @param decorated the decorated shape to compare (not null, unaffected)
+     * @return {@code true} for a match, otherwise {@code false}
+     */
+    boolean matchesChild(DecoratedShape decorated) {
+        ConstShape childShape = decorated.getInnerShape();
+        boolean result = summaries[0].matches(childShape);
+        return result;
+    }
+
+    /**
      * Test whether the indexed summary matches the specified child shape.
      *
      * @param childIndex (&ge;0)
@@ -109,18 +121,6 @@ class ChildSummaryList {
         childShape.close();
         subShape.close();
 
-        return result;
-    }
-
-    /**
-     * Test whether the summary matches the specified decorated shape.
-     *
-     * @param decorated the decorated shape to compare (not null, unaffected)
-     * @return {@code true} for a match, otherwise {@code false}
-     */
-    boolean matchesChild(DecoratedShape decorated) {
-        ConstShape childShape = decorated.getInnerShape();
-        boolean result = summaries[0].matches(childShape);
         return result;
     }
     // *************************************************************************
