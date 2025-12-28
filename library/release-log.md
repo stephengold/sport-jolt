@@ -1,5 +1,11 @@
 # release log for the Sport-Jolt Library
 
+## Version 0.9.14 released on TBD
+
++ Bugfix: logic error in `ShapeSummary.matches()`
++ Updated the Jolt-JNI library to v3.5.1 .
++ Updated the OSHI library to v6.9.2 .
+
 ## Version 0.9.13 released on 29 October 2025
 
 + Added the `FunctionalPhysicsApp` class.
