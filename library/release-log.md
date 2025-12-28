@@ -1,6 +1,6 @@
 # release log for the Sport-Jolt Library
 
-## Version 0.9.14 released on TBD
+## Version 0.9.14 released on 28 December 2025
 
 + Bugfix: logic error in `ShapeSummary.matches()`
 + Updated the Jolt-JNI library to v3.5.1 .
