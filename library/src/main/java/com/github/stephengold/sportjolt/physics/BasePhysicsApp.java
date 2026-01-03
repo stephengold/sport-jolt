@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022-2025 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2026 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -167,6 +167,15 @@ abstract public class BasePhysicsApp extends BaseApplication {
     }
     // *************************************************************************
     // new methods exposed
+
+    /**
+     * Add the specified physics-tick listener.
+     *
+     * @param listener the listener to add (not null, alias created)
+     */
+    public void addTickListener(PhysicsTickListener listener) {
+        tickListeners.add(listener);
+    }
 
     /**
      * Create the PhysicsSystem during initialization. Meant to be overridden.
@@ -593,15 +602,6 @@ abstract public class BasePhysicsApp extends BaseApplication {
     }
     // *************************************************************************
     // protected methods
-
-    /**
-     * Add the specified physics-tick listener.
-     *
-     * @param listener the listener to add (not null, alias created)
-     */
-    protected void addTickListener(PhysicsTickListener listener) {
-        tickListeners.add(listener);
-    }
 
     /**
      * Populate the PhysicsSystem. Invoked once during initialization.
