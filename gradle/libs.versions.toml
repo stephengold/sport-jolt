@@ -3,7 +3,7 @@
 [versions]
 
 checkstyle = "12.3.1"
-joltjni = "3.5.1"
+joltjni = "3.5.2"
 lwjgl = "3.3.6"
 
 [libraries]
