@@ -1,5 +1,10 @@
 # release log for the Sport-Jolt Library
 
+## Version 0.9.15 released on TBD
+
++ Publicized `BasePhysicsApp.addTickListener()`.
++ Updated the Jolt-JNI library to v3.5.2 .
+
 ## Version 0.9.14 released on 28 December 2025
 
 + Bugfix: logic error in `ShapeSummary.matches()`
