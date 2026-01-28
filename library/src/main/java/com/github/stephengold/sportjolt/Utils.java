@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022-2025 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2026 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -244,7 +244,7 @@ final public class Utils {
      * Load raw bytes from the named classpath resource.
      *
      * @param resourceName the name of the resource (not {@code null})
-     * @return a new array
+     * @return a new direct buffer
      */
     public static ByteBuffer loadResourceAsBytes(String resourceName) {
         // Read the resource to determine its size in bytes:
