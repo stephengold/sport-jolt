@@ -76,10 +76,6 @@ public class Geometry {
      */
     private float pointSize = 32f;
     /**
-     * draw mode and vertex data for visualization
-     */
-    private Mesh mesh;
-    /**
      * temporary storage for a rotation matrix
      */
     final private Matrix3f rm = new Matrix3f();
@@ -87,6 +83,10 @@ public class Geometry {
      * temporary storage for a transform matrix
      */
     final private Matrix4f tm = new Matrix4f();
+    /**
+     * draw mode and vertex data for visualization
+     */
+    private Mesh mesh;
     /**
      * rendering program
      */
