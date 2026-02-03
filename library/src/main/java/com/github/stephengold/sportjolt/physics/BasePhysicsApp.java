@@ -808,6 +808,7 @@ abstract public class BasePhysicsApp extends BaseApplication {
         }
 
         printStream.println(" initializing...");
+        printStream.println(Jolt.getConfigurationString());
         printStream.println();
         printStream.flush();
     }
