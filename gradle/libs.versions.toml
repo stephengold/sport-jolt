@@ -27,7 +27,7 @@ lwjgl-bom = { module = "org.lwjgl:lwjgl-bom", version.ref = "lwjgl" }
 lwjgl-glfw = { module = "org.lwjgl:lwjgl-glfw", version.ref = "lwjgl" }
 lwjgl-opengl = { module = "org.lwjgl:lwjgl-opengl", version.ref = "lwjgl" }
 
-oshi-core = "com.github.oshi:oshi-core:6.9.2"
+oshi-core = "com.github.oshi:oshi-core:6.9.3"
 
 [bundles]
 
