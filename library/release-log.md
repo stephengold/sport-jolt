@@ -1,12 +1,12 @@
 # release log for the Sport-Jolt Library
 
-## Version 1.0.0 released on TBD
+## Version 1.0.0 released on 12 February 2026
 
 + Updated the Jolt-JNI library to v3.6.0 .
 + Updated the LWJGL library to v3.4.1 .
 + Updated the OSHI library to v6.9.3 .
 
-## Version 0.9.15 released on 7 January 2025
+## Version 0.9.15 released on 7 January 2026
 
 + Publicized `BasePhysicsApp.addTickListener()`.
 + Updated the Jolt-JNI library to v3.5.2 .
