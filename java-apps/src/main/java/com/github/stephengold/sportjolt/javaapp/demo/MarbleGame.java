@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2025 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2025-2026 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -425,11 +425,11 @@ public class MarbleGame extends BasePhysicsApp {
      * Configure the Camera and CIP during initialization.
      */
     private static void configureCamera() {
-        cam.setLocation(0f, 12f, 21f);
-
         getCameraInputProcessor()
                 .setMoveSpeed(0f)
                 .setRotationMode(RotateMode.None);
+
+        cam.setLocation(0f, 12f, 21f);
     }
 
     /**
