@@ -1,5 +1,9 @@
 # release log for the Sport-Jolt Library
 
+## Version 1.0.1 released on TBD
+
++ Updated the Jolt-JNI library to v3.7.0 .
+
 ## Version 1.0.0 released on 12 February 2026
 
 + Updated the Jolt-JNI library to v3.6.0 .
