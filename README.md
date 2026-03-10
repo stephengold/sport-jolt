@@ -58,10 +58,10 @@ Add to the project’s "build.gradle" or "build.gradle.kts" file:
     }
     dependencies {
         // JVM library:
-        implementation("com.github.stephengold:sport-jolt:1.0.2")
+        implementation("com.github.stephengold:sport-jolt:1.0.3")
 
         // Jolt-JNI native libraries:
-        runtimeOnly("com.github.stephengold:jolt-jni-Linux64:3.8.0:DebugSp")
+        runtimeOnly("com.github.stephengold:jolt-jni-Linux64:3.9.0:DebugSp")
           // Jolt-JNI native libraries for other platforms could be added.
 
         // LWJGL native libraries:
