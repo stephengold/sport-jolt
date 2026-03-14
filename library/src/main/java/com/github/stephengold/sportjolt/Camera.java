@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022-2025 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2026 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -362,16 +362,38 @@ public class Camera {
     /**
      * Re-orient the camera to look in the specified direction.
      *
+     * @param dx the X component of the desired direction (in worldspace,
+     * finite)
+     * @param dy the Y component of the desired direction (in worldspace,
+     * finite)
+     * @param dz the Z component of the desired direction (in worldspace,
+     * finite)
+     * @return the (modified) current instance (for chaining)
+     */
+    public Camera setLookDirection(float dx, float dy, float dz) {
+        Validate.finite(dx, "dx");
+        Validate.finite(dy, "dy");
+        Validate.finite(dz, "dz");
+
+        this.azimuthRadians = Jolt.aTan2(dz, dx);
+        float nxz = Std.hypot(dx, dz);
+        this.upAngleRadians = Jolt.aTan2(dy, nxz);
+        updateDirectionVectors();
+
+        return this;
+    }
+
+    /**
+     * Re-orient the camera to look in the specified direction.
+     *
      * @param direction the desired direction (not null, unaffected)
      * @return the (modified) current instance (for chaining)
      */
     public Camera setLookDirection(Vector3fc direction) {
-        float y = direction.y();
-        float z = direction.z();
-        this.azimuthRadians = Jolt.aTan2(z, direction.x());
-        float nxz = Std.hypot(direction.x(), z);
-        this.upAngleRadians = Jolt.aTan2(y, nxz);
-        updateDirectionVectors();
+        float dx = direction.x();
+        float dy = direction.y();
+        float dz = direction.z();
+        setLookDirection(dx, dy, dz);
 
         return this;
     }
