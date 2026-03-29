@@ -1,6 +1,6 @@
 # release log for the Sport-Jolt Library
 
-## Version 1.1.0 released on TBD
+## Version 1.1.0 released on 28 March 2026
 
 + Added an alternative signature for `Camera.setLookDirection()` .
 + Updated the Jolt-JNI library to v3.10.0 .
