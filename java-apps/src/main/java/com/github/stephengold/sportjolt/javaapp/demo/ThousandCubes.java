@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022-2025 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2026 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -380,8 +380,7 @@ public class ThousandCubes extends BasePhysicsApp {
      * Configure the Camera and CIP during initialization.
      */
     private static void configureCamera() {
-        getCameraInputProcessor()
-                .setRotationMode(RotateMode.Immediate);
+        getCameraInputProcessor().setRotationMode(RotateMode.Immediate);
         cam.setAzimuth(-2.7f)
                 .setLocation(60f, 15f, 28f)
                 .setUpAngle(-0.25f);

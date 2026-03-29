@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2023-2025 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2023-2026 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -40,7 +40,7 @@ import org.joml.Vector3fc;
  * The attributes of a single vertex in a mesh.
  *
  * @author Stephen Gold sgold@sonic.net
- * <p>
+ *
  * Derived from the Vertex class in Cristian Herrera's Vulkan-Tutorial-Java
  * project.
  */

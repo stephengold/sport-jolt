@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022-2025 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2026 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -501,7 +501,6 @@ public class Windlass extends BasePhysicsApp implements PhysicsTickListener {
         getCameraInputProcessor()
                 .setMoveSpeed(20f)
                 .setRotationMode(RotateMode.DragLMB);
-
         cam.setAzimuth(-1.78f)
                 .setLocation(30f, 25f, 135f)
                 .setUpAngle(-0.28f);
