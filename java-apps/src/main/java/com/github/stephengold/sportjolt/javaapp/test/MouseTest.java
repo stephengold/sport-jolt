@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022-2025 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2026 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -35,7 +35,6 @@ import com.github.stephengold.sportjolt.input.InputManager;
 import com.github.stephengold.sportjolt.mesh.CrosshairsMesh;
 import org.joml.Vector2fc;
 import org.joml.Vector3f;
-import org.joml.Vector3fc;
 import org.joml.Vector4f;
 
 /**
@@ -138,7 +137,7 @@ public class MouseTest extends BaseApplication {
 
         float x = cursorInClipspace.x();
         float y = cursorInClipspace.y();
-        Vector3fc location3d = new Vector3f(x, y, 0f);
+        Vector3f location3d = new Vector3f(x, y, 0f);
 
         crosshairs.setLocation(location3d);
     }
@@ -147,7 +146,7 @@ public class MouseTest extends BaseApplication {
      * Scale the Geometry so it will render as an equal-armed cross, regardless
      * of the window's aspect ratio.
      */
-    private void updateScales() {
+    private static void updateScales() {
         float aspectRatio = aspectRatio();
         float yScale = Math.min(1f, aspectRatio);
         float xScale = yScale / aspectRatio;

@@ -40,6 +40,7 @@ import com.github.stephengold.joltjni.enumerate.EActivation;
 import com.github.stephengold.joltjni.enumerate.EMotionType;
 import com.github.stephengold.joltjni.readonly.ConstBody;
 import com.github.stephengold.joltjni.readonly.ConstBodyCreationSettings;
+import com.github.stephengold.joltjni.readonly.ConstBoxShapeSettings;
 import com.github.stephengold.joltjni.readonly.ConstShapeSettings;
 import com.github.stephengold.joltjni.readonly.QuatArg;
 import com.github.stephengold.joltjni.readonly.RVec3Arg;
@@ -337,7 +338,7 @@ public class MarbleGame extends BasePhysicsApp {
 
         // Shape settings for the east (+X) and west (-X) walls:
         float ewWallHalfLength = wallCircleR - halfThickness;
-        ConstShapeSettings ewShape = new BoxShapeSettings(
+        ConstBoxShapeSettings ewShape = new BoxShapeSettings(
                 halfThickness, halfHeight, ewWallHalfLength);
         bcs.setShapeSettings(ewShape);
 
@@ -349,8 +350,8 @@ public class MarbleGame extends BasePhysicsApp {
 
         // Shape settings for the north (+Z) and south (-Z) walls:
         float nsWallHalfLength = wallCircleR + halfThickness;
-        ConstShapeSettings nsShape = new BoxShapeSettings(
-                nsWallHalfLength, halfHeight, halfThickness); // TODO
+        ConstBoxShapeSettings nsShape = new BoxShapeSettings(
+                nsWallHalfLength, halfHeight, halfThickness);
         bcs.setShapeSettings(nsShape);
 
         bcs.setPosition(0., halfHeight, wallCircleR);

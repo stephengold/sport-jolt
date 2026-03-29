@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022-2025 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2026 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -34,7 +34,6 @@ import com.github.stephengold.sportjolt.Geometry;
 import com.github.stephengold.sportjolt.Mesh;
 import com.github.stephengold.sportjolt.mesh.RectangleMesh;
 import org.joml.Vector3f;
-import org.joml.Vector3fc;
 
 /**
  * A simple graphics test: display a yellow square in clipspace.
@@ -120,7 +119,7 @@ public class ClipspaceTest extends BaseApplication {
         float aspectRatio = aspectRatio();
         float yScale = Math.min(1f, aspectRatio);
         float xScale = yScale / aspectRatio;
-        Vector3fc newScale = new Vector3f(xScale, yScale, 1f);
+        Vector3f newScale = new Vector3f(xScale, yScale, 1f);
 
         squareGeometry.setScale(newScale);
     }
