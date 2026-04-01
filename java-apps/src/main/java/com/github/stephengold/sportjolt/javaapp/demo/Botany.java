@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022-2025 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2026 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -151,7 +151,7 @@ public class Botany extends BasePhysicsApp {
      */
     @Override
     protected void initialize() {
-        // Intialize the randomness:
+        // Initialize the randomness:
         random = new DefaultRandomEngine();
         angleDistribution = new UniformFloatDistribution(0f, Constants.twoPi);
         fractionDistribution = new UniformFloatDistribution(0f, 1f);
@@ -164,7 +164,7 @@ public class Botany extends BasePhysicsApp {
         configureLighting();
         setBackgroundColor(Constants.SKY_BLUE);
 
-        // Intialize the settings for creating balls:
+        // Initialize the settings for creating balls:
         ConstShape launchShape = new SphereShape(1f);
         launchBcs = new BodyCreationSettings()
                 .setAngularDamping(0.3f)
@@ -286,7 +286,7 @@ public class Botany extends BasePhysicsApp {
     private int addSoftBody(ConstSoftBodySharedSettings settings,
             float x, float z, float damping) {
 
-        // Perturb the desired location and project it onto the heighfield:
+        // Perturb the desired location and project it onto the heightfield:
         float dx = fractionDistribution.nextFloat(random)
                 - fractionDistribution.nextFloat(random);
         float dz = fractionDistribution.nextFloat(random)
