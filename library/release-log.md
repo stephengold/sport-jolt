@@ -45,14 +45,14 @@
   + `getTempAllocator()`
   + `totalPhysicsNanos()`
   + `totalSimulatedTime()`
-+ Further measures to reduce the amount of garbage generated.
++ Took further measures to reduce the amount of garbage generated.
 + Simplified the default debug meshes for convex shapes.
 + Updated the Jolt-JNI library to v3.5.0 .
 + Updated the OSHI library to v6.9.1 .
 
 ## Version 0.9.12 released on 30 September 2025
 
-+ Reduce the amount of garbage generated.
++ Reduced the amount of garbage generated.
 + Updated the Jolt-JNI library to v3.4.0 .
 
 ## Version 0.9.11 released on 21 September 2025
