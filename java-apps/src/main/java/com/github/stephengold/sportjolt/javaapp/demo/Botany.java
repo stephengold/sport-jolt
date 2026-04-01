@@ -67,7 +67,7 @@ import java.nio.FloatBuffer;
 import org.lwjgl.glfw.GLFW;
 
 /**
- * A Cosserat-rod demo for SPORT.
+ * A Cosserat-rod demo for Sport Jolt.
  *
  * @author Stephen Gold sgold@sonic.net
  */

@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2023-2025 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2023-2026 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -89,7 +89,7 @@ public class AssimpTest extends BaseApplication {
     // BaseApplication methods
 
     /**
-     * Callback invoked by SPORT after the main update loop terminates.
+     * Callback invoked by Sport Jolt after the main update loop terminates.
      */
     @Override
     protected void cleanUp() {

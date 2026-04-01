@@ -63,7 +63,7 @@ import org.joml.Vector3fc;
 import org.lwjgl.glfw.GLFW;
 
 /**
- * A physics-based demo game for SPORT.
+ * A physics-based demo game for Sport Jolt.
  * <p>
  * Adapted from RollingTheMonkey by SkidRunner (Mark E. Picknell).
  * <p>
