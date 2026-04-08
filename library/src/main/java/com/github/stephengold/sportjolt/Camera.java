@@ -28,7 +28,7 @@
  */
 package com.github.stephengold.sportjolt;
 
-import com.github.stephengold.joltjni.Jolt;
+import com.github.stephengold.joltjni.JphMath;
 import com.github.stephengold.joltjni.Vec3;
 import com.github.stephengold.joltjni.readonly.RVec3Arg;
 import com.github.stephengold.joltjni.std.Std;
@@ -308,7 +308,7 @@ public class Camera {
      * @return the (modified) current instance (for chaining)
      */
     public Camera setAzimuthDegrees(float azimuthDegrees) {
-        setAzimuth(Jolt.degreesToRadians(azimuthDegrees));
+        setAzimuth(JphMath.degreesToRadians(azimuthDegrees));
         return this;
     }
 
@@ -375,9 +375,9 @@ public class Camera {
         Validate.finite(dy, "dy");
         Validate.finite(dz, "dz");
 
-        this.azimuthRadians = Jolt.aTan2(dz, dx);
+        this.azimuthRadians = JphMath.aTan2(dz, dx);
         float nxz = Std.hypot(dx, dz);
-        this.upAngleRadians = Jolt.aTan2(dy, nxz);
+        this.upAngleRadians = JphMath.aTan2(dy, nxz);
         updateDirectionVectors();
 
         return this;
@@ -420,7 +420,7 @@ public class Camera {
      * @return the (modified) current instance (for chaining)
      */
     public Camera setUpAngleDegrees(float upAngleDegrees) {
-        setUpAngle(Jolt.degreesToRadians(upAngleDegrees));
+        setUpAngle(JphMath.degreesToRadians(upAngleDegrees));
         return this;
     }
 

@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022-2025 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2026 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -29,6 +29,7 @@
 package com.github.stephengold.sportjolt.mesh;
 
 import com.github.stephengold.joltjni.Jolt;
+import com.github.stephengold.joltjni.JphMath;
 import com.github.stephengold.sportjolt.Constants;
 import com.github.stephengold.sportjolt.Mesh;
 import com.github.stephengold.sportjolt.Topology;
@@ -74,11 +75,11 @@ public class ArrowMesh extends Mesh {
      */
     public ArrowMesh(float barbAngle, float barbLength) {
         super(Topology.LineList, 10);
-        Validate.inRange(barbAngle, "barb angle", 0f, Jolt.JPH_PI);
+        Validate.inRange(barbAngle, "barb angle", 0f, JphMath.JPH_PI);
         Validate.nonNegative(barbLength, "barb length");
 
-        float z = 1f - barbLength * Jolt.cos(barbAngle);
-        float xy = barbLength * Jolt.sin(barbAngle);
+        float z = 1f - barbLength * JphMath.cos(barbAngle);
+        float xy = barbLength * JphMath.sin(barbAngle);
 
         super.setPositions(
                 0f, 0f, 0f, // tail

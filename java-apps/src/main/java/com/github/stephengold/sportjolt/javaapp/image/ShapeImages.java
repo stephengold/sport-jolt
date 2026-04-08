@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2025 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2025-2026 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -39,6 +39,7 @@ import com.github.stephengold.joltjni.CylinderShapeSettings;
 import com.github.stephengold.joltjni.HeightFieldShape;
 import com.github.stephengold.joltjni.HeightFieldShapeSettings;
 import com.github.stephengold.joltjni.Jolt;
+import com.github.stephengold.joltjni.JphMath;
 import com.github.stephengold.joltjni.MassProperties;
 import com.github.stephengold.joltjni.Mat44;
 import com.github.stephengold.joltjni.MeshShapeSettings;
@@ -316,8 +317,8 @@ public class ShapeImages extends BasePhysicsApp {
         for (int childI = 0; childI < numCapsules; ++childI) {
             float theta = arcLength * childI;
             Vec3Arg offset = new Vec3(
-                    majorRadius * Jolt.cos(theta),
-                    majorRadius * Jolt.sin(theta),
+                    majorRadius * JphMath.cos(theta),
+                    majorRadius * JphMath.sin(theta),
                     0f);
             QuatArg rotation = Quat.sEulerAngles(0f, 0f, theta);
             compoundSettings.addShape(offset, rotation, capsuleSettings);

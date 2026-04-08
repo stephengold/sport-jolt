@@ -35,7 +35,7 @@ import com.github.stephengold.joltjni.CapsuleShape;
 import com.github.stephengold.joltjni.Constraint;
 import com.github.stephengold.joltjni.CylinderShapeSettings;
 import com.github.stephengold.joltjni.FixedConstraintSettings;
-import com.github.stephengold.joltjni.Jolt;
+import com.github.stephengold.joltjni.JphMath;
 import com.github.stephengold.joltjni.PhysicsSystem;
 import com.github.stephengold.joltjni.PointConstraintSettings;
 import com.github.stephengold.joltjni.Quat;
@@ -213,7 +213,7 @@ public class Windlass extends BasePhysicsApp implements PhysicsTickListener {
         float deltaPhi = Constants.twoPi / numSegmentsPerCoil;
         float z0 = attachPoint.z();
         float deltaX = 2.1f * cableRadius / numSegmentsPerCoil;
-        float deltaY = 2f * z0 * Jolt.tan(deltaPhi / 2f);
+        float deltaY = 2f * z0 * JphMath.tan(deltaPhi / 2f);
         float segmentLength = Std.hypot(deltaX, deltaY);
 
         // The segment shape is a Z-axis capsule.
@@ -226,7 +226,7 @@ public class Windlass extends BasePhysicsApp implements PhysicsTickListener {
          * Make the first cable segment tangent to the +Z side of the barrel
          * and attach it with a fixed constraint (all DOFs locked).
          */
-        float zRotation = Jolt.aTan2(deltaX, deltaY);
+        float zRotation = JphMath.aTan2(deltaX, deltaY);
         Quat orientation = Quat.sEulerAngles(0f, zRotation, 0f);
         orientation = Op.star(y2z, orientation);
 
@@ -246,8 +246,8 @@ public class Windlass extends BasePhysicsApp implements PhysicsTickListener {
             // Calculate the position of the next segment:
             center.addInPlace(deltaX, 0f, 0f);
             phi += deltaPhi;
-            center.setY(z0 * Jolt.cos(phi));
-            center.setZ(z0 * Jolt.sin(phi));
+            center.setY(z0 * JphMath.cos(phi));
+            center.setZ(z0 * JphMath.sin(phi));
             orientation.set(Op.star(rotatePhi, orientation));
 
             // Create a new segment and splice it to the existing cable:
@@ -440,8 +440,8 @@ public class Windlass extends BasePhysicsApp implements PhysicsTickListener {
             if (sphereI > 0) {
                 xAngle += radius[sphereI] / hookRadius;
             }
-            y[sphereI] = hookRadius * Jolt.cos(xAngle);
-            z[sphereI] = -hookRadius * Jolt.sin(xAngle);
+            y[sphereI] = hookRadius * JphMath.cos(xAngle);
+            z[sphereI] = -hookRadius * JphMath.sin(xAngle);
             xAngle += radius[sphereI] / hookRadius;
         }
 

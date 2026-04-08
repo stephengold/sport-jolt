@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022-2025 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2026 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -28,7 +28,7 @@
  */
 package com.github.stephengold.sportjolt.input;
 
-import com.github.stephengold.joltjni.Jolt;
+import com.github.stephengold.joltjni.JphMath;
 import com.github.stephengold.sportjolt.BaseApplication;
 import com.github.stephengold.sportjolt.Camera;
 import com.github.stephengold.sportjolt.Validate;
@@ -51,7 +51,8 @@ public class CameraInputProcessor extends InputProcessor {
      * applied. This prevents the camera from looking straight up or straight
      * down.
      */
-    final private static float maxUpAngleRadians = Jolt.degreesToRadians(85f);
+    final private static float maxUpAngleRadians
+            = JphMath.degreesToRadians(85f);
     // *************************************************************************
     // fields
 

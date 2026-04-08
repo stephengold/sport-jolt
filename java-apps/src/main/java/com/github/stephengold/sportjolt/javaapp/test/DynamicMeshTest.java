@@ -28,7 +28,7 @@
  */
 package com.github.stephengold.sportjolt.javaapp.test;
 
-import com.github.stephengold.joltjni.Jolt;
+import com.github.stephengold.joltjni.JphMath;
 import com.github.stephengold.sportjolt.BaseApplication;
 import com.github.stephengold.sportjolt.Constants;
 import com.github.stephengold.sportjolt.Geometry;
@@ -120,8 +120,8 @@ public class DynamicMeshTest extends BaseApplication {
         // Modify the X-Y position of the first vertex.
         float time = 1e-9f * System.nanoTime(); // in sec
         VertexBuffer pos = quadGeometry.getMesh().getPositions();
-        pos.put(0, -0.5f + 0.2f * Jolt.sin(time));
-        pos.put(1, -0.5f + 0.2f * Jolt.cos(time));
+        pos.put(0, -0.5f + 0.2f * JphMath.sin(time));
+        pos.put(1, -0.5f + 0.2f * JphMath.cos(time));
 
         updateScales();
         super.render();

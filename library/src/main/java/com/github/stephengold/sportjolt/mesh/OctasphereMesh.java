@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2025 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2020-2026 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -28,7 +28,7 @@
  */
 package com.github.stephengold.sportjolt.mesh;
 
-import com.github.stephengold.joltjni.Jolt;
+import com.github.stephengold.joltjni.JphMath;
 import com.github.stephengold.sportjolt.Mesh;
 import com.github.stephengold.sportjolt.Topology;
 import com.github.stephengold.sportjolt.Validate;
@@ -400,7 +400,7 @@ public class OctasphereMesh extends Mesh {
     private static float longitude(Vector3fc input) {
         float result;
         if (input.x() != 0f || input.y() != 0f) {
-            result = Jolt.aTan2(input.y(), input.x());
+            result = JphMath.aTan2(input.y(), input.x());
         } else {
             result = 0f;
         }
@@ -464,11 +464,11 @@ public class OctasphereMesh extends Mesh {
         } else {
             assert uOverrides.get(vIndex) == null;
             float longitude = longitude(pos);
-            u = longitude / Jolt.JPH_PI;
+            u = longitude / JphMath.JPH_PI;
         }
 
         float latitude = latitude(pos);
-        float v = 0.5f - latitude / Jolt.JPH_PI;
+        float v = 0.5f - latitude / JphMath.JPH_PI;
 
         uvBuffer.putArray(vIndex, u, v);
     }

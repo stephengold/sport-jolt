@@ -34,6 +34,7 @@ import com.github.stephengold.joltjni.BodyInterface;
 import com.github.stephengold.joltjni.HeightFieldShape;
 import com.github.stephengold.joltjni.HeightFieldShapeSettings;
 import com.github.stephengold.joltjni.Jolt;
+import com.github.stephengold.joltjni.JphMath;
 import com.github.stephengold.joltjni.PhysicsSystem;
 import com.github.stephengold.joltjni.Quat;
 import com.github.stephengold.joltjni.RodBendTwist;
@@ -258,8 +259,8 @@ public class Botany extends BasePhysicsApp {
             float theta = angleDistribution.nextFloat(random);
             for (int i = 0; i < 2; ++i) {
                 // Choose a direction:
-                float axisX = Jolt.sin(theta);
-                float axisZ = Jolt.cos(theta);
+                float axisX = JphMath.sin(theta);
+                float axisZ = JphMath.cos(theta);
                 Vec3 axis = new Vec3(axisX, 0f, axisZ);
                 float extra = 0.1f * fractionDistribution.nextFloat(random);
                 float bendAngle = 0.1f * level + extra;
@@ -428,8 +429,8 @@ public class Botany extends BasePhysicsApp {
             // Randomly place the stalk's root within a horizontal disc:
             float r = discRadius * fractionDistribution.nextFloat(random);
             float theta = angleDistribution.nextFloat(random);
-            float x0 = r * Jolt.sin(theta);
-            float z0 = r * Jolt.cos(theta);
+            float x0 = r * JphMath.sin(theta);
+            float z0 = r * JphMath.cos(theta);
 
             // Randomize the starting phase of the spiral:
             float phase0 = angleDistribution.nextFloat(random);
@@ -444,8 +445,8 @@ public class Botany extends BasePhysicsApp {
                 float y = rodDeltaY * i;
 
                 float phase = phase0 + 0.5f * i;
-                float x = spiralRadius * Jolt.sin(phase) + (y + 1f) * x0;
-                float z = spiralRadius * Jolt.cos(phase) + (y + 1f) * z0;
+                float x = spiralRadius * JphMath.sin(phase) + (y + 1f) * x0;
+                float z = spiralRadius * JphMath.cos(phase) + (y + 1f) * z0;
                 vertex.setPosition(x, y, z);
                 result.addVertex(vertex);
 

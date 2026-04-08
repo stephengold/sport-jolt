@@ -29,6 +29,7 @@
 package com.github.stephengold.sportjolt;
 
 import com.github.stephengold.joltjni.Jolt;
+import com.github.stephengold.joltjni.JphMath;
 import com.github.stephengold.joltjni.Quat;
 import com.github.stephengold.joltjni.RVec3;
 import com.github.stephengold.joltjni.Vec3;
@@ -449,12 +450,12 @@ final public class Utils {
         assert Float.isFinite(angle);
 
         float result = modulo(angle, Constants.twoPi);
-        if (result >= Jolt.JPH_PI) {
+        if (result >= JphMath.JPH_PI) {
             result -= Constants.twoPi;
         }
 
-        assert result >= -Jolt.JPH_PI : result;
-        assert result < Jolt.JPH_PI : result;
+        assert result >= -JphMath.JPH_PI : result;
+        assert result < JphMath.JPH_PI : result;
         return result;
     }
 

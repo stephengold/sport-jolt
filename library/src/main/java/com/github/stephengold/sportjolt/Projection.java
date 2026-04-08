@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022-2025 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2026 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -28,7 +28,7 @@
  */
 package com.github.stephengold.sportjolt;
 
-import com.github.stephengold.joltjni.Jolt;
+import com.github.stephengold.joltjni.JphMath;
 import com.github.stephengold.joltjni.Vec3;
 import org.joml.Matrix4f;
 import org.joml.Vector2fc;
@@ -80,7 +80,7 @@ public class Projection extends GlobalUniform {
      * vertical field-of-view angle (between the bottom plane and the top plane,
      * in radians, &gt;0, &lt;PI)
      */
-    private float fovy = Jolt.degreesToRadians(45f);
+    private float fovy = JphMath.degreesToRadians(45f);
     /**
      * distance of the far clipping plane from the eye (in world units)
      */
@@ -174,7 +174,7 @@ public class Projection extends GlobalUniform {
      */
     public float fovy() {
         assert fovy > 0f : fovy;
-        assert fovy < Jolt.JPH_PI : fovy;
+        assert fovy < JphMath.JPH_PI : fovy;
         return fovy;
     }
 
@@ -185,8 +185,8 @@ public class Projection extends GlobalUniform {
      * @return the (modified) current instance (for chaining)
      */
     public Projection setFovy(float fovyRadians) {
-        Validate.inRange(
-                fovyRadians, "fovy in radians", Float.MIN_VALUE, Jolt.JPH_PI);
+        Validate.inRange(fovyRadians, "fovy in radians", Float.MIN_VALUE,
+                JphMath.JPH_PI);
         this.fovy = fovyRadians;
         return this;
     }
@@ -200,7 +200,7 @@ public class Projection extends GlobalUniform {
     public Projection setFovyDegrees(float fovyDegrees) {
         Validate.inRange(
                 fovyDegrees, "fovy in degrees", Float.MIN_VALUE, 180f);
-        setFovy(Jolt.degreesToRadians(fovyDegrees));
+        setFovy(JphMath.degreesToRadians(fovyDegrees));
         return this;
     }
 

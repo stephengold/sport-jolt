@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022-2025 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2026 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -28,7 +28,7 @@
  */
 package com.github.stephengold.sportjolt.mesh;
 
-import com.github.stephengold.joltjni.Jolt;
+import com.github.stephengold.joltjni.JphMath;
 import com.github.stephengold.sportjolt.Constants;
 import com.github.stephengold.sportjolt.Mesh;
 import com.github.stephengold.sportjolt.Topology;
@@ -89,8 +89,8 @@ public class LoopMesh extends Mesh {
         float increment = Constants.twoPi / numLines;
         for (int vertexIndex = 0; vertexIndex < numLines; ++vertexIndex) {
             float theta = increment * vertexIndex;
-            float x = xRadius * Jolt.cos(theta);
-            float y = yRadius * Jolt.sin(theta);
+            float x = xRadius * JphMath.cos(theta);
+            float y = yRadius * JphMath.sin(theta);
             positionBuffer.put(x).put(y).put(0f);
         }
 

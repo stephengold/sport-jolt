@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022-2025 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2026 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -28,7 +28,7 @@
  */
 package com.github.stephengold.sportjolt.mesh;
 
-import com.github.stephengold.joltjni.Jolt;
+import com.github.stephengold.joltjni.JphMath;
 import com.github.stephengold.sportjolt.Constants;
 import com.github.stephengold.sportjolt.Mesh;
 import com.github.stephengold.sportjolt.Topology;
@@ -64,11 +64,11 @@ public class WheelMesh extends Mesh {
         }
 
         // 3 pairs of spokes
-        thetaStep = Jolt.JPH_PI / 3f;
+        thetaStep = JphMath.JPH_PI / 3f;
         for (int pairIndex = 0; pairIndex < 3; ++pairIndex) {
             float theta = thetaStep * pairIndex;
             putPolarYZ(positionBuffer, radius, theta);
-            putPolarYZ(positionBuffer, radius, theta + Jolt.JPH_PI);
+            putPolarYZ(positionBuffer, radius, theta + JphMath.JPH_PI);
         }
 
         positionBuffer.flip();
@@ -87,8 +87,8 @@ public class WheelMesh extends Mesh {
      * radians)
      */
     private static void putPolarYZ(VertexBuffer buffer, float r, float theta) {
-        float y = r * Jolt.cos(theta);
-        float z = r * Jolt.sin(theta);
+        float y = r * JphMath.cos(theta);
+        float z = r * JphMath.sin(theta);
         buffer.put(0f).put(y).put(z);
     }
 }

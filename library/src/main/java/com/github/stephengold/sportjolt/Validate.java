@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2014-2025 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2014-2026 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -28,7 +28,7 @@
  */
 package com.github.stephengold.sportjolt;
 
-import com.github.stephengold.joltjni.Jolt;
+import com.github.stephengold.joltjni.JphMath;
 import com.github.stephengold.joltjni.readonly.QuatArg;
 import com.github.stephengold.joltjni.readonly.RVec3Arg;
 import com.github.stephengold.joltjni.readonly.Vec3Arg;
@@ -819,7 +819,7 @@ final public class Validate {
      * PI]
      */
     public static boolean standardAngle(float fValue, String description) {
-        inRange(fValue, description, -Jolt.JPH_PI, Jolt.JPH_PI);
+        inRange(fValue, description, -JphMath.JPH_PI, JphMath.JPH_PI);
         return true;
     }
 }
