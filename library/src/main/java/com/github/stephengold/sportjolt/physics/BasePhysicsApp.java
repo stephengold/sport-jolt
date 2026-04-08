@@ -31,14 +31,22 @@ package com.github.stephengold.sportjolt.physics;
 import com.github.stephengold.joltjni.BodyLockRead;
 import com.github.stephengold.joltjni.BroadPhaseLayerInterface;
 import com.github.stephengold.joltjni.BroadPhaseLayerInterfaceTable;
+import com.github.stephengold.joltjni.ComputeQueue;
+import com.github.stephengold.joltjni.ComputeQueueRef;
+import com.github.stephengold.joltjni.ComputeQueueResult;
+import com.github.stephengold.joltjni.ComputeSystem;
+import com.github.stephengold.joltjni.ComputeSystemResult;
+import com.github.stephengold.joltjni.CustomLoader;
 import com.github.stephengold.joltjni.JobSystem;
 import com.github.stephengold.joltjni.JobSystemThreadPool;
 import com.github.stephengold.joltjni.Jolt;
 import com.github.stephengold.joltjni.JoltPhysicsObject;
+import com.github.stephengold.joltjni.Loader;
 import com.github.stephengold.joltjni.ObjectLayerPairFilterTable;
 import com.github.stephengold.joltjni.ObjectVsBroadPhaseLayerFilter;
 import com.github.stephengold.joltjni.ObjectVsBroadPhaseLayerFilterTable;
 import com.github.stephengold.joltjni.PhysicsSystem;
+import com.github.stephengold.joltjni.Rtti;
 import com.github.stephengold.joltjni.TempAllocator;
 import com.github.stephengold.joltjni.TempAllocatorMalloc;
 import com.github.stephengold.joltjni.VehicleConstraint;
@@ -71,6 +79,7 @@ import electrostatic4j.snaploader.filesystem.DirectoryPath;
 import electrostatic4j.snaploader.platform.NativeDynamicLibrary;
 import electrostatic4j.snaploader.platform.util.PlatformPredicate;
 import java.io.PrintStream;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
@@ -113,6 +122,14 @@ abstract public class BasePhysicsApp extends BaseApplication {
      */
     final private static Collection<PhysicsTickListener> tickListeners
             = new ArrayList<>(5);
+    /**
+     * command queue for hair simulations
+     */
+    private ComputeQueue computeQueue;
+    /**
+     * compute resource for hair simulations
+     */
+    private ComputeSystem computeSystem;
     /**
      * total time simulated (in simulated seconds)
      */
@@ -244,6 +261,24 @@ abstract public class BasePhysicsApp extends BaseApplication {
                 layerMap, ovbFilter, ovoFilter);
 
         return result;
+    }
+
+    /**
+     * Access the command queue for hair simulations.
+     *
+     * @return the pre-existing instance
+     */
+    public ComputeQueue getComputeQueue() {
+        return computeQueue;
+    }
+
+    /**
+     * Access the compute resource for hair simulations.
+     *
+     * @return the pre-existing instance
+     */
+    public ComputeSystem getComputeSystem() {
+        return computeSystem;
     }
 
     /**
@@ -675,6 +710,7 @@ abstract public class BasePhysicsApp extends BaseApplication {
     @Override
     protected void initialize() {
         this.tempAllocator = new TempAllocatorMalloc();
+        createComputeObjects();
         this.jobSystem = new JobSystemThreadPool(Jolt.cMaxPhysicsJobs,
                 Jolt.cMaxPhysicsBarriers, numWorkerThreads);
         this.physicsSystem = createSystem();
@@ -727,6 +763,56 @@ abstract public class BasePhysicsApp extends BaseApplication {
         }
 
         hideAll(geometriesToHide);
+    }
+
+    /**
+     * Create and initialize the compute resource and command queue for hair
+     * simulations.
+     */
+    private void createComputeObjects() {
+        // Create the compute resource for hair simulations:
+        ComputeSystemResult csResult = ComputeSystem.createComputeSystem();
+        if (csResult.hasError()) {
+            System.out.println(csResult.getError());
+            // If no GPU or driver, fall back upon a CPU compute system:
+            csResult = ComputeSystem.createComputeSystemCpu();
+        }
+        assert !csResult.hasError();
+        this.computeSystem = csResult.get().getPtr();
+
+        Rtti rtti = computeSystem.getRtti();
+        String systemName = rtti.getName();
+        systemName = systemName.replace("ComputeSystem", "");
+        systemName = systemName.replace("Impl", "");
+        System.out.printf("  using a %s compute system%n%n", systemName);
+
+        switch (systemName) {
+            case "CPU":
+                // Register CPU compute shaders:
+                ComputeSystem.hairRegisterShaders(computeSystem);
+                break;
+
+            case "MTL":
+                // Assign a loader for Metal compute shaders:
+                Loader mtlLoader = makeLoader("/mtl/com/github/stephengold");
+                computeSystem.setShaderLoader(mtlLoader);
+                break;
+
+            case "VK":
+                // Assign a loader for Vulkan compute shaders:
+                Loader vkLoader = makeLoader("/vk/com/github/stephengold");
+                computeSystem.setShaderLoader(vkLoader);
+                break;
+
+            default:
+                throw new RuntimeException("typeName = " + systemName);
+        }
+
+        // Create the command queue for hair simulation:
+        ComputeQueueResult queueResult = computeSystem.createComputeQueue();
+        assert !queueResult.hasError();
+        ComputeQueueRef queueRef = queueResult.get();
+        this.computeQueue = queueRef.getPtr();
     }
 
     /**
@@ -788,6 +874,26 @@ abstract public class BasePhysicsApp extends BaseApplication {
     }
 
     /**
+     * Create a custom loader that loads from the specified resource directory.
+     * TODO move to the Jolt JNI library
+     *
+     * @param resourcePath the path to the resource directory (not {@code null})
+     * @return a new loader
+     */
+    private static Loader makeLoader(String resourcePath) {
+        Loader result = new CustomLoader() {
+            @Override
+            public ByteBuffer loadShader(String shaderName) {
+                String path = resourcePath + "/" + shaderName;
+                ByteBuffer result = Jolt.loadResourceAsBytes(path);
+                return result;
+            }
+        };
+
+        return result;
+    }
+
+    /**
      * Print basic library information to the specified stream during
      * initialization.
      *
@@ -809,7 +915,6 @@ abstract public class BasePhysicsApp extends BaseApplication {
 
         printStream.println(" initializing...");
         printStream.println(Jolt.getConfigurationString());
-        printStream.println();
         printStream.flush();
     }
 }
