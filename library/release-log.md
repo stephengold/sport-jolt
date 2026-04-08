@@ -1,10 +1,11 @@
 # release log for the Sport-Jolt Library
 
-## Version 1.2.0 released on TBD
+## Version 1.2.0 released on 8 April 2026
 
 + Added support for compute systems, including the `getComputeQueue()` and
   `getComputeSystem()` methods.
 + Updated the Jolt-JNI library to v4.0.1 .
++ Updated the OSHI library to v6.11.0 .
 
 ## Version 1.1.0 released on 28 March 2026
 
