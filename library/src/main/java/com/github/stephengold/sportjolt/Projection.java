@@ -238,7 +238,7 @@ public class Projection extends GlobalUniform {
      * @return the (modified) current instance (for chaining)
      */
     public Projection setZNear(float zNear) {
-        Validate.inRange(zNear, "zNear", Float.MIN_VALUE, zNear);
+        Validate.inRange(zNear, "zNear", Float.MIN_VALUE, zFar);
         this.zNear = zNear;
         return this;
     }
