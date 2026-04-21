@@ -1,5 +1,9 @@
 // Gradle script to build the Sport-Jolt project
 
+plugins {
+    id 'base' // to add a "clean" task to the root project
+}
+
 subprojects {
     apply from: rootProject.file('common.gradle')
 }
@@ -11,6 +15,10 @@ configurations.configureEach {
 tasks.register('checkstyle') {
     dependsOn ':java-apps:checkstyleMain', ':library:checkstyleMain'
     description = 'Checks the style of all Java sourcecode.'
+}
+
+tasks.register('cleanAll') { // restore the project to a pristine state
+    dependsOn('clean', ':java-apps:cleanAssets', ':java-apps:cleanDownloads')
 }
 
 // tasks for the convenience of NetBeans users:

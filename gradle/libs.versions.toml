@@ -32,3 +32,5 @@ oshi-core = "com.github.oshi:oshi-core:6.11.1"
 [bundles]
 
 [plugins]
+
+download = { id = "de.undercouch.download", version = "5.7.0" }

@@ -6,6 +6,14 @@
 
 plugins {
     id 'application' // to build JVM applications
+    alias(libs.plugins.download) // to retrieve files from URLs
+}
+
+ext {
+    joltFork = 'stephengold'
+    joltTag = 'sg260420'
+    downloadedHairStraightZip = "downloads/wStraightHair.zip"
+    downloadedJoltZip = "downloads/JoltPhysics-${joltTag}.zip"
 }
 
 application {
@@ -170,12 +178,53 @@ dependencies {
     implementation project(':library') // for latest sourcecode
 }
 
+// Register tasks to download ZIP archives:
+
+tasks.register('downloadHairStraightZip', Download) {
+    //src "https://www.cemyuksel.com/research/hairmodels/wStraight.zip"
+    src "https://raw.githubusercontent.com/stephengold/hair-model-files/refs/heads/master/wStraight.zip"
+    dest file(downloadedHairStraightZip)
+    overwrite false
+}
+tasks.register('downloadJoltZip', Download) {
+    src "https://github.com/${joltFork}/JoltPhysics/archive/refs/tags/${joltTag}.zip"
+    dest file(downloadedJoltZip)
+    overwrite false
+}
+
+// Register tasks to unpack assets:
+
+tasks.register('unpackFace', Copy) {
+    dependsOn 'downloadJoltZip'
+    from (zipTree(downloadedJoltZip)) {
+        include "JoltPhysics-${joltTag}/Assets/face.bin"
+        eachFile { fcd ->
+            fcd.relativePath = new RelativePath(true, fcd.relativePath.segments.drop(2))
+        }
+        includeEmptyDirs = false
+    }
+    into layout.projectDirectory.dir('Assets')
+}
+tasks.register('unpackHairStraight', Copy) {
+    dependsOn('downloadHairStraightZip', 'unpackFace')
+    from (zipTree(downloadedHairStraightZip)) {
+        include "wStraight.hair"
+    }
+    into layout.projectDirectory.dir('Assets')
+}
+
 // Register cleanup tasks:
 
 clean.dependsOn('cleanDLLs', 'cleanDyLibs', 'cleanLogs', 'cleanSOs')
 
+tasks.register('cleanAssets', Delete) { // unpacked assets
+    delete 'Assets'
+}
 tasks.register('cleanDLLs', Delete) { // extracted Windows native libraries
     delete fileTree(dir: '.', include: '*.dll')
+}
+tasks.register('cleanDownloads', Delete) { // downloaded ZIP archives
+    delete 'downloads'
 }
 tasks.register('cleanDyLibs', Delete) { // extracted macOS native libraries
     delete fileTree(dir: '.', include: '*.dylib')
