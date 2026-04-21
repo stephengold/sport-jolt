@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022-2025 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2026 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -30,6 +30,7 @@ package com.github.stephengold.sportjolt.javaapp;
 
 import com.github.stephengold.sportjolt.BaseApplication;
 import com.github.stephengold.sportjolt.javaapp.demo.Botany;
+import com.github.stephengold.sportjolt.javaapp.demo.HairDemo;
 import com.github.stephengold.sportjolt.javaapp.demo.MarbleGame;
 import com.github.stephengold.sportjolt.javaapp.demo.NewtonsCradle;
 import com.github.stephengold.sportjolt.javaapp.demo.Pachinko;
@@ -79,6 +80,7 @@ final class AppChooser extends JFrame {
                 new CheckerboardTest(),
                 new ClipspaceTest(),
                 new DynamicMeshTest(),
+                new HairDemo(),
                 new IcosphereTest(),
                 new MarbleGame(),
                 new MouseTest(),

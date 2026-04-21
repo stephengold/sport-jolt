@@ -36,6 +36,11 @@ tasks.register('Botany', JavaExec) {
     description = 'Runs the Botany demo app.'
     mainClass = 'com.github.stephengold.sportjolt.javaapp.demo.Botany'
 }
+tasks.register('HairDemo', JavaExec) {
+    dependsOn('unpackFace', 'unpackHairStraight')
+    description = 'Runs the HairDemo app.'
+    mainClass = 'com.github.stephengold.sportjolt.javaapp.demo.HairDemo'
+}
 tasks.register('MarbleGame', JavaExec) {
     description = 'Runs the MarbleGame app.'
     mainClass = 'com.github.stephengold.sportjolt.javaapp.demo.MarbleGame'
