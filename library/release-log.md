@@ -1,5 +1,13 @@
 # release log for the Sport-Jolt Library
 
+## Version 1.3.0 released on TBD
+
++ Bugfix:  logic error in `Projections.setZNear()` argument validation
++ Added the `StrandGeometry` class to visualize hair simulations.
++ Added the `loadFileAsBytes()` method to the `Utils` class.
++ Updated the Jolt-JNI library to v4.1.0 .
++ Updated the OSHI library to v6.11.1 .
+
 ## Version 1.2.0 released on 8 April 2026
 
 + Added support for compute systems, including the `getComputeQueue()` and
