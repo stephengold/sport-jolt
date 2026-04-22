@@ -1,6 +1,6 @@
 # release log for the Sport-Jolt Library
 
-## Version 1.3.0 released on TBD
+## Version 1.3.0 released on 22 April 2026
 
 + Bugfix:  logic error in `Projections.setZNear()` argument validation
 + Added the `StrandGeometry` class to visualize hair simulations.

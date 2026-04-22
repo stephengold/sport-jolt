@@ -58,10 +58,10 @@ Add to the project’s "build.gradle" or "build.gradle.kts" file:
     }
     dependencies {
         // JVM library:
-        implementation("com.github.stephengold:sport-jolt:1.0.3")
+        implementation("com.github.stephengold:sport-jolt:1.3.0")
 
         // Jolt-JNI native libraries:
-        runtimeOnly("com.github.stephengold:jolt-jni-Linux64:3.9.0:DebugSp")
+        runtimeOnly("com.github.stephengold:jolt-jni-Linux64:4.1.0:DebugSp")
           // Jolt-JNI native libraries for other platforms could be added.
 
         // LWJGL native libraries:
@@ -119,6 +119,8 @@ By default, physics objects are not visualized.
   instantiate a `VerticesGeometry` for it.
 + To visualize the Cosserat rods of a soft body,
   invoke the `visualizeRods()` method on it.
++ To visualize the strands of a hair simulation,
+  instantiate an `StrandsGeometry` for it.
 
 [Jump to the table of contents](#toc)
 
