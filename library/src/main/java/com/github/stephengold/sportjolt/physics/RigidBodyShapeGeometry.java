@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022-2025 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2026 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -78,6 +78,18 @@ public class RigidBodyShapeGeometry extends Geometry {
     private ShapeSummary summary;
     // *************************************************************************
     // constructors
+
+    /**
+     * Instantiate a Geometry to visualize the specified rigid body and make the
+     * Geometry visible.
+     *
+     * @param rigidBody the rigid body to visualize (not null, alias created)
+     * @param meshingStrategy how to generate meshes (not null)
+     */
+    public RigidBodyShapeGeometry(
+            ConstBody rigidBody, String meshingStrategy) {
+        this(rigidBody, new MeshingStrategy(meshingStrategy));
+    }
 
     /**
      * Instantiate a Geometry to visualize the specified rigid body and make the
