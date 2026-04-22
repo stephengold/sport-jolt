@@ -32,6 +32,10 @@ dependencies {
     implementation(libs.lwjgl.opengl)
 }
 
+test {
+    failOnNoDiscoveredTests = false
+}
+
 // Register publishing tasks:
 
 tasks.register('install') {

@@ -256,7 +256,7 @@
             <message key="name.invalidPattern" value="Method type name ''{0}'' must match pattern ''{1}''."/>
         </module>
         <module name="PackageName">
-            <property name="format" value="^(com[.]github[.]stephengold[.]sportjolt([.][.a-z]+)?)?$"/>
+            <property name="format" value="^com[.]github[.]stephengold[.]sportjolt([.][.a-z]+)?|listclasses$"/>
             <message key="name.invalidPattern" value="Package name ''{0}'' must match pattern ''{1}''."/>
         </module>
         <module name="ParameterName">
