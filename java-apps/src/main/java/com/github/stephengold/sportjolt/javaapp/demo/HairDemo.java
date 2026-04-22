@@ -28,6 +28,7 @@
  */
 package com.github.stephengold.sportjolt.javaapp.demo;
 
+import com.github.stephengold.joltjni.Body;
 import com.github.stephengold.joltjni.BodyCreationSettings;
 import com.github.stephengold.joltjni.BodyInterface;
 import com.github.stephengold.joltjni.ComputeQueue;
@@ -67,6 +68,7 @@ import com.github.stephengold.sportjolt.Utils;
 import com.github.stephengold.sportjolt.input.RotateMode;
 import com.github.stephengold.sportjolt.physics.BasePhysicsApp;
 import com.github.stephengold.sportjolt.physics.PhysicsTickListener;
+import com.github.stephengold.sportjolt.physics.RigidBodyShapeGeometry;
 import com.github.stephengold.sportjolt.physics.StrandsGeometry;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
@@ -516,11 +518,14 @@ public class HairDemo extends BasePhysicsApp
             }
 
             BodyInterface bi = physicsSystem.getBodyInterface();
-            BodyCreationSettings body = new BodyCreationSettings(
+            BodyCreationSettings bcs = new BodyCreationSettings(
                     hullSettings, initLocation, initOrientation,
                     EMotionType.Kinematic, objLayerMoving);
-            int bodyId = bi.createAndAddBody(body, EActivation.DontActivate);
-            visualizeBodyShape(bodyId);
+            Body body = bi.createBody(bcs);
+            bi.addBody(body, EActivation.DontActivate);
+            new RigidBodyShapeGeometry(body, "low/Smooth");
+
+            int bodyId = body.getId();
             attachedBodyIds.add(bodyId);
             attachedBodyJointIndices.add(attachJointIndex);
         }
