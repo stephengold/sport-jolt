@@ -784,6 +784,8 @@ abstract public class BasePhysicsApp extends BaseApplication {
         String systemName = rtti.getName();
         systemName = systemName.replace("ComputeSystem", "");
         systemName = systemName.replace("Impl", "");
+        systemName = systemName.replace("MTL", "Metal");
+        systemName = systemName.replace("VK", "Vulkan");
         System.out.printf("  using a %s compute system%n%n", systemName);
 
         switch (systemName) {
@@ -792,13 +794,13 @@ abstract public class BasePhysicsApp extends BaseApplication {
                 ComputeSystem.hairRegisterShaders(computeSystem);
                 break;
 
-            case "MTL":
+            case "Metal":
                 // Assign a loader for Metal compute shaders:
                 Loader mtlLoader = makeLoader("/mtl/com/github/stephengold");
                 computeSystem.setShaderLoader(mtlLoader);
                 break;
 
-            case "VK":
+            case "Vulkan":
                 // Assign a loader for Vulkan compute shaders:
                 Loader vkLoader = makeLoader("/vk/com/github/stephengold");
                 computeSystem.setShaderLoader(vkLoader);
