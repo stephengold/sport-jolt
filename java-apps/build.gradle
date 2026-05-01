@@ -62,9 +62,8 @@ tasks.register('Windlass', JavaExec) {
     mainClass = 'com.github.stephengold.sportjolt.javaapp.demo.Windlass'
 }
 
-//   generate images for use in the tutorial:
 tasks.register('ShapeImages', JavaExec) {
-    description = 'Runs the ShapeImages image generator.'
+    description = 'Generates images for use in the tutorial.'
     mainClass = 'com.github.stephengold.sportjolt.javaapp.image.ShapeImages'
 }
 
