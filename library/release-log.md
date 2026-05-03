@@ -1,6 +1,6 @@
 # release log for the Sport-Jolt Library
 
-## Version 1.4.0 released on TBD
+## Version 1.4.0 released on 3 May 2026
 
 + Added a public constructor to `RigidBodyShapeGeometry`.
 + Updated the Jolt-JNI library to v4.2.0 .
