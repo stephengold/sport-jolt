@@ -1,5 +1,11 @@
 # release log for the Sport-Jolt Library
 
+## Version 1.4.0 released on TBD
+
++ Added a public constructor to `RigidBodyShapeGeometry`.
++ Updated the Jolt-JNI library to v4.2.0 .
++ Updated the OSHI library to v7.0.0 .
+
 ## Version 1.3.0 released on 22 April 2026
 
 + Bugfix:  logic error in `Projections.setZNear()` argument validation
