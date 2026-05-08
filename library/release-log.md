@@ -1,5 +1,10 @@
 # release log for the Sport-Jolt Library
 
+## Version 1.4.1 released on TBD
+
++ Updated the Jolt-JNI library to v4.3.0 .
++ Updated the OSHI library to v7.1.0 .
+
 ## Version 1.4.0 released on 3 May 2026
 
 + Added a public constructor to `RigidBodyShapeGeometry`.
