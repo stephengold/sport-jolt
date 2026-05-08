@@ -79,7 +79,6 @@ import electrostatic4j.snaploader.filesystem.DirectoryPath;
 import electrostatic4j.snaploader.platform.NativeDynamicLibrary;
 import electrostatic4j.snaploader.platform.util.PlatformPredicate;
 import java.io.PrintStream;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
@@ -796,13 +795,15 @@ abstract public class BasePhysicsApp extends BaseApplication {
 
             case "Metal":
                 // Assign a loader for Metal compute shaders:
-                Loader mtlLoader = makeLoader("/mtl/com/github/stephengold");
+                Loader mtlLoader
+                        = CustomLoader.newLoader("/mtl/com/github/stephengold");
                 computeSystem.setShaderLoader(mtlLoader);
                 break;
 
             case "Vulkan":
                 // Assign a loader for Vulkan compute shaders:
-                Loader vkLoader = makeLoader("/vk/com/github/stephengold");
+                Loader vkLoader
+                        = CustomLoader.newLoader("/vk/com/github/stephengold");
                 computeSystem.setShaderLoader(vkLoader);
                 break;
 
@@ -871,26 +872,6 @@ abstract public class BasePhysicsApp extends BaseApplication {
             String className = jpo.getClass().getSimpleName();
             throw new IllegalArgumentException("class = " + className);
         }
-
-        return result;
-    }
-
-    /**
-     * Create a custom loader that loads from the specified resource directory.
-     * TODO move to the Jolt JNI library
-     *
-     * @param resourcePath the path to the resource directory (not {@code null})
-     * @return a new loader
-     */
-    private static Loader makeLoader(String resourcePath) {
-        Loader result = new CustomLoader() {
-            @Override
-            public ByteBuffer loadShader(String shaderName) {
-                String path = resourcePath + "/" + shaderName;
-                ByteBuffer result = Jolt.loadResourceAsBytes(path);
-                return result;
-            }
-        };
 
         return result;
     }
