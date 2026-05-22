@@ -428,7 +428,7 @@ public class MarbleGame extends BasePhysicsApp {
     private static void configureCamera() {
         getCameraInputProcessor()
                 .setMoveSpeed(0f)
-                .setRotationMode(RotateMode.None);
+                .setRotationMode(RotateMode.Off);
 
         cam.setLocation(0f, 12f, 21f);
     }
