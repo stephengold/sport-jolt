@@ -13,6 +13,7 @@ ext {
     joltFork = 'stephengold'
     joltTag = 'sg260506'
     downloadedHairStraightZip = "downloads/wStraightHair.zip"
+    downloadedHairWavyZip = "downloads/wWavyHair.zip"
     downloadedJoltZip = "downloads/JoltPhysics-${joltTag}.zip"
 }
 
@@ -190,6 +191,12 @@ tasks.register('downloadHairStraightZip', Download) {
     dest file(downloadedHairStraightZip)
     overwrite false
 }
+tasks.register('downloadHairWavyZip', Download) {
+    //src "https://www.cemyuksel.com/research/hairmodels/wWavy.zip"
+    src "https://raw.githubusercontent.com/stephengold/hair-model-files/refs/heads/master/wWavy.zip"
+    dest file(downloadedHairWavyZip)
+    overwrite false
+}
 tasks.register('downloadJoltZip', Download) {
     src "https://github.com/${joltFork}/JoltPhysics/archive/refs/tags/${joltTag}.zip"
     dest file(downloadedJoltZip)
@@ -213,6 +220,13 @@ tasks.register('unpackHairStraight', Copy) {
     dependsOn('downloadHairStraightZip', 'unpackFace')
     from (zipTree(downloadedHairStraightZip)) {
         include "wStraight.hair"
+    }
+    into layout.projectDirectory.dir('Assets')
+}
+tasks.register('unpackHairWavy', Copy) {
+    dependsOn('downloadHairWavyZip', 'unpackFace')
+    from (zipTree(downloadedHairWavyZip)) {
+        include "wWavy.hair"
     }
     into layout.projectDirectory.dir('Assets')
 }
