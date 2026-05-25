@@ -242,10 +242,10 @@ public class HairDemo extends BasePhysicsApp
             faceInvBindPose[jointI].rightMultiplyInPlace(neckBindPose);
         }
 
-        // Read hair file
+        // Read hair file:
         readHairModelFile("Assets/wStraight.hair");
 
-        // Init strands
+        // Initialize strands:
         SStrandList simStrands = new SStrandList();
         SVertexList simVertices = new SVertexList();
 
@@ -261,7 +261,7 @@ public class HairDemo extends BasePhysicsApp
                 Vec3 point = new Vec3(hairPoints[point0 + pointI]);
                 point.swizzleInPlace(
                         Jolt.SWIZZLE_Y, Jolt.SWIZZLE_Z, Jolt.SWIZZLE_X);
-                point.scaleInPlace(0.00254f); // tenths of an inch to meters
+                point.scaleInPlace(0.00254f); // tenths of an inch -> meters
                 strandPoints[pointI] = Op.star(neckInvTransform, point);
             }
 
