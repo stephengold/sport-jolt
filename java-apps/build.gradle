@@ -9,9 +9,10 @@ plugins {
     alias(libs.plugins.download) // to retrieve files from URLs
 }
 
+// $joltFork and $joltTag are set in the gradle.properties file
+// or by -P options on the Gradle command line.
+
 ext {
-    joltFork = 'stephengold'
-    joltTag = 'sg260518'
     downloadedHairStraightZip = 'downloads/wStraightHair.zip'
     downloadedHairWavyZip = 'downloads/wWavyHair.zip'
     downloadedJoltZip = "downloads/JoltPhysics-${joltTag}.zip"
