@@ -250,7 +250,7 @@ public class HairDemo extends BasePhysicsApp
         SVertexList simVertices = new SVertexList();
 
         Mat44Arg neckTransform = faceAnimation[0].get(neckJointIndex);
-        Mat44 neckInvTransform = neckTransform.inversed();
+        Mat44Arg neckInvTransform = neckTransform.inversed();
 
         int point0 = 0;
         numStrands = Math.min(numStrands, 9_999);
