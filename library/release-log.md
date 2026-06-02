@@ -1,5 +1,15 @@
 # release log for the Sport-Jolt Library
 
+## Version 2.0.0 released on TBD
+
++ Renamed 3 enum values, because `None` is a reserved word in Python:
+  + `NormalsOption.None` -> `NormalsOption.NoNormals`
+  + `RotateMode.None` -> `RotateMode.Off`
+  + `UvsOption.None` -> `UvsOption.NoUvs`
+
++ Updated the Jolt-JNI library to v5.1.0 .
++ Updated the OSHI library to v7.2.1 .
+
 ## Version 1.4.2 released on 20 May 2026
 
 Updated the Jolt-JNI library to v5.0.0 .
