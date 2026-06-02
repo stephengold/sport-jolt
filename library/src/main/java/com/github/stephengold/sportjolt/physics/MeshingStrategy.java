@@ -332,7 +332,7 @@ class MeshingStrategy {
      */
     private static UvsOption parseUvs(String description) {
         String[] items = description.split(delimiter);
-        UvsOption result = UvsOption.None;
+        UvsOption result = UvsOption.NoUvs;
         if (items.length > 2) {
             String uvString = items[2];
             if (!uvString.isEmpty()) {
