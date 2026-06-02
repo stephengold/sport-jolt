@@ -324,8 +324,7 @@ public class Windlass extends BasePhysicsApp implements PhysicsTickListener {
      * Add the barrel, which is a kinematic rigid body shaped like a horizontal
      * cylinder, with flanges and handles at both ends.
      *
-     * @param cableRadius the radius of the cable (in physics-space units,
-     * &gt;0)
+     * @param cableRadius the radius of the cable (&gt;0)
      * @return the attachment point for the cable (a location vector in system
      * coordinates)
      */
