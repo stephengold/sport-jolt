@@ -12,8 +12,8 @@ plugins {
 ext {
     joltFork = 'stephengold'
     joltTag = 'sg260518'
-    downloadedHairStraightZip = "downloads/wStraightHair.zip"
-    downloadedHairWavyZip = "downloads/wWavyHair.zip"
+    downloadedHairStraightZip = 'downloads/wStraightHair.zip'
+    downloadedHairWavyZip = 'downloads/wWavyHair.zip'
     downloadedJoltZip = "downloads/JoltPhysics-${joltTag}.zip"
 }
 
@@ -140,43 +140,43 @@ dependencies {
         runtimeOnly(variantOf(libs.jolt.jni.linux64){classifier(btf)})
         runtimeOnly(variantOf(libs.jolt.jni.linux64fma){classifier(btf)})
 
-        runtimeOnly(variantOf(libs.lwjgl){classifier("natives-linux")})
-        runtimeOnly(variantOf(libs.lwjgl.assimp){classifier("natives-linux")})
-        runtimeOnly(variantOf(libs.lwjgl.glfw){classifier("natives-linux")})
-        runtimeOnly(variantOf(libs.lwjgl.opengl){classifier("natives-linux")})
+        runtimeOnly(variantOf(libs.lwjgl){classifier('natives-linux')})
+        runtimeOnly(variantOf(libs.lwjgl.assimp){classifier('natives-linux')})
+        runtimeOnly(variantOf(libs.lwjgl.glfw){classifier('natives-linux')})
+        runtimeOnly(variantOf(libs.lwjgl.opengl){classifier('natives-linux')})
 
         runtimeOnly(variantOf(libs.jolt.jni.linuxarm64){classifier(btf)})
 
-        runtimeOnly(variantOf(libs.lwjgl){classifier("natives-linux-arm64")})
-        runtimeOnly(variantOf(libs.lwjgl.assimp){classifier("natives-linux-arm64")})
-        runtimeOnly(variantOf(libs.lwjgl.glfw){classifier("natives-linux-arm64")})
-        runtimeOnly(variantOf(libs.lwjgl.opengl){classifier("natives-linux-arm64")})
+        runtimeOnly(variantOf(libs.lwjgl){classifier('natives-linux-arm64')})
+        runtimeOnly(variantOf(libs.lwjgl.assimp){classifier('natives-linux-arm64')})
+        runtimeOnly(variantOf(libs.lwjgl.glfw){classifier('natives-linux-arm64')})
+        runtimeOnly(variantOf(libs.lwjgl.opengl){classifier('natives-linux-arm64')})
     }
 
     if (includeMacOsX) {
         runtimeOnly(variantOf(libs.jolt.jni.macosx64){classifier(btf)})
 
-        runtimeOnly(variantOf(libs.lwjgl){classifier("natives-macos")})
-        runtimeOnly(variantOf(libs.lwjgl.assimp){classifier("natives-macos")})
-        runtimeOnly(variantOf(libs.lwjgl.glfw){classifier("natives-macos")})
-        runtimeOnly(variantOf(libs.lwjgl.opengl){classifier("natives-macos")})
+        runtimeOnly(variantOf(libs.lwjgl){classifier('natives-macos')})
+        runtimeOnly(variantOf(libs.lwjgl.assimp){classifier('natives-macos')})
+        runtimeOnly(variantOf(libs.lwjgl.glfw){classifier('natives-macos')})
+        runtimeOnly(variantOf(libs.lwjgl.opengl){classifier('natives-macos')})
 
         runtimeOnly(variantOf(libs.jolt.jni.macosxarm64){classifier(btf)})
 
-        runtimeOnly(variantOf(libs.lwjgl){classifier("natives-macos-arm64")})
-        runtimeOnly(variantOf(libs.lwjgl.assimp){classifier("natives-macos-arm64")})
-        runtimeOnly(variantOf(libs.lwjgl.glfw){classifier("natives-macos-arm64")})
-        runtimeOnly(variantOf(libs.lwjgl.opengl){classifier("natives-macos-arm64")})
+        runtimeOnly(variantOf(libs.lwjgl){classifier('natives-macos-arm64')})
+        runtimeOnly(variantOf(libs.lwjgl.assimp){classifier('natives-macos-arm64')})
+        runtimeOnly(variantOf(libs.lwjgl.glfw){classifier('natives-macos-arm64')})
+        runtimeOnly(variantOf(libs.lwjgl.opengl){classifier('natives-macos-arm64')})
     }
 
     if (includeWindows) {
         runtimeOnly(variantOf(libs.jolt.jni.windows64){classifier(btf)})
         runtimeOnly(variantOf(libs.jolt.jni.windows64avx2){classifier(btf)})
 
-        runtimeOnly(variantOf(libs.lwjgl){classifier("natives-windows")})
-        runtimeOnly(variantOf(libs.lwjgl.assimp){classifier("natives-windows")})
-        runtimeOnly(variantOf(libs.lwjgl.glfw){classifier("natives-windows")})
-        runtimeOnly(variantOf(libs.lwjgl.opengl){classifier("natives-windows")})
+        runtimeOnly(variantOf(libs.lwjgl){classifier('natives-windows')})
+        runtimeOnly(variantOf(libs.lwjgl.assimp){classifier('natives-windows')})
+        runtimeOnly(variantOf(libs.lwjgl.glfw){classifier('natives-windows')})
+        runtimeOnly(variantOf(libs.lwjgl.opengl){classifier('natives-windows')})
     }
 
     //implementation 'com.github.stephengold:sport-jolt:' + sjVersion // for published library
@@ -186,14 +186,14 @@ dependencies {
 // Register tasks to download ZIP archives:
 
 tasks.register('downloadHairStraightZip', Download) {
-    //src "https://www.cemyuksel.com/research/hairmodels/wStraight.zip"
-    src "https://raw.githubusercontent.com/stephengold/hair-model-files/refs/heads/master/wStraight.zip"
+    //src 'https://www.cemyuksel.com/research/hairmodels/wStraight.zip'
+    src 'https://raw.githubusercontent.com/stephengold/hair-model-files/refs/heads/master/wStraight.zip'
     dest file(downloadedHairStraightZip)
     overwrite false
 }
 tasks.register('downloadHairWavyZip', Download) {
-    //src "https://www.cemyuksel.com/research/hairmodels/wWavy.zip"
-    src "https://raw.githubusercontent.com/stephengold/hair-model-files/refs/heads/master/wWavy.zip"
+    //src 'https://www.cemyuksel.com/research/hairmodels/wWavy.zip'
+    src 'https://raw.githubusercontent.com/stephengold/hair-model-files/refs/heads/master/wWavy.zip'
     dest file(downloadedHairWavyZip)
     overwrite false
 }
@@ -219,14 +219,14 @@ tasks.register('unpackFace', Copy) {
 tasks.register('unpackHairStraight', Copy) {
     dependsOn('downloadHairStraightZip', 'unpackFace')
     from (zipTree(downloadedHairStraightZip)) {
-        include "wStraight.hair"
+        include 'wStraight.hair'
     }
     into layout.projectDirectory.dir('Assets')
 }
 tasks.register('unpackHairWavy', Copy) {
     dependsOn('downloadHairWavyZip', 'unpackFace')
     from (zipTree(downloadedHairWavyZip)) {
-        include "wWavy.hair"
+        include 'wWavy.hair'
     }
     into layout.projectDirectory.dir('Assets')
 }
