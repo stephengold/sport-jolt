@@ -1,6 +1,6 @@
 # release log for the Sport-Jolt Library
 
-## Version 2.0.0 released on TBD
+## Version 2.0.0 released on 2 June 2026
 
 + Renamed 3 enum values, because `None` is a reserved word in Python:
   + `NormalsOption.None` -> `NormalsOption.NoNormals`
