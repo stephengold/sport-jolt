@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022-2025 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2026 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -298,7 +298,7 @@ class MeshingStrategy {
      */
     private static NormalsOption parseNormals(String description) {
         String[] items = description.split(delimiter);
-        NormalsOption result = NormalsOption.None;
+        NormalsOption result = NormalsOption.NoNormals;
         if (items.length >= 2) {
             String nString = items[1];
             if (!nString.isEmpty()) {
