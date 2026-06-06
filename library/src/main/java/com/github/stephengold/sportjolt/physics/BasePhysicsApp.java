@@ -45,8 +45,11 @@ import com.github.stephengold.joltjni.Loader;
 import com.github.stephengold.joltjni.ObjectLayerPairFilterTable;
 import com.github.stephengold.joltjni.ObjectVsBroadPhaseLayerFilter;
 import com.github.stephengold.joltjni.ObjectVsBroadPhaseLayerFilterTable;
+import com.github.stephengold.joltjni.PhysicsScene;
 import com.github.stephengold.joltjni.PhysicsSystem;
 import com.github.stephengold.joltjni.Rtti;
+import com.github.stephengold.joltjni.StreamOut;
+import com.github.stephengold.joltjni.StreamOutWrapper;
 import com.github.stephengold.joltjni.TempAllocator;
 import com.github.stephengold.joltjni.TempAllocatorMalloc;
 import com.github.stephengold.joltjni.VehicleConstraint;
@@ -61,6 +64,7 @@ import com.github.stephengold.joltjni.readonly.ConstJoltPhysicsObject;
 import com.github.stephengold.joltjni.readonly.ConstShape;
 import com.github.stephengold.joltjni.readonly.ConstSoftBodyCreationSettings;
 import com.github.stephengold.joltjni.readonly.ConstSoftBodySharedSettings;
+import com.github.stephengold.joltjni.std.OfStream;
 import com.github.stephengold.sportjolt.BaseApplication;
 import com.github.stephengold.sportjolt.Constants;
 import com.github.stephengold.sportjolt.Filter;
@@ -633,6 +637,30 @@ abstract public class BasePhysicsApp extends BaseApplication {
         }
 
         return result;
+    }
+
+    /**
+     * Write a snapshot of the bodies and constraints in the PhysicsSystem.
+     *
+     * @param fileName the name of the output file (not empty, not {@code null})
+     */
+    public void writeSnapshot(String fileName) {
+        PhysicsScene scene = new PhysicsScene();
+        scene.fromPhysicsSystem(physicsSystem);
+
+        int fileMode = StreamOutWrapper.out()
+                | StreamOutWrapper.binary()
+                | StreamOutWrapper.trunc();
+        OfStream ofStream = new OfStream(fileName, fileMode);
+        StreamOut stream = new StreamOutWrapper(ofStream);
+
+        boolean saveShapes = true;
+        boolean saveGroupFilter = true;
+        scene.saveBinaryState(stream, saveShapes, saveGroupFilter);
+        ofStream.closeStream();
+
+        System.out.printf("wrote a snapshot to \"%s\"%n", fileName);
+        System.out.flush();
     }
     // *************************************************************************
     // protected methods
