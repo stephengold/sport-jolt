@@ -374,6 +374,7 @@ public class Windlass extends BasePhysicsApp implements PhysicsTickListener {
         BodyInterface bi = physicsSystem.getBodyInterface();
         barrel = bi.createBody(bcs);
         bi.addBody(barrel, EActivation.Activate);
+        barrel.setAllowSleeping(false); // solves sport-jolt issue #3
         visualizeShape(barrel);
 
         // Calculate an attachment point on the +Z side of the drum;
