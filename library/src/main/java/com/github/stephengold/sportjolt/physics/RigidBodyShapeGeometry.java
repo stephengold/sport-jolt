@@ -34,6 +34,7 @@ import com.github.stephengold.joltjni.Quat;
 import com.github.stephengold.joltjni.RVec3;
 import com.github.stephengold.joltjni.ShapeRefC;
 import com.github.stephengold.joltjni.enumerate.EBodyType;
+import com.github.stephengold.joltjni.enumerate.EMotionType;
 import com.github.stephengold.joltjni.enumerate.EShapeSubType;
 import com.github.stephengold.joltjni.enumerate.EShapeType;
 import com.github.stephengold.joltjni.readonly.ConstBody;
@@ -212,9 +213,18 @@ public class RigidBodyShapeGeometry extends Geometry {
         if (automaticColor) {
             if (rigidBody.isSensor()) {
                 super.setColor(Constants.YELLOW);
-            } else if (rigidBody.isDynamic() && rigidBody.isActive()) {
-                super.setColor(Constants.MAGENTA);
-            } else {
+
+            } else if (rigidBody.isActive()) {
+                EMotionType motionType = rigidBody.getMotionType();
+                if (motionType == EMotionType.Dynamic) {
+                    super.setColor(Constants.MAGENTA);
+                    return;
+                } else if (motionType == EMotionType.Kinematic) {
+                    super.setColor(Constants.DARK_GRAY);
+                    return;
+                }
+
+            } else { // static or inactive
                 super.setColor(Constants.GRAY);
             }
         }
