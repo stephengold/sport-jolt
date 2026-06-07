@@ -87,18 +87,6 @@ public class RigidBodyShapeGeometry extends Geometry {
      * @param rigidBody the rigid body to visualize (not null, alias created)
      * @param meshingStrategy how to generate meshes (not null)
      */
-    public RigidBodyShapeGeometry(
-            ConstBody rigidBody, String meshingStrategy) {
-        this(rigidBody, new MeshingStrategy(meshingStrategy));
-    }
-
-    /**
-     * Instantiate a Geometry to visualize the specified rigid body and make the
-     * Geometry visible.
-     *
-     * @param rigidBody the rigid body to visualize (not null, alias created)
-     * @param meshingStrategy how to generate meshes (not null)
-     */
     RigidBodyShapeGeometry(
             ConstBody rigidBody, MeshingStrategy meshingStrategy) {
         Validate.nonNull(rigidBody, "rigid body");
@@ -119,6 +107,17 @@ public class RigidBodyShapeGeometry extends Geometry {
         super.setBackCulling(cullBackFaces);
 
         BaseApplication.makeVisible(this);
+    }
+
+    /**
+     * Instantiate a Geometry to visualize the specified rigid body and make the
+     * Geometry visible.
+     *
+     * @param rigidBody the rigid body to visualize (not null, alias created)
+     * @param meshingStrategy how to generate meshes (not null)
+     */
+    public RigidBodyShapeGeometry(ConstBody rigidBody, String meshingStrategy) {
+        this(rigidBody, new MeshingStrategy(meshingStrategy));
     }
     // *************************************************************************
     // new methods exposed
