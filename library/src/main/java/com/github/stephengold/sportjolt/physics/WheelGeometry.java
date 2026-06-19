@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022-2025 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2026 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -76,7 +76,7 @@ public class WheelGeometry extends Geometry {
      */
     final private RVec3 lastLocation = new RVec3();
     /**
-     * vehicle to containing the wheel
+     * vehicle containing the wheel
      */
     final private VehicleConstraint vehicle;
     /**
