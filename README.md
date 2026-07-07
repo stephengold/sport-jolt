@@ -72,9 +72,6 @@ Add to the project’s "build.gradle" or "build.gradle.kts" file:
           // LWJGL native libraries for other platforms could be added.
     }
 
-For some older versions of Gradle,
-it's necessary to replace `implementation` with `compile`.
-
 ### Coding a Sport-Jolt application
 
 Every Sport-Jolt application should extend the `BasePhysicsApp` class,
