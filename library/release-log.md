@@ -1,5 +1,14 @@
 # release log for the Sport-Jolt Library
 
+## Version 2.1.0 released on TBD
+
++ Began distinguishing active kinematic bodies by coloring them a darker gray.
++ Added the `BasePhysicsApp.writeSnapshot()` method.
+
++ Updated the Jolt-JNI library to v5.2.0 .
++ Updated the JOML library to v1.10.9 .
++ Updated the OSHI library to v7.3.2 .
+
 ## Version 2.0.0 released on 2 June 2026
 
 + Renamed 3 enum values, because `None` is a reserved word in Python:
