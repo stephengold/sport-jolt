@@ -169,7 +169,7 @@ public class MarbleGame extends BasePhysicsApp {
     }
 
     /**
-     * Initialize the application.
+     * Initialize the application. Invoked once.
      */
     @Override
     protected void initialize() {

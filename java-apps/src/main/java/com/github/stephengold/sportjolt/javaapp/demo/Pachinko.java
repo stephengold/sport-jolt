@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022-2025 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2026 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -140,7 +140,7 @@ public class Pachinko extends BasePhysicsApp implements PhysicsTickListener {
     }
 
     /**
-     * Initialize the application.
+     * Initialize the application. Invoked once.
      */
     @Override
     protected void initialize() {
@@ -260,7 +260,6 @@ public class Pachinko extends BasePhysicsApp implements PhysicsTickListener {
         getCameraInputProcessor()
                 .setMoveSpeed(30f)
                 .setRotationMode(RotateMode.DragLMB);
-
         cam.setLocation(0f, -23f, 83f);
     }
 
