@@ -523,7 +523,8 @@ public class HairDemo extends BasePhysicsApp
                     EMotionType.Kinematic, objLayerMoving);
             Body body = bi.createBody(bcs);
             bi.addBody(body, EActivation.DontActivate);
-            new RigidBodyShapeGeometry(body, "low/Smooth");
+            new RigidBodyShapeGeometry(body, "low/Smooth")
+                    .setColor(Constants.PINK);
 
             int bodyId = body.getId();
             attachedBodyIds.add(bodyId);
