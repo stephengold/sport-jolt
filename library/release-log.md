@@ -1,6 +1,6 @@
 # release log for the Sport-Jolt Library
 
-## Version 2.1.0 released on TBD
+## Version 2.1.0 released on 7 July 2026
 
 + Began distinguishing active kinematic bodies by coloring them a darker gray.
 + Added the `BasePhysicsApp.writeSnapshot()` method.
