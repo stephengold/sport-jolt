@@ -350,19 +350,19 @@ abstract public class BasePhysicsApp extends BaseApplication {
             new NativeDynamicLibrary(
                 "linux/x86-64-fma/com/github/stephengold",
                 linuxWithFma), // This should precede vanilla LINUX_X86_64.
-
             new NativeDynamicLibrary("linux/x86-64/com/github/stephengold",
                 PlatformPredicate.LINUX_X86_64),
+
             new NativeDynamicLibrary("osx/aarch64/com/github/stephengold",
                 PlatformPredicate.MACOS_ARM_64),
             new NativeDynamicLibrary("osx/x86-64/com/github/stephengold",
                 PlatformPredicate.MACOS_X86_64),
+
             new NativeDynamicLibrary(
                 "windows/x86-64-avx2/com/github/stephengold",
                 windowsWithAvx2), // This should precede vanilla WIN_X86_64.
-
             new NativeDynamicLibrary("windows/x86-64/com/github/stephengold",
-            PlatformPredicate.WIN_X86_64)
+                PlatformPredicate.WIN_X86_64)
         };
         loader.registerNativeLibraries(libraries)
                 .initPlatformLibrary()
