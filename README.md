@@ -162,7 +162,7 @@ The world coordinate system is assumed to be Z-forward, Y-up.
 [Jump to the table of contents](#toc)
 
 
-[adoptium]: https://adoptium.net/releases.html "Adoptium Project"
+[adoptium]: https://adoptium.net/temurin/releases/ "Adoptium Project"
 [assimp]: https://www.assimp.org/ "The Open Asset Importer Library"
 [fish]: https://fishshell.com/ "Fish command-line shell"
 [git]: https://git-scm.com "Git"
