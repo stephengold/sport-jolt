@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022-2025 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2026 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -669,13 +669,18 @@ abstract public class BaseApplication {
             throw new IllegalStateException("Unable to initialize GLFW");
         }
 
-        Internals.glfwWindowHints();
+        long monitor = GLFW.glfwGetPrimaryMonitor();
+        GLFWVidMode videoMode = GLFW.glfwGetVideoMode(monitor);
+        int leftX = (videoMode.width() - Internals.framebufferWidth()) / 2;
+        int topY = (videoMode.height() - Internals.framebufferHeight()) / 2;
+        Internals.glfwWindowHints(leftX, topY);
 
         // Create the window:
         int width = Internals.framebufferWidth();
         int height = Internals.framebufferHeight();
+        monitor = MemoryUtil.NULL; // for windowed mode, not fullscreen
         windowHandle = GLFW.glfwCreateWindow(width, height, initialWindowTitle,
-                MemoryUtil.NULL, MemoryUtil.NULL);
+                monitor, MemoryUtil.NULL);
         if (windowHandle == MemoryUtil.NULL) {
             throw new RuntimeException("Failed to create a GLFW window; width="
                     + width + ", height=" + height);

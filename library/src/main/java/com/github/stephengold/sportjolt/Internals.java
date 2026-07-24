@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2023-2025 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2023-2026 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -209,8 +209,11 @@ final class Internals {
 
     /**
      * Configure hints for GLFW window creation.
+     *
+     * @param leftX the desired X coordinate of the window's left edge
+     * @param topY the desired Y coordinate of the window's top edge
      */
-    static void glfwWindowHints() {
+    static void glfwWindowHints(int leftX, int topY) {
         GLFW.glfwDefaultWindowHints();
 
         GLFW.glfwWindowHint(
@@ -228,6 +231,9 @@ final class Internals {
                 GLFW.GLFW_OPENGL_CORE_PROFILE); // default=OPENGL_ANY_PROFILE
         GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_FORWARD_COMPAT,
                 GLFW.GLFW_TRUE); // default=FALSE (set TRUE to please macOS)
+
+        GLFW.glfwWindowHint(GLFW.GLFW_POSITION_X, leftX);
+        GLFW.glfwWindowHint(GLFW.GLFW_POSITION_Y, topY);
     }
 
     /**
