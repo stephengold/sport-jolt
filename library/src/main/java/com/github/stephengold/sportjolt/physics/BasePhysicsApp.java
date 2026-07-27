@@ -73,6 +73,7 @@ import com.github.stephengold.sportjolt.Geometry;
 import com.github.stephengold.sportjolt.Mesh;
 import com.github.stephengold.sportjolt.NormalsOption;
 import com.github.stephengold.sportjolt.TextureKey;
+import com.github.stephengold.sportjolt.Utils;
 import com.github.stephengold.sportjolt.UvsOption;
 import com.github.stephengold.sportjolt.Validate;
 import com.github.stephengold.sportjolt.WrapFunction;
@@ -393,7 +394,11 @@ abstract public class BasePhysicsApp extends BaseApplication {
         }
 
         Jolt.registerDefaultAllocator();
-        Jolt.installDefaultAssertCallback();
+        if (Utils.areAssertionsEnabled()) {
+            Jolt.installDefaultAssertCallback();
+        } else {
+            Jolt.installIgnoreAssertCallback();
+        }
         Jolt.installDefaultTraceCallback();
 
         boolean success = Jolt.newFactory();
