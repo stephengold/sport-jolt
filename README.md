@@ -42,7 +42,7 @@ Sport Jolt comes pre-built as a single library
 that can be downloaded from Maven Central or GitHub.
 However, the native-library dependencies are intentionally omitted
 from Sport Jolt's POM
-so developers can specify *which* Jolt-JNI and LWJGL natives should be used.
+so developers can precisely specify *which* Jolt-JNI and LWJGL natives should be used.
 
 For projects built using [Maven] or [Gradle], it is
 *not* sufficient to specify the
