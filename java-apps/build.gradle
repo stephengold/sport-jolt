@@ -34,7 +34,7 @@ tasks.register('AppChooser', JavaExec) {
     mainClass = 'com.github.stephengold.sportjolt.javaapp.AppChooser'
 }
 
-//   physics demos in Java:
+//   physics demos:
 tasks.register('Botany', JavaExec) {
     description = 'Runs the Botany demo app.'
     mainClass = 'com.github.stephengold.sportjolt.javaapp.demo.Botany'
@@ -70,7 +70,7 @@ tasks.register('ShapeImages', JavaExec) {
     mainClass = 'com.github.stephengold.sportjolt.javaapp.image.ShapeImages'
 }
 
-//   non-physics test apps in Java:
+//   graphics-only tests (no physics):
 tasks.register('AssimpTest', JavaExec) {
     description = 'Runs the Assimp test app.'
     mainClass = 'com.github.stephengold.sportjolt.javaapp.test.AssimpTest'
