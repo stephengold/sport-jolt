@@ -1,6 +1,6 @@
 # release log for the Sport-Jolt Library
 
-## Version 2.1.1 released on TBD
+## Version 2.1.1 released on 29 July 2026
 
 + Bugfix:  failures on Linux platforms that use the Wayland protocol
 + Began ignoring native asserts when JVM asserts are disabled.

@@ -28,8 +28,8 @@ Complete source code is provided under
 
 Sport Jolt is a Simple Physics-ORienTed graphics engine written in Java 11.
 In addition to [Jolt JNI][joltjni],
-it uses [LWJGL], [Assimp], [GLFW], [JOML], [jSnapLoader], and [OpenGL].
-It has been tested on [Linux], macOS, and Windows.
+it uses [LWJGL] v3, [Assimp], [GLFW], [JOML], [jSnapLoader], and [OpenGL] v3.3.
+It has been tested on [Linux] (both Wayland and X11), macOS, and Windows.
 
 [Jump to the table of contents](#toc)
 
@@ -58,17 +58,17 @@ Add to the project’s "build.gradle" or "build.gradle.kts" file:
     }
     dependencies {
         // JVM library:
-        implementation("com.github.stephengold:sport-jolt:2.1.0")
+        implementation("com.github.stephengold:sport-jolt:2.1.1")
 
         // Jolt-JNI native libraries:
-        runtimeOnly("com.github.stephengold:jolt-jni-Linux64:5.2.0:DebugSp")
+        runtimeOnly("com.github.stephengold:jolt-jni-Linux64:6.0.0:DebugSp")
           // Jolt-JNI native libraries for other platforms could be added.
 
         // LWJGL native libraries:
-        runtimeOnly("org.lwjgl:lwjgl:3.4.1:natives-linux")
-        runtimeOnly("org.lwjgl:lwjgl-assimp:3.4.1:natives-linux")
-        runtimeOnly("org.lwjgl:lwjgl-glfw:3.4.1:natives-linux")
-        runtimeOnly("org.lwjgl:lwjgl-opengl:3.4.1:natives-linux")
+        runtimeOnly("org.lwjgl:lwjgl:3.4.2:natives-linux")
+        runtimeOnly("org.lwjgl:lwjgl-assimp:3.4.2:natives-linux")
+        runtimeOnly("org.lwjgl:lwjgl-glfw:3.4.2:natives-linux")
+        runtimeOnly("org.lwjgl:lwjgl-opengl:3.4.2:natives-linux")
           // LWJGL native libraries for other platforms could be added.
     }
 
