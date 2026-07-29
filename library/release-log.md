@@ -1,5 +1,15 @@
 # release log for the Sport-Jolt Library
 
+## Version 2.1.1 released on TBD
+
++ Bugfix:  failures on Linux platforms that use the Wayland protocol
++ Began ignoring native asserts when JVM asserts are disabled.
++ Added support for Windows_ARM64 platforms.
+
++ Updated the Jolt-JNI library to v6.0.0 .
++ Updated the LWJGL libraries to v3.4.2 .
++ Updated the OSHI library to v7.4.2 .
+
 ## Version 2.1.0 released on 7 July 2026
 
 + Began distinguishing active kinematic bodies by coloring them a darker gray.
