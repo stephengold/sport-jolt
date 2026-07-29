@@ -75,12 +75,21 @@ Add to the project’s "build.gradle" or "build.gradle.kts" file:
 ### Coding a Sport-Jolt application
 
 Every Sport-Jolt application should extend the `BasePhysicsApp` class,
-which provides hooks for:
+which provides callbacks for:
 
-+ initializing the application,
-+ creating and configuring the application's physics system,
-+ populating the system with bodies and constraints, and
-+ updating the system before each frame is rendered.
++ initializing the application (`initialize()`),
++ creating and configuring the application's physics system (`createSystem()`),
++ populating the system with bodies and constraints (`populateSystem()`),
++ updating the display after each frame is rendered (`render()`), and
++ cleaning up when the application terminates (`cleanUp()`).
+
+To receive callbacks for keyboard and mouse events,
+create an `InputProcessor`
+and add it to the app using `getInputManager().add()`.
+
+To receive callbacks before and after each simulation step,
+create a `PhysicsTickListener`
+and add it to the app using `addTickListener()`.
 
 The graphics engine doesn't have a scene graph.
 Instead, it maintains an internal list of renderable objects,
@@ -91,7 +100,7 @@ and causes it to be rendered.
 + To visualize the world (system) coordinate axes,
   instantiate one or more `LocalAxisGeometry` objects.
 
-By default, physics objects are not visualized.
+By default, physics objects are invisible.
 
 + To visualize the shape
   of a rigid body, character, or vehicle,
