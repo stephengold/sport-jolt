@@ -16,6 +16,7 @@ jolt-jni-macosx64 = { module = "com.github.stephengold:jolt-jni-MacOSX64", versi
 jolt-jni-macosxarm64 = { module = "com.github.stephengold:jolt-jni-MacOSX_ARM64", version.ref = "joltjni" }
 jolt-jni-windows64 = { module = "com.github.stephengold:jolt-jni-Windows64", version.ref = "joltjni" }
 jolt-jni-windows64avx2 = { module = "com.github.stephengold:jolt-jni-Windows64_avx2", version.ref = "joltjni" }
+jolt-jni-windowsarm64 = { module = "com.github.stephengold:jolt-jni-Windows_ARM64", version.ref = "joltjni" }
 
 joml = "org.joml:joml:1.10.9"
 jsnaploader = "io.github.electrostat-lab:snaploader:1.1.1-stable"

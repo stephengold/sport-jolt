@@ -359,6 +359,8 @@ abstract public class BasePhysicsApp extends BaseApplication {
             new NativeDynamicLibrary("osx/x86-64/com/github/stephengold",
                 PlatformPredicate.MACOS_X86_64),
 
+            new NativeDynamicLibrary("windows/aarch64/com/github/stephengold",
+                PlatformPredicate.WIN_ARM_64),
             new NativeDynamicLibrary(
                 "windows/x86-64-avx2/com/github/stephengold",
                 windowsWithAvx2), // This should precede vanilla WIN_X86_64.
