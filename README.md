@@ -178,7 +178,7 @@ The world coordinate system is assumed to be Z-forward, Y-up.
 [glfw]: https://www.glfw.org "GLFW Library"
 [gradle]: https://gradle.org "Gradle Project"
 [java]: https://en.wikipedia.org/wiki/Java_(programming_language) "Java programming language"
-[joltjni]: https://github.com/stephengold/jolt-jni "Jolt JNI Project"
+[joltjni]: https://stephengold.github.io/jolt-jni-docs/jolt-jni-en/English/overview.html "Jolt JNI Project"
 [joml]: https://joml-ci.github.io/JOML "Java OpenGL Math Library"
 [jsnaploader]: https://github.com/Electrostat-Lab/jSnapLoader "jSnapLoader Project"
 [license]: https://github.com/stephengold/sport-jolt/blob/master/LICENSE "Sport-Jolt license"
