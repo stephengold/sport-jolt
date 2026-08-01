@@ -31,6 +31,7 @@ package com.github.stephengold.sportjolt.javaapp.demo;
 import com.github.stephengold.joltjni.Body;
 import com.github.stephengold.joltjni.BodyCreationSettings;
 import com.github.stephengold.joltjni.BodyInterface;
+import com.github.stephengold.joltjni.ConstraintRef;
 import com.github.stephengold.joltjni.DistanceConstraintSettings;
 import com.github.stephengold.joltjni.PhysicsSystem;
 import com.github.stephengold.joltjni.SphereShape;
@@ -297,11 +298,26 @@ public class NewtonsCradle extends BasePhysicsApp {
                         }
                         return;
 
+                    case GLFW.GLFW_KEY_E:
+                        if (isPressed) {
+                            disableAllConstraints();
+                        }
+                        return;
+
                     default:
                 }
                 super.onKeyboard(keyId, isPressed);
             }
         });
+    }
+
+    /**
+     * Disable all constraints in the PhysicsSystem.
+     */
+    private void disableAllConstraints() {
+        for (ConstraintRef cRef : physicsSystem.getConstraints().toList()) {
+            cRef.getPtr().setEnabled(false);
+        }
     }
 
     /**
