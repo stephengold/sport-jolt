@@ -151,6 +151,7 @@ public class NewtonsCradle extends BasePhysicsApp {
         float radius = 9.9f;
         ConstShape shape = new SphereShape(radius);
         ballBcs = new BodyCreationSettings()
+                .setAllowSleeping(false)
                 .setFriction(0f)
                 .setRestitution(1f)
                 .setShape(shape);
