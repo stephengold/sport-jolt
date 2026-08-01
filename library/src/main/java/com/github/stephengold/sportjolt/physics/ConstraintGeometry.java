@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022-2025 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2026 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -126,6 +126,11 @@ public class ConstraintGeometry extends Geometry {
      */
     @Override
     public void updateAndRender() {
+        if (!constraint.getEnabled()) {
+            // Don't render disabled constraints.
+            return;
+        }
+
         DoubleBuffer buffer = Jolt.newDirectDoubleBuffer(3);
         RVec3 tail = new RVec3();
         RVec3 tip = new RVec3();
