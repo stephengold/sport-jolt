@@ -382,7 +382,7 @@ abstract public class BasePhysicsApp extends BaseApplication {
         printLibraryInfo(System.out);
 
         String jjVersion = Jolt.versionString();
-        if (!jjVersion.equals(expectedVersion)) {
+        if (!jjVersion.equals(expectedVersion) && !jjVersion.equals("6.0.2")) {
             System.err.println("Expected a v" + expectedVersion
                     + " native library but loaded v" + jjVersion + "!");
             System.err.flush();

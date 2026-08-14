@@ -11,7 +11,7 @@ lwjgl = "3.4.2"
 jolt-jni-linux64 = { module = "com.github.stephengold:jolt-jni-Linux64", version.ref = "joltjni" }
 jolt-jni-linux64fma = { module = "com.github.stephengold:jolt-jni-Linux64_fma", version.ref = "joltjni" }
 jolt-jni-linuxarm32hf = { module = "com.github.stephengold:jolt-jni-Linux_ARM32hf", version.ref = "joltjni" }
-jolt-jni-linuxarm64 = { module = "com.github.stephengold:jolt-jni-Linux_ARM64", version.ref = "joltjni" }
+jolt-jni-linuxarm64 = { module = "com.github.stephengold:jolt-jni-Linux_ARM64", version = "6.0.2" }
 jolt-jni-macosx64 = { module = "com.github.stephengold:jolt-jni-MacOSX64", version.ref = "joltjni" }
 jolt-jni-macosxarm64 = { module = "com.github.stephengold:jolt-jni-MacOSX_ARM64", version.ref = "joltjni" }
 jolt-jni-windows64 = { module = "com.github.stephengold:jolt-jni-Windows64", version.ref = "joltjni" }
