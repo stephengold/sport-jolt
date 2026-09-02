@@ -264,11 +264,11 @@ public class CameraInputProcessor extends InputProcessor {
         long nanoTime = System.nanoTime();
         if (lastMove != null) {
             Camera camera = BaseApplication.getCamera();
-            Vector3f lookDirection = camera.direction(null); // TODO garbage
+            Vector3f lookDirection = camera.direction(null); // TODO: garbage
             Vector3f rightDirection
-                    = camera.rightDirection(null); // TODO garbage
+                    = camera.rightDirection(null); // TODO: garbage
 
-            Vector3f sum = new Vector3f(lookDirection); // TODO garbage
+            Vector3f sum = new Vector3f(lookDirection); // TODO: garbage
             sum.mul(forwardSignal);
             sum.y += upSignal;
             sum.fma(rightSignal, rightDirection);

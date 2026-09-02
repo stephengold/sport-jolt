@@ -785,7 +785,7 @@ abstract public class BasePhysicsApp extends BaseApplication {
      */
     private void cleanUpGeometries() {
         Collection<Geometry> geometriesToHide
-                = new ArrayList<>(); // TODO garbage
+                = new ArrayList<>(); // TODO: garbage
         //System.out.println();
         for (Geometry geometry : listVisible()) {
             //System.out.println(

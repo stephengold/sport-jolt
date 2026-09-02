@@ -146,7 +146,7 @@ class MeshingStrategy {
                             : ((ShapeRefC) shape).getPtr());
             result = new ConvexShapeMesh(convexShape, positions);
             // NormalsOption, UvsOption, and coefficients are ignored.
-            // TODO merge duplicate vertices and delete degenerate triangles
+            // TODO: merge duplicate vertices and delete degenerate triangles
 
         } else { // positions==0, generate positions using copyDebugTriangles()
             result = new ShapeMesh(shape, positions);
