@@ -119,6 +119,18 @@ public class MarbleGame extends BasePhysicsApp {
      */
     private static RigidBodyShapeGeometry marble;
     // *************************************************************************
+    // constructors
+
+    /**
+     * Instantiate the MarbleGame application.
+     * <p>
+     * This no-arg constructor was made explicit to avoid javadoc warnings from
+     * JDK 18+.
+     */
+    public MarbleGame() {
+        // do nothing
+    }
+    // *************************************************************************
     // new methods exposed
 
     /**
