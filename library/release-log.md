@@ -1,5 +1,14 @@
 # release log for the Sport-Jolt Library
 
+## Version 2.1.2 released on TBD
+
++ Bugfix:  `advanceAmount.apply()` might return a `Double`
++ Stopped rendering disabled constraints.
++ Began enabling SnapLoader logging when debugging.
+
++ Updated the LWJGL libraries to v3.4.3 .
++ Updated the OSHI library to v7.6.1 .
+
 ## Version 2.1.1 released on 29 July 2026
 
 + Bugfix:  failures on Linux platforms that use the Wayland protocol
