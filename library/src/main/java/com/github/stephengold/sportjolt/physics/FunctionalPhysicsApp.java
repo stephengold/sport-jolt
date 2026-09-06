@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2025 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2025-2026 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -255,8 +255,16 @@ public class FunctionalPhysicsApp
     final public void updatePhysics(float wallClockSeconds) {
         if (advanceAmount == null) {
             super.updatePhysics(wallClockSeconds);
+
         } else {
-            float simulateSeconds = advanceAmount.apply(this, wallClockSeconds);
+            Object obj = advanceAmount.apply(this, wallClockSeconds);
+            float simulateSeconds;
+            if (obj instanceof Double) {
+                double doubleSeconds = (Double) obj;
+                simulateSeconds = (float) doubleSeconds;
+            } else {
+                simulateSeconds = (Float) obj;
+            }
             super.updatePhysics(simulateSeconds);
         }
     }
