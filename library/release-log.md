@@ -1,6 +1,6 @@
 # release log for the Sport-Jolt Library
 
-## Version 2.1.2 released on TBD
+## Version 2.1.2 released on 5 September 2026
 
 + Bugfix:  `advanceAmount.apply()` might return a `Double`
 + Stopped rendering disabled constraints.
