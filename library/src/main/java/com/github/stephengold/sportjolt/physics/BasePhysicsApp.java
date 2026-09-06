@@ -83,6 +83,7 @@ import electrostatic4j.snaploader.NativeBinaryLoader;
 import electrostatic4j.snaploader.filesystem.DirectoryPath;
 import electrostatic4j.snaploader.platform.NativeDynamicLibrary;
 import electrostatic4j.snaploader.platform.util.PlatformPredicate;
+import electrostatic4j.snaploader.util.SnapLoaderLogger;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -332,6 +333,9 @@ abstract public class BasePhysicsApp extends BaseApplication {
      */
     public static void initializeJoltJni(
             boolean traceAllocations, boolean startCleaner) {
+        boolean enableLogging = isDebuggingEnabled();
+        SnapLoaderLogger.setLoggingEnabled(enableLogging);
+
         PlatformPredicate linuxWithFma = new PlatformPredicate(
                 PlatformPredicate.LINUX_X86_64,
                 "avx", "avx2", "bmi1", "f16c", "fma", "sse4_1", "sse4_2");
