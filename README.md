@@ -58,7 +58,7 @@ Add to the project’s "build.gradle" or "build.gradle.kts" file:
     }
     dependencies {
         // JVM library:
-        implementation("com.github.stephengold:sport-jolt:2.1.2")
+        implementation("com.github.stephengold:sport-jolt:3.0.0")
 
         // Jolt-JNI native libraries:
         runtimeOnly("com.github.stephengold:jolt-jni-Linux64:6.0.0:DebugSp")
