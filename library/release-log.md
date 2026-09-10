@@ -1,5 +1,11 @@
 # release log for the Sport-Jolt Library
 
+## Version 3.0.0 released on TBD
+
+Altered the `FunctionalPhysicsApp` API to enhance compatibility with Clojure.
+The arguments to `setPostPhysicsTick()` and `setPrePhysicsTick()`
+are now 2-arg consumers instead of 3-arg consumers.
+
 ## Version 2.1.2 released on 5 September 2026
 
 + Bugfix:  `advanceAmount.apply()` might return a `Double`
