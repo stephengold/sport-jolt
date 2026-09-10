@@ -29,10 +29,10 @@
 package com.github.stephengold.sportjolt.physics;
 
 import com.github.stephengold.joltjni.PhysicsSystem;
+import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import org.apache.logging.log4j.util.TriConsumer;
 
 /**
  * An app to visualize 3-D physics using functional interfaces.
@@ -72,11 +72,11 @@ public class FunctionalPhysicsApp
     /**
      * callback invoked after each simulation step
      */
-    private TriConsumer<BasePhysicsApp, PhysicsSystem, Float> postPhysicsTick;
+    private BiConsumer<BasePhysicsApp, Float> postPhysicsTick;
     /**
      * callback invoked before each simulation step
      */
-    private TriConsumer<BasePhysicsApp, PhysicsSystem, Float> prePhysicsTick;
+    private BiConsumer<BasePhysicsApp, Float> prePhysicsTick;
     // *************************************************************************
     // constructors
 
@@ -142,11 +142,13 @@ public class FunctionalPhysicsApp
     /**
      * Replace the function to invoked after the simulation is stepped.
      *
-     * @param consumer the function to use, or {@code null} for none
+     * @param consumer the function to use, or {@code null} for none. This used
+     * to be a TriConsumer, but Clojure threw {@code ClassCastException} when it
+     * tried to box the argument.
      * @return the modified application, for chaining
      */
     public FunctionalPhysicsApp setPostPhysicsTick(
-            TriConsumer<BasePhysicsApp, PhysicsSystem, Float> consumer) {
+            BiConsumer<BasePhysicsApp, Float> consumer) {
         this.postPhysicsTick = consumer;
         return this;
     }
@@ -166,11 +168,13 @@ public class FunctionalPhysicsApp
     /**
      * Replace the function to invoked before each simulation step.
      *
-     * @param consumer the function to use, or {@code null} for none
+     * @param consumer the function to use, or {@code null} for none. This used
+     * to be a TriConsumer, but Clojure threw {@code ClassCastException} when it
+     * tried to box the argument.
      * @return the modified application, for chaining
      */
     public FunctionalPhysicsApp setPrePhysicsTick(
-            TriConsumer<BasePhysicsApp, PhysicsSystem, Float> consumer) {
+            BiConsumer<BasePhysicsApp, Float> consumer) {
         this.prePhysicsTick = consumer;
         return this;
     }
@@ -281,7 +285,7 @@ public class FunctionalPhysicsApp
     @Override
     final public void physicsTick(PhysicsSystem system, float timeStep) {
         if (postPhysicsTick != null) {
-            postPhysicsTick.accept(this, system, timeStep);
+            postPhysicsTick.accept(this, timeStep);
         }
     }
 
@@ -295,7 +299,7 @@ public class FunctionalPhysicsApp
     @Override
     final public void prePhysicsTick(PhysicsSystem system, float timeStep) {
         if (prePhysicsTick != null) {
-            prePhysicsTick.accept(this, system, timeStep);
+            prePhysicsTick.accept(this, timeStep);
         }
     }
 }
