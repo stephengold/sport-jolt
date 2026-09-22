@@ -118,7 +118,7 @@ abstract public class BasePhysicsApp extends BaseApplication {
     /**
      * expected version string of the Jolt-JNI native library
      */
-    final private static String expectedVersion = "6.0.0";
+    final private static String expectedVersion = "6.1.1";
     // *************************************************************************
     // fields
 
@@ -386,7 +386,7 @@ abstract public class BasePhysicsApp extends BaseApplication {
         printLibraryInfo(System.out);
 
         String jjVersion = Jolt.versionString();
-        if (!jjVersion.equals(expectedVersion) && !jjVersion.equals("6.0.2")) {
+        if (!jjVersion.equals(expectedVersion)) {
             System.err.println("Expected a v" + expectedVersion
                     + " native library but loaded v" + jjVersion + "!");
             System.err.flush();
