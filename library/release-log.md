@@ -1,5 +1,9 @@
 # release log for the Sport-Jolt Library
 
+## Version 3.0.1 released on TBD
+
+Updated the Jolt-JNI library to v6.1.1 .
+
 ## Version 3.0.0 released on 9 September 2026
 
 Altered the `FunctionalPhysicsApp` API to enhance compatibility with Clojure.
