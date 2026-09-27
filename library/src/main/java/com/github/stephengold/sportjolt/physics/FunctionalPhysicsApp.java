@@ -29,6 +29,8 @@
 package com.github.stephengold.sportjolt.physics;
 
 import com.github.stephengold.joltjni.PhysicsSystem;
+import com.github.stephengold.sportjolt.input.InputManager;
+import com.github.stephengold.sportjolt.input.InputProcessor;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -88,6 +90,29 @@ public class FunctionalPhysicsApp
     }
     // *************************************************************************
     // new methods exposed
+
+    /**
+     * Install a listener for keyboard input.
+     *
+     * @param function the listener to install (not {@code null})
+     * @return the modified application, for chaining
+     */
+    public FunctionalPhysicsApp addKeyboardListener(
+            BiFunction<Integer, Boolean, Boolean> function) {
+        InputProcessor processor = new InputProcessor() {
+            @Override
+            public void onKeyboard(int glfwKeyId, boolean isPressed) {
+                boolean consumed = function.apply(glfwKeyId, isPressed);
+                if (!consumed) {
+                    super.onKeyboard(glfwKeyId, isPressed);
+                }
+            }
+        };
+        InputManager manager = getInputManager();
+        manager.add(processor);
+
+        return this;
+    }
 
     /**
      * Replace the callback to calculate how much to advance the simulation
