@@ -426,6 +426,6 @@ public class Pachinko extends BasePhysicsApp implements PhysicsTickListener {
      * Toggle the physics simulation: paused/running.
      */
     private static void togglePause() {
-        physicsSpeed = (physicsSpeed <= pausedSpeed) ? 1f : pausedSpeed;
+        physicsSpeed = isPaused() ? 1f : pausedSpeed;
     }
 }

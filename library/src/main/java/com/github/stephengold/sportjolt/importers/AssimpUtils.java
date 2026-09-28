@@ -182,13 +182,19 @@ final public class AssimpUtils {
         int numVertices = pAiPositions.capacity();
 
         AIVector3D.Buffer pAiTexCoords = aiMesh.mTextureCoords(0);
-        assert pAiTexCoords == null || pAiTexCoords.capacity() == numVertices;
+        if (pAiTexCoords != null) {
+            assert pAiTexCoords.capacity() == numVertices;
+        }
 
         AIColor4D.Buffer pAiColors = aiMesh.mColors(0);
-        assert pAiColors == null || pAiColors.capacity() == numVertices;
+        if (pAiColors != null) {
+            assert pAiColors.capacity() == numVertices;
+        }
 
         AIVector3D.Buffer pAiNormals = aiMesh.mNormals();
-        assert pAiNormals == null || pAiNormals.capacity() == numVertices;
+        if (pAiNormals != null) {
+            assert pAiNormals.capacity() == numVertices;
+        }
 
         for (int vertexIndex = 0; vertexIndex < numVertices; ++vertexIndex) {
             AIVector3D aiPosition = pAiPositions.get(vertexIndex);
