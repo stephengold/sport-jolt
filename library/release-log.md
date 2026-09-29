@@ -1,6 +1,6 @@
 # release log for the Sport-Jolt Library
 
-## Version 3.1.0 released on TBD
+## Version 3.1.0 released on 29 September 2026
 
 Added the `addKeyboardListener()` method to the `FunctionalPhysicsApp` class.
 
