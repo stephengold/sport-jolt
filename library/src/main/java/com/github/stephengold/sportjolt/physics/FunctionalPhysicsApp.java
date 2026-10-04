@@ -100,6 +100,13 @@ public class FunctionalPhysicsApp
     public FunctionalPhysicsApp addKeyboardListener(
             BiFunction<Integer, Boolean, Boolean> function) {
         InputProcessor processor = new InputProcessor() {
+            /**
+             * A keyboard key has been pressed or released. GLFW_REPEAT events
+             * are ignored.
+             *
+             * @param keyId the GLFW ID of the key
+             * @param isPressed true for GLFW_PRESS, false for GLFW_RELEASE
+             */
             @Override
             public void onKeyboard(int glfwKeyId, boolean isPressed) {
                 boolean consumed = function.apply(glfwKeyId, isPressed);
