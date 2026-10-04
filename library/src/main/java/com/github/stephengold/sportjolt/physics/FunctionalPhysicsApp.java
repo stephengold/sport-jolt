@@ -28,6 +28,9 @@
  */
 package com.github.stephengold.sportjolt.physics;
 
+import com.github.stephengold.joltjni.ContactListener;
+import com.github.stephengold.joltjni.ContactListenerList;
+import com.github.stephengold.joltjni.CustomContactListener;
 import com.github.stephengold.joltjni.PhysicsSystem;
 import com.github.stephengold.sportjolt.input.InputManager;
 import com.github.stephengold.sportjolt.input.InputProcessor;
@@ -90,6 +93,58 @@ public class FunctionalPhysicsApp
     }
     // *************************************************************************
     // new methods exposed
+
+    /**
+     * Install a listener for new rigid-body contacts.
+     *
+     * @param system the PhysicsSystem of the contacts (not {@code null})
+     * @param consumer the function to install (not {@code null})
+     * @return the modified application, for chaining
+     */
+    public FunctionalPhysicsApp addContactAddedListener(PhysicsSystem system,
+            BiConsumer<BasePhysicsApp, Long[]> consumer) {
+        FunctionalPhysicsApp fpa = this;
+        ContactListener listener = new CustomContactListener() {
+            /**
+             * Callback invoked (by native code) each time a new contact point
+             * is detected.
+             *
+             * @param body1Va the virtual address of the first body in contact
+             * (not zero)
+             * @param body2Va the virtual address of the 2nd body in contact
+             * (not zero)
+             * @param manifoldVa the virtual address of the contact manifold
+             * (not zero)
+             * @param settingsVa the virtual address of the contact settings
+             * (not zero)
+             */
+            @Override
+            public void onContactAdded(long body1Va, long body2Va,
+                    long manifoldVa, long settingsVa) {
+                Long[] vaArray = {body1Va, body2Va, manifoldVa, settingsVa};
+                consumer.accept(fpa, vaArray);
+            }
+        };
+
+        // Combine with any pre-existing listener:
+        ContactListener oldListener = system.getContactListener();
+        if (oldListener == null) {
+            system.setContactListener(listener);
+
+        } else if (oldListener instanceof ContactListenerList) {
+            ContactListenerList list = (ContactListenerList) oldListener;
+            list.pushBack(listener);
+            system.setContactListener(list);
+
+        } else {
+            ContactListenerList list = new ContactListenerList();
+            list.pushBack(oldListener);
+            list.pushBack(listener);
+            system.setContactListener(list);
+        }
+
+        return this;
+    }
 
     /**
      * Install a listener for keyboard input.
