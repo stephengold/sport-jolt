@@ -195,13 +195,13 @@ dependencies {
 // Register tasks to download ZIP archives:
 
 tasks.register('downloadHairStraightZip', Download) {
-    //src 'https://www.cemyuksel.com/research/hairmodels/wStraight.zip'
+    //src 'https://www.cemyuksel.com/research/hairmodels/wStraight.zip' // the original URL
     src 'https://raw.githubusercontent.com/stephengold/hair-model-files/refs/heads/master/wStraight.zip'
     dest file(downloadedHairStraightZip)
     overwrite false
 }
 tasks.register('downloadHairWavyZip', Download) {
-    //src 'https://www.cemyuksel.com/research/hairmodels/wWavy.zip'
+    //src 'https://www.cemyuksel.com/research/hairmodels/wWavy.zip' // the original URL
     src 'https://raw.githubusercontent.com/stephengold/hair-model-files/refs/heads/master/wWavy.zip'
     dest file(downloadedHairWavyZip)
     overwrite false
