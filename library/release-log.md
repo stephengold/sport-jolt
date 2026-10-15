@@ -1,5 +1,12 @@
 # release log for the Sport-Jolt Library
 
+## Version 3.2.0 released on TBD
+
++ Added the `addContactAddedListener()` method
+  to the `FunctionalPhysicsApp` class.
++ Updated the Jolt-JNI library to v6.2.0 .
++ Updated the OSHI library to v7.7.1 .
+
 ## Version 3.1.0 released on 29 September 2026
 
 Added the `addKeyboardListener()` method to the `FunctionalPhysicsApp` class.
