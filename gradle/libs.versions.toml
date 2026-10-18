@@ -19,7 +19,7 @@ jolt-jni-windows64avx2 = { module = "com.github.stephengold:jolt-jni-Windows64_a
 jolt-jni-windowsarm64 = { module = "com.github.stephengold:jolt-jni-Windows_ARM64", version.ref = "joltjni" }
 
 joml = "org.joml:joml:1.10.9"
-jsnaploader = "io.github.electrostat-lab:snaploader:1.1.1-stable"
+jsnaploader = "io.github.electrostat-lab:snaploader:1.2.0-stable"
 log4j-impl = "org.apache.logging.log4j:log4j-slf4j2-impl:2.26.1"
 
 lwjgl = { module = "org.lwjgl:lwjgl", version.ref = "lwjgl" }
