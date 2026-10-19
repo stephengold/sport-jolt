@@ -27,7 +27,11 @@ jobs:
           java-version: 21
       - uses: actions/checkout@v7
       - uses: gradle/actions/setup-gradle@v6
-      - run: ./gradlew build install javadoc --console=plain --stacktrace
+      - run: |
+          ./gradlew build install javadoc \
+            --console=plain \
+            -PsigningKeyEncoded='${{ secrets.SIGNING_KEY_ENCODED }}' \
+            -PsigningPassword='${{ secrets.SIGNING_PASSWORD }}'
 
   Java25-Windows:
     if: contains(toJson(github.event.commits), '[ci skip] ') == false
