@@ -1,6 +1,6 @@
 # release log for the Sport-Jolt Library
 
-## Version 3.2.1 released on TBD
+## Version 3.2.1 released on 26 October 2026
 
 + Updated the Jolt-JNI library to v7.0.0 .  This resulted in removal of
   support for the 32-bit Linux-on-ARM platform.
