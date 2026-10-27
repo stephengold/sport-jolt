@@ -350,8 +350,6 @@ abstract public class BasePhysicsApp extends BaseApplication {
         NativeDynamicLibrary[] libraries = {
             new NativeDynamicLibrary("linux/aarch64/com/github/stephengold",
                 PlatformPredicate.LINUX_ARM_64),
-            new NativeDynamicLibrary("linux/armhf/com/github/stephengold",
-                PlatformPredicate.LINUX_ARM_32),
             new NativeDynamicLibrary(
                 "linux/x86-64-fma/com/github/stephengold",
                 linuxWithFma), // This should precede vanilla LINUX_X86_64.
