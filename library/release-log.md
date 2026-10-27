@@ -1,5 +1,11 @@
 # release log for the Sport-Jolt Library
 
+## Version 3.2.1 released on TBD
+
++ Updated the Jolt-JNI library to v7.0.0 .  This resulted in removal of
+  support for the 32-bit Linux-on-ARM platform.
++ Updated the OSHI library to v7.7.2 .
+
 ## Version 3.2.0 released on 19 October 2026
 
 + Added the `addContactAddedListener()` method
