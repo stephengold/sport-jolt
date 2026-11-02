@@ -424,9 +424,6 @@ abstract public class BasePhysicsApp extends BaseApplication {
             result = meshCache.get(summary);
 
         } else {
-            //System.out.printf("Generate mesh for %s va=%s strategy=%s%n",
-            //        shape.getSubType(), Long.toHexString(shape.targetVa()),
-            //        summary.meshingStrategy());
             MeshingStrategy strategy = summary.meshingStrategy();
             result = strategy.applyTo(shape);
             result.makeImmutable();
@@ -788,11 +785,7 @@ abstract public class BasePhysicsApp extends BaseApplication {
     private void cleanUpGeometries() {
         Collection<Geometry> geometriesToHide
                 = new ArrayList<>(); // TODO: garbage
-        //System.out.println();
         for (Geometry geometry : listVisible()) {
-            //System.out.println(
-            //       "geometry type=" + geometry.getClass().getSimpleName());
-            //System.out.println("  " + geometry.toString());
             if (geometry.wasRemovedFrom(physicsSystem)) {
                 geometriesToHide.add(geometry);
             }

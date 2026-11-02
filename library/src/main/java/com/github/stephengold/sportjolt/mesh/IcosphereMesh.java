@@ -180,14 +180,6 @@ public class IcosphereMesh extends Mesh {
             faces = newFaces;
         }
 
-        //System.out.println("numRefineSteps  = " + numRefineSteps);
-        //System.out.println("withIndices     = " + withIndices);
-        //System.out.println("numVertices     = " + numVertices);
-        //System.out.println("numLocations    = " + locations.size());
-        //System.out.println("numFaces        = " + faces.size() / vpt);
-        //System.out.println("numCacheEntries = " + midpointCache.size());
-        //System.out.println();
-        //
         midpointCache.clear();
 
         VertexBuffer posBuffer = super.createPositions();

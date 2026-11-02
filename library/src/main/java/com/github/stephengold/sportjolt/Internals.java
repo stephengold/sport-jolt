@@ -218,8 +218,6 @@ final class Internals {
 
         GLFW.glfwWindowHint(
                 GLFW.GLFW_VISIBLE, GLFW.GLFW_FALSE);     // default=TRUE
-        //GLFW.glfwWindowHint(
-        //        GLFW.GLFW_RESIZABLE, GLFW.GLFW_FALSE); // default=TRUE
         GLFW.glfwWindowHint(GLFW.GLFW_SAMPLES, requestMsaaSamples); // default=0
         GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MAJOR, 3);
         GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MINOR, 3);

@@ -85,8 +85,7 @@ import java.util.List;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class HairDemo extends BasePhysicsApp
-        implements PhysicsTickListener {
+public class HairDemo extends BasePhysicsApp implements PhysicsTickListener {
     // *************************************************************************
     // fields
 
