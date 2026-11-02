@@ -251,7 +251,7 @@ public class OctasphereMesh extends Mesh {
         // System.out.println("numFaces        = " + faces.size() / vpt);
         // System.out.println("numCacheEntries = " + midpointCache.size());
         // System.out.println();
-        //
+
         assert locations.size() == uOverrides.size();
         midpointCache.clear();
         assert faces.size() == 3 << (3 + 2 * numRefineSteps);
