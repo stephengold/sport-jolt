@@ -187,7 +187,7 @@ Updated the Jolt-JNI library to v3.0.1 .
   + `VerticesMesh`
 
 + Made more setters chainable.
-+ Added alternative signtures for `setColor()` methods.
++ Added alternative signatures for `setColor()` methods.
 + Added the `BasePhysicsApp.getPhysicsSystem()` method
 + More specific return types.
 + Publicized 4 protected visualization methods in `BasePhysicsApp`.
