@@ -1,5 +1,10 @@
 # release log for the Sport-Jolt Library
 
+## Version 3.2.2 released on TBD
+
++ Updated the Jolt-JNI library to v8.0.0 .
++ Updated the OSHI library to v7.8.0 .
+
 ## Version 3.2.1 released on 26 October 2026
 
 + Updated the Jolt-JNI library to v7.0.0 .  This resulted in removal of
